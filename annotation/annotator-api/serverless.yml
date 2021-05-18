@@ -1,0 +1,47 @@
+org: stanfordhci
+app: chartannotator
+service: chartannotator-api
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-west-2
+  memorySize: 1769
+  timeout: 30
+functions:
+  app:
+    handler: wsgi_handler.handler
+    events:
+      - http: GET /
+      - http:
+          path: '{proxy+}'
+          method: GET
+          cors: true
+      - http:
+          path: '{proxy+}'
+          method: POST
+          cors: true
+custom:
+  wsgi:
+    app: annotatorAPI.app
+    pythonBin: python3 # Some systems with Python3 may require this
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+  customDomain:
+    domainName: api.chartannotator.hci.terrell.dev
+    basePath: ''
+    createRoute53Record: false
+    certificateName: 'api.chartannotator.hci.terrell.dev'
+    securityPolicy: tls_1_2
+    apiType: rest
+    
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+  - serverless-domain-manager
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**

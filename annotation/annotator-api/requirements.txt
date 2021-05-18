@@ -1,0 +1,7 @@
+werkzeug
+Flask
+Flask-Cors
+pandas
+pymysql
+requests
+SQLAlchemy
