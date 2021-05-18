@@ -4,10 +4,13 @@ from flask import Flask, request, g
 from flask_cors import CORS, cross_origin
 import sqlalchemy as sa
 import re
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-
 
 def db_connect():
     db = getattr(g, '_database', None)
@@ -18,8 +21,8 @@ def db_connect():
 
     if engine is None:
         engine = g._engine = sa.create_engine(
-            "[ENGINE]", echo=True)
-
+            os.getenv("SQL_ENGINE"), echo=True)
+    
     if db is None:
         db = g._database = engine.connect()
 
@@ -153,7 +156,6 @@ def findEvents(df, events, dateField):
 
 
 @app.route("/events", methods=["POST"])
-@cross_origin()
 def eventsRoute():
     data = json.loads(request.data)
     print(data)
@@ -174,7 +176,6 @@ def eventsRoute():
 
 
 @app.route("/warmup", methods=["GET"])
-@cross_origin()
 def warmupRoute(name):
     db_connect()
     return "OK"
