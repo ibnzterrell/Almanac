@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+pandas = "*"
+requests = "*"
+scipy = "*"
+Werkzeug = "*"
+Flask = "==1.1.4"
+Flask-Cors = "*"
+PyMySQL = "*"
+SQLAlchemy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
