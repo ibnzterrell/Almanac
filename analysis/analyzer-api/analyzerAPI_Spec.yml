@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Chart Analysis API
+  description: Detects prominent chart features.
+  version: 0.1.0
+
+paths:
+  /chart/line:
+    post:
+      tags:
+      - "Line Charts"
+      summary: Submit a line chart for analysis. 
+      description: Returns a list of detected line chart features.
+      requestBody:
+        description: Line Chart to be analyzed.
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/LineChart"
+      responses:
+        '200':    # status code
+          description: A list of line chart features
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/LineChartFeature"
+        '400':    # status code
+          description: Invalid format
+
+components:
+  schemas:
+    LineData:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        x:
+          type: "array"
+          description: Array of numbers or dates or date-times
+          items:
+            oneOf:
+              - type: "number"
+              - type: "string"
+                format: "date"
+              - type: "string"
+                format: "date-time"
+        y:
+          type: "array"
+          items:
+            type: "number"
+    LineChart:
+      type: "object"
+      description: Line Chart
+      properties:
+        data:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/LineData"
+    LineChartFeature:
+      type: "object"
+      description: Line Chart Features, by LineData format (Similar format to LineChart)
+      properties:
+        type:
+          type: "string"
+        data:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/LineData"
