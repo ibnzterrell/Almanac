@@ -1,2 +1,2 @@
-# ChartAA
-Chart Analysis and Annotation Tools
+# TwinPeaks
+A Pair of Chart Analysis and Annotation Tools
