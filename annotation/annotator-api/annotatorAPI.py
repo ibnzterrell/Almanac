@@ -155,7 +155,7 @@ def findEvents(df, events, dateField):
     return df
 
 
-@app.route("/events", methods=["POST"])
+@app.route("/headlines", methods=["POST"])
 def eventsRoute():
     data = json.loads(request.data)
     print(data)
@@ -163,14 +163,14 @@ def eventsRoute():
     dateField = data["date"]
 
     df = pd.DataFrame()
-    if (data["searchType"] == "person"):
-        df = findPersonEvents(data["person"], events, dateField)
-    elif (data["searchType"] == "topic"):
-        df = findTopicEvents(data["topic"], events, dateField)
-    elif (data["searchType"] == "text"):
-        df = findTextEvents(data["text"], events, dateField)
-    elif (data["searchType"] == "org"):
-        df = findOrgEvents(data["org"], events, dateField)
+    if (data["method"] == "person"):
+        df = findPersonEvents(data["tag"], events, dateField)
+    elif (data["method"] == "topic"):
+        df = findTopicEvents(data["tag"], events, dateField)
+    elif (data["method"] == "text"):
+        df = findTextEvents(data["tag"], events, dateField)
+    elif (data["method"] == "org"):
+        df = findOrgEvents(data["tag"], events, dateField)
 
     return df.to_json(orient='records')
 
