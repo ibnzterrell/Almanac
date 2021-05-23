@@ -2,9 +2,14 @@
   "name": "twinpeaks-analyzer",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index_bundle.cjs.js",
+  "module": "dist/index_bundle.esm.js",
+  "browser": "dist/index_bundle.umd.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/ibnzterrell/TwinPeaks/issues"
   },
-  "homepage": "https://github.com/ibnzterrell/TwinPeaks#readme"
+  "homepage": "https://github.com/ibnzterrell/TwinPeaks#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "rollup": "^2.49.0"
+  },
+  "files": [
+    "dist"
+  ]
 }

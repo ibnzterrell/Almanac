@@ -1,4 +1,4 @@
-class TwinPeaksAnalyzer {
+class Analyzer {
     constructor() {}
   
     static peaks(data, sort, x, y) {
@@ -236,3 +236,5 @@ class TwinPeaksAnalyzer {
       }
     }
   }
+
+  export {Analyzer}
