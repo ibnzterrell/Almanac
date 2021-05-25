@@ -19,7 +19,7 @@ class Analyzer {
           return this.peaksProminence(data, peaksIndex, x, y);
           break;
         case "persistence":
-          return this.peaksPersistence(data, peaksIndex, x, y);
+          return this.peaksPersistence(data, x, y);
           break;
         default:
           throw new Error(`${sort} is not a valid sort method.`);
@@ -45,7 +45,7 @@ class Analyzer {
           return this.valleysDrop(data, valleysIndex, x, y);
           break;
         case "persistence":
-          return this.valleysPersistence(data, valleysIndex, x, y);
+          return this.valleysPersistence(data, x, y);
           break;
         default:
           throw new Error(`${sort} is not a valid sort method.`);
@@ -127,12 +127,137 @@ class Analyzer {
     }
   
     static peaksPersistence(data, x, y) {
-        throw new Error("Persistent Topology Not Implemented Yet");
+        let peaksMeta = [];
+
+        let indexD = data.map((d, i) => i);
+        indexD = indexD.sort((a, b) => data[a][y] > data[b][y] ? -1 : 1);
+
+        let indexPeaks = data.map(() => -1);
+
+        for (const i of indexD) {
+          let leftD = (i > 0 && indexPeaks[i-1] != -1);
+          let rightD = (i < data.length - 1 && indexPeaks[i+1] != -1);
+
+          let iLeft = leftD ? indexPeaks[i-1] : -1;
+          let iRight = rightD ? indexPeaks[i+1] : -1;
+
+          // Merge Left and Right Peaks
+          if (leftD && rightD) {
+            if (data[peaksMeta[iLeft].born][y] > data[peaksMeta[iRight].born][y]) {
+              peaksMeta[iRight].died = i;
+              peaksMeta[iLeft].right = peaksMeta[iRight.right];
+              indexPeaks[peaksMeta[iLeft].right] = indexPeaks[i] = iLeft;
+            }
+            else {
+              peaksMeta[iLeft].died = i;
+              peaksMeta[iRight].left = peaksMeta[iLeft].left;
+              indexPeaks[peaksMeta[iRight].left] = indexPeaks[i] = iRight;
+            }
+          }
+        // New Peak Born
+        else if (!leftD && !rightD) {
+          peaksMeta.push({
+              "left": i,
+              "right": i,
+              "born": i,
+              "died": -1
+            });
+          indexPeaks[i] = peaksMeta.length - 1;
+        }
+        // Merge to next peak left
+        else if (leftD && !rightD) {
+          peaksMeta[iLeft].right += 1;
+          indexPeaks[i] = iLeft;
+        }
+        // Merge to next peak right
+        else if (!leftD && rightD) {
+          peaksMeta[iRight].left -= 1;
+          indexPeaks[i] = iRight;
+        }
+      }
+
+
+      // Calculate persistence for each peak
+      let persistences = peaksMeta.map(p => {
+        p.died == -1 ? Number.POSITIVE_INFINITY : data[p.born] - data[p.died]
+      });
+
+      let peaksIndex = peaksMeta.map(p => p.born);
+
+      peaksIndex.sort((a, b) =>
+      persistences[peaksIndex.indexOf(a)] > persistences[peaksIndex.indexOf(b)]
+        ? -1
+        : 1
+      );
+      return this.getDataByIndex(data, peaksIndex, x, y);
     }
   
     static valleysPersistence(data, x, y) {
-        throw new Error("Persistent Topology Not Implemented Yet");
+      let valleysMeta = [];
+
+      let indexD = data.map((d, i) => i);
+      indexD = indexD.sort((a, b) => data[a][y] > data[b][y] ? 1 : -1);
+
+      let indexValleys = data.map(() => -1);
+
+      for (const i of indexD) {
+        let leftD = (i > 0 && indexValleys[i-1] != -1);
+        let rightD = (i < data.length - 1 && indexValleys[i+1] != -1);
+
+        let iLeft = leftD ? indexValleys[i-1] : -1;
+        let iRight = rightD ? indexValleys[i+1] : -1;
+
+        // Merge Left and Right Peaks
+        if (leftD && rightD) {
+          if (data[valleysMeta[iLeft].born][y] > data[valleysMeta[iRight].born][y]) {
+            valleysMeta[iRight].died = i;
+            valleysMeta[iLeft].right = valleysMeta[iRight.right];
+            indexValleys[valleysMeta[iLeft].right] = indexValleys[i] = iLeft;
+          }
+          else {
+            valleysMeta[iLeft].died = i;
+            valleysMeta[iRight].left = valleysMeta[iLeft].left;
+            indexValleys[valleysMeta[iRight].left] = indexValleys[i] = iRight;
+          }
+        }
+      // New Valley Born
+      else if (!leftD && !rightD) {
+        valleysMeta.push({
+            "left": i,
+            "right": i,
+            "born": i,
+            "died": -1
+          });
+        indexValleys[i] = valleysMeta.length - 1;
+      }
+      // Merge to next valley left
+      else if (leftD && !rightD) {
+        valleysMeta[iLeft].right += 1;
+        indexValleys[i] = iLeft;
+      }
+      // Merge to next valley right
+      else if (!leftD && rightD) {
+        valleysMeta[iRight].left -= 1;
+        indexValleys[i] = iRight;
+      }
     }
+
+
+    // Calculate persistence for each peak
+    let persistences = valleysMeta.map(p => {
+      p.died == -1 ? Number.POSITIVE_INFINITY : data[p.born] - data[p.died]
+    });
+
+    let peaksIndex = valleysMeta.map(p => p.born);
+
+    peaksIndex.sort((a, b) =>
+    persistences[peaksIndex.indexOf(a)] > persistences[peaksIndex.indexOf(b)]
+      ? -1
+      : 1
+    );
+    return this.getDataByIndex(data, peaksIndex, x, y);
+  }
+
     // Utility Functions
     static vSort(data, x) {
       return data.sort((a, b) => (a[x] > b[x] ? 1 : -1));
@@ -181,7 +306,7 @@ class Analyzer {
   
       // Get Lowest Contour Line (Greater of Left / Right Mins)
       let low = leftMin > rightMin ? leftMin : rightMin;
-      // Prominece is Peak Height - Lowest Countour
+      // Prominence is Peak Height - Lowest Countour
       let prominence = data[peaksIndex[p]][y] - low;
       return prominence;
     }
