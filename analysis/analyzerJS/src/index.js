@@ -175,12 +175,8 @@ class Analyzer {
           indexPeaks[i] = iRight;
         }
       }      
-      // Calculate persistence for each peak
-      let persistences = peaksMeta.map(p => {
-        p.died == -1 ? Number.POSITIVE_INFINITY : data[p.born][y] - data[p.died][y]
-      });
 
-
+      // Sort by Persistences
       peaksMeta = peaksMeta.sort((a, b) =>
       this.calculatePersistence(data, a, y) > this.calculatePersistence(data, b, y)
         ? 1
@@ -207,9 +203,9 @@ class Analyzer {
         let iLeft = leftD ? indexValleys[i-1] : -1;
         let iRight = rightD ? indexValleys[i+1] : -1;
 
-        // Merge Left and Right Peaks
+        // Merge Left and Right Valleys
         if (leftD && rightD) {
-          if (data[valleysMeta[iLeft].born][y] > data[valleysMeta[iRight].born][y]) {
+          if (data[valleysMeta[iLeft].born][y] < data[valleysMeta[iRight].born][y]) {
             valleysMeta[iRight].died = i;
             valleysMeta[iLeft].right = valleysMeta[iRight.right];
             indexValleys[valleysMeta[iLeft].right] = indexValleys[i] = iLeft;
@@ -243,19 +239,16 @@ class Analyzer {
     }
 
 
-    // Calculate persistence for each valley
-    let persistences = valleysMeta.map(p => {
-      p.died == -1 ? Number.POSITIVE_INFINITY : data[p.born] - data[p.died]
-    });
+      // Sort by Persistences
+      valleysMeta = valleysMeta.sort((a, b) =>
+      this.calculatePersistence(data, a, y) > this.calculatePersistence(data, b, y)
+        ? 1
+        : -1
+      ).reverse();
 
-    let peaksIndex = valleysMeta.map(p => p.born);
+      let valleysIndex = valleysMeta.map(p => p.born);
 
-    peaksIndex.sort((a, b) =>
-    persistences[peaksIndex.indexOf(a)] > persistences[peaksIndex.indexOf(b)]
-      ? 1
-      : -1
-    ).reverse();
-    return this.getDataByIndex(data, peaksIndex, x, y);
+      return this.getDataByIndex(data, valleysIndex, x, y);
   }
 
     // Utility Functions
