@@ -61,6 +61,26 @@ def convertNameForNYT(name):
 
     return f"{results[1]}, {results[0]}"
 
+def findPerson(name):
+    (db_conn, articleTable, personTable, personTagTable) = db_connect()
+    sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{name}%"))
+    df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+
+    return df
+
+# def findTopic(topic):
+#     (db_conn, articleTable, personTable, personTagTable) = db_connect()
+#     sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{topic}%"))
+#     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+
+#     return df
+
+# def findOrg(org):
+#     (db_conn, articleTable, personTable, personTagTable) = db_connect()
+#     sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{org}%"))
+#     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+
+#     return df
 
 def findPersonEvents(name, events, dateField):
     # name = convertNameForNYT(name)
@@ -153,6 +173,21 @@ def findEvents(df, events, dateField):
     df = pd.merge(df, events, on="month_date")
     df = df.drop(columns=["month_date"])
     return df
+
+
+
+@app.route("/search/<tagType>/<query>", methods=["GET"])
+def searchRoute(tagType, query):
+
+    df = []
+    if (tagType == "person"):
+        df = findPerson(query)
+    # elif (tagType == "topic"):
+    #     df = findTopic(query)
+    # elif (tagType == "org"):
+    #     df = findOrg(query)
+
+    return df.to_json(orient='records')
 
 
 @app.route("/headlines", methods=["POST"])
