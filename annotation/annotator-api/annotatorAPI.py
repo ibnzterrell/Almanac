@@ -92,7 +92,7 @@ def findPersonEvents(name, events, dateField):
     (db_conn, articleTable, personTable, personTagTable) = db_connect()
 
     # Tags are ordered by relevance, only select articles where they are first person listed
-    # sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).where(
+    # sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
     #     articleTable.c.person1.ilike(f"%{name}%"))
 
     joinTagPerson = sa.sql.join(
@@ -102,7 +102,7 @@ def findPersonEvents(name, events, dateField):
         articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
 
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField)
@@ -114,7 +114,7 @@ def findTopicEvents(topic, events, dateField):
     (db_conn, articleTable) = db_connect()
 
     # Tags are ordered by relevance, only select articles where they are first person listed
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).where(
+    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
         articleTable.c.subjects.ilike(f"[\'{topic}%"))
     # NOTE While fairly limiting, we use SQLAlchemy selectables instead of raw queries to prevent SQL injection
 
@@ -131,7 +131,7 @@ def findTextEvents(text, events, dateField):
 
     # Tags are ordered by relevance, only select articles where they are first person listed
 
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).where(
+    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
         articleTable.c.main_headline.ilike(f"%{text}%"))
 
     # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
@@ -146,7 +146,7 @@ def findOrgEvents(org, events, dateField):
     (db_conn, articleTable) = db_connect()
 
     # Tags are ordered by relevance, only select articles where they are first person listed
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).where(
+    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
         articleTable.c.organizations.ilike(f"[\'{org}%"))
 
     # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
@@ -168,9 +168,7 @@ def findEvents(df, events, dateField):
     # If multiple articles keep most recent one - most likely to have most information
     # NOTE NLP temporal / volume-based event detection should help with which article to use later on
     df = df.drop_duplicates(subset=["month_date"], keep="last")
-    df["annotation"] = df["main_headline"]
-    # df["date"] = df["pub_date"]
-    df = df[["pub_date", "month_date", "annotation", "lead_paragraph", "web_url"]]
+    df = df[["pub_date", "month_date", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
     print(df.dtypes)
     print(events.dtypes)
     df = pd.merge(df, events, on="month_date")
