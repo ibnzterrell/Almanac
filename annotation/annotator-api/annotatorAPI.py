@@ -102,7 +102,7 @@ def findPersonEvents(name, events, dateField):
         articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
 
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name)
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField)
