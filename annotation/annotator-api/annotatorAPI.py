@@ -102,15 +102,15 @@ def findPersonEvents(name, events, dateField):
 
     (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
-    joinTagPerson = sa.sql.join(
-        personTagTable, personTable, personTagTable.c.personId == personTable.c.personId)
+    joinPersonTag = sa.sql.join(
+        personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
 
-    joinArticleTagPerson = sa.sql.join(
-        articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
+    joinPersonTagArticle = sa.sql.join(
+        articleTable, joinPersonTag, articleTable.c.articleId == personTagTable.c.articleId)
 
     # Tags are ordered by relevance, only select articles where they are first or second person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinPersonTagArticle).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField)
@@ -151,17 +151,17 @@ def findTextEvents(text, events, dateField):
 def findOrgEvents(org, events, dateField):
     df = []
 
-    (db_conn, articleTable, personTable, personTagTable) = db_connect()
+    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
-    joinTagPerson = sa.sql.join(
-        personTagTable, personTable, personTagTable.c.personId == personTable.c.personId)
+    joinOrgTag = sa.sql.join(
+        organizationTable, organizationTagTable, organizationTable.c.organizationId == organizationTagTable.c.organizationId)
 
-    joinArticleTagPerson = sa.sql.join(
-        articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
+    joinOrgTagArticle = sa.sql.join(
+        joinOrgTag, articleTable, organizationTagTable.c.articleId == articleTable.c.articleId)
 
     # Tags are ordered by relevance, only select articles where they are first or second person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinOrgTagArticle).where(organizationTable.c.organization == org).where(organizationTagTable.c.rank <= 1)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField)
