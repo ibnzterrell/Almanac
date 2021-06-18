@@ -63,7 +63,10 @@ def convertNameForNYT(name):
 
 def findPerson(name):
     (db_conn, articleTable, personTable, personTagTable) = db_connect()
-    sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{name}%"))
+
+    joinPersonArticle = sa.sql.join(personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
+
+    sqlQuery = sa.sql.select([personTable.c.person, sa.func.count().label("articleCount")]).select_from(joinPersonArticle).where(personTable.c.person.like(f"{name}%")).group_by(personTable.c.person).order_by(sa.desc("articleCount"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
 
     return df
