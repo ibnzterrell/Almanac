@@ -17,6 +17,8 @@ def db_connect():
     articleTable = getattr(g, '_articleTable', None)
     personTable = getattr(g, '_personTable', None)
     personTagTable = getattr(g, '_personTagTable', None)
+    organizationTable = getattr(g, '_organizationTable', None)
+    organizationTagTable = getattr(g, '_organizationTagTable', None)
     engine = getattr(g, '_engine', None)
 
     if engine is None:
@@ -37,7 +39,13 @@ def db_connect():
     if personTagTable is None:
         personTagTable = g.__personTagTable = md.tables["person_tag"]
 
-    return (db, articleTable, personTable, personTagTable)
+    if organizationTable is None:
+        organizationTable = g.__organizationTable = md.tables["organization"]
+
+    if organizationTagTable is None:
+        organizationTagTable = g.__organizationTagTable = md.tables["organization_tag"]
+
+    return (db, articleTable, personTable, personTagTable, organizationTable, organizationTagTable)
 
 
 def legalize(name):
@@ -62,11 +70,11 @@ def convertNameForNYT(name):
     return f"{results[1]}, {results[0]}"
 
 def findPerson(name):
-    (db_conn, articleTable, personTable, personTagTable) = db_connect()
+    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
-    joinPersonArticle = sa.sql.join(personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
+    joinPersonTag = sa.sql.join(personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
 
-    sqlQuery = sa.sql.select([personTable.c.person, sa.func.count().label("articleCount")]).select_from(joinPersonArticle).where(personTable.c.person.like(f"{name}%")).group_by(personTable.c.person).order_by(sa.desc("articleCount"))
+    sqlQuery = sa.sql.select([personTable.c.person, sa.func.count().label("articleCount")]).select_from(joinPersonTag).where(personTable.c.person.like(f"{name}%")).group_by(personTable.c.person).order_by(sa.desc("articleCount"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
 
     return df
@@ -78,22 +86,21 @@ def findPerson(name):
 
 #     return df
 
-# def findOrg(org):
-#     (db_conn, articleTable, personTable, personTagTable) = db_connect()
-#     sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{org}%"))
-#     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+def findOrg(org):
+    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
-#     return df
+    joinOrgTag = sa.sql.join(organizationTable, organizationTagTable, organizationTable.c.organizationId == organizationTagTable.c.organizationId)
+
+    sqlQuery = sa.sql.select([organizationTable.c.organization, sa.func.count().label("articleCount")]).select_from(joinOrgTag).where(organizationTable.c.organization.like(f"{org}%")).group_by(organizationTable.c.organization).order_by(sa.desc("articleCount"))
+    df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+
+    return df
 
 def findPersonEvents(name, events, dateField):
     # name = convertNameForNYT(name)
     df = []
 
-    (db_conn, articleTable, personTable, personTagTable) = db_connect()
-
-    # Tags are ordered by relevance, only select articles where they are first person listed
-    # sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
-    #     articleTable.c.person1.ilike(f"%{name}%"))
+    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
     joinTagPerson = sa.sql.join(
         personTagTable, personTable, personTagTable.c.personId == personTable.c.personId)
@@ -101,6 +108,7 @@ def findPersonEvents(name, events, dateField):
     joinArticleTagPerson = sa.sql.join(
         articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
 
+    # Tags are ordered by relevance, only select articles where they are first or second person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
                               articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
@@ -143,14 +151,18 @@ def findTextEvents(text, events, dateField):
 def findOrgEvents(org, events, dateField):
     df = []
 
-    (db_conn, articleTable) = db_connect()
+    (db_conn, articleTable, personTable, personTagTable) = db_connect()
 
-    # Tags are ordered by relevance, only select articles where they are first person listed
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
-        articleTable.c.organizations.ilike(f"[\'{org}%"))
+    joinTagPerson = sa.sql.join(
+        personTagTable, personTable, personTagTable.c.personId == personTable.c.personId)
 
-    # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
-    # TODO Make more accurate using Heideltime NLP to temporalize events
+    joinArticleTagPerson = sa.sql.join(
+        articleTable, joinTagPerson, articleTable.c.articleId == personTagTable.c.articleId)
+
+    # Tags are ordered by relevance, only select articles where they are first or second person listed
+    sqlQuery = sa.sql.select([articleTable.c.main_headline,
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinArticleTagPerson).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
+
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField)
 
@@ -185,8 +197,8 @@ def searchRoute(tagType, query):
         df = findPerson(query)
     # elif (tagType == "topic"):
     #     df = findTopic(query)
-    # elif (tagType == "org"):
-    #     df = findOrg(query)
+    elif (tagType == "org"):
+        df = findOrg(query)
 
     return df.to_json(orient='records')
 
