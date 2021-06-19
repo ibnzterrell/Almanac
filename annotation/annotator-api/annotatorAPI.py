@@ -135,15 +135,13 @@ def findTopicEvents(topic, events, dateField, granularity):
 def findTextEvents(text, events, dateField, granularity):
     df = []
 
-    (db_conn, articleTable) = db_connect()
+    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
     # Tags are ordered by relevance, only select articles where they are first person listed
 
     sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
-        articleTable.c.main_headline.ilike(f"%{text}%"))
+        articleTable.c.main_headline.match(text))
 
-    # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
-    # TODO Make more accurate using Heideltime NLP to temporalize events
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     return findEvents(df, events, dateField, granularity)
 
