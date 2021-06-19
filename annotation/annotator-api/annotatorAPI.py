@@ -96,7 +96,7 @@ def findOrg(org):
 
     return df
 
-def findPersonEvents(name, events, dateField):
+def findPersonEvents(name, events, dateField, granularity):
     # name = convertNameForNYT(name)
     df = []
 
@@ -113,10 +113,10 @@ def findPersonEvents(name, events, dateField):
                               articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinPersonTagArticle).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    return findEvents(df, events, dateField)
+    return findEvents(df, events, dateField, granularity)
 
 
-def findTopicEvents(topic, events, dateField):
+def findTopicEvents(topic, events, dateField, granularity):
     df = []
 
     (db_conn, articleTable) = db_connect()
@@ -129,10 +129,10 @@ def findTopicEvents(topic, events, dateField):
     # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
     # TODO Make more accurate using Heideltime NLP to temporalize events
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    return findEvents(df, events, dateField)
+    return findEvents(df, events, dateField, granularity)
 
 
-def findTextEvents(text, events, dateField):
+def findTextEvents(text, events, dateField, granularity):
     df = []
 
     (db_conn, articleTable) = db_connect()
@@ -145,10 +145,10 @@ def findTextEvents(text, events, dateField):
     # TODO Make more efficient by doing processing ahead of time to offload date filtering to DB
     # TODO Make more accurate using Heideltime NLP to temporalize events
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    return findEvents(df, events, dateField)
+    return findEvents(df, events, dateField, granularity)
 
 
-def findOrgEvents(org, events, dateField):
+def findOrgEvents(org, events, dateField, granularity):
     df = []
 
     (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
@@ -164,27 +164,36 @@ def findOrgEvents(org, events, dateField):
                               articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinOrgTagArticle).where(organizationTable.c.organization == org).where(organizationTagTable.c.rank <= 1)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    return findEvents(df, events, dateField)
+    return findEvents(df, events, dateField, granularity)
 
 
-def findEvents(df, events, dateField):
-    # Cut ISO dates to year-month e.g. 2020-11 for string-based date matching
-    print(df['pub_date'])
-    df['month_date'] = pd.to_datetime(df['pub_date']).dt.to_period('M')
-    # NOTE efficient but not as accurate
-    events["month_date"] = pd.to_datetime(events[dateField]).dt.to_period('M')
-    print(df['month_date'])
-    print(events["month_date"])
-    df = df[df["month_date"].isin(events["month_date"])]
+def findEvents(df, events, dateField, granularity):
+    granularityToPeriod = {
+        "month": "M",
+        "week": "W",
+        "day": "D"
+    }
+    period = granularityToPeriod[granularity]
+
+    # Cut dates to granularity specified
+    df['period_date'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
+    events["period_date"] = pd.to_datetime(events[dateField]).dt.to_period(period)
+    df = df[df["period_date"].isin(events["period_date"])]
+
+    print(df)
+    
+    print(df['period_date'])
+    print(events["period_date"])
+
+    print(events)
+    print(df)
 
     # If multiple articles keep most recent one - most likely to have most information
     # NOTE NLP temporal / volume-based event detection should help with which article to use later on
-    df = df.drop_duplicates(subset=["month_date"], keep="last")
-    df = df[["pub_date", "month_date", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
-    print(df.dtypes)
-    print(events.dtypes)
-    df = pd.merge(df, events, on="month_date")
-    df = df.drop(columns=["month_date"])
+    df = df.drop_duplicates(subset=["period_date"], keep="last")
+    df = df[["pub_date", "period_date", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
+    df = pd.merge(df, events, on="period_date")
+    df = df.drop(columns=["period_date"])
     return df
 
 
@@ -209,16 +218,17 @@ def eventsRoute():
     print(data)
     events = pd.DataFrame.from_records(data["data"])
     dateField = data["date"]
+    granularity = data["granularity"]
 
     df = pd.DataFrame()
     if (data["method"] == "person"):
-        df = findPersonEvents(data["tag"], events, dateField)
+        df = findPersonEvents(data["tag"], events, dateField, granularity)
     elif (data["method"] == "topic"):
-        df = findTopicEvents(data["tag"], events, dateField)
+        df = findTopicEvents(data["tag"], events, dateField, granularity)
     elif (data["method"] == "text"):
-        df = findTextEvents(data["tag"], events, dateField)
+        df = findTextEvents(data["tag"], events, dateField, granularity)
     elif (data["method"] == "org"):
-        df = findOrgEvents(data["tag"], events, dateField)
+        df = findOrgEvents(data["tag"], events, dateField, granularity)
 
     return df.to_json(orient='records')
 
