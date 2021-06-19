@@ -137,13 +137,13 @@ def findTextEvents(text, events, dateField, granularity):
 
     (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
-    # Tags are ordered by relevance, only select articles where they are first person listed
-
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
-        articleTable.c.main_headline.match(text))
+    # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
+    sqlQuery = sa.text("SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH (article.main_headline, article.abstract, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH (article.main_headline, article.abstract, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
+    # NOTE: We bind parameters separately to prevent SQL injections
+    sqlQuery = sqlQuery.bindparams(textSearch=text)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    return findEvents(df, events, dateField, granularity)
+    return findRelevantEvents(df, events, dateField, granularity)
 
 
 def findOrgEvents(org, events, dateField, granularity):
@@ -194,7 +194,33 @@ def findEvents(df, events, dateField, granularity):
     df = df.drop(columns=["period_date"])
     return df
 
+def findRelevantEvents(df, events, dateField, granularity):
+    granularityToPeriod = {
+        "month": "M",
+        "week": "W",
+        "day": "D"
+    }
+    period = granularityToPeriod[granularity]
 
+    # Cut dates to granularity specified
+    df['period_date'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
+    events["period_date"] = pd.to_datetime(events[dateField]).dt.to_period(period)
+    df = df[df["period_date"].isin(events["period_date"])]
+
+    print(df)
+    
+    print(df['period_date'])
+    print(events["period_date"])
+
+    print(events)
+    print(df)
+
+    # If multiple articles in a period, keep the first one (articles are sorted highest relevance first)
+    df = df.drop_duplicates(subset=["period_date"], keep="first")
+    df = df[["pub_date", "period_date", "main_headline", "lead_paragraph",  "abstract", "web_url", "relevance"]]
+    df = pd.merge(df, events, on="period_date")
+    df = df.drop(columns=["period_date"])
+    return df
 
 @app.route("/search/<tagType>/<query>", methods=["GET"])
 def searchRoute(tagType, query):
