@@ -12,7 +12,7 @@ Flask = "==1.1.4"
 Flask-Cors = "*"
 PyMySQL = "*"
 SQLAlchemy = "*"
-
+pymysql = "*"
 [dev-packages]
 
 [requires]

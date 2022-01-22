@@ -2,16 +2,18 @@ import time
 import pandas as pd
 import json
 import requests
+from dotenv import load_dotenv
+import os
 
-# Downloads last two decades of NYT Headlines, 2000/1 - 2021/12
+# Downloads last two decades of NYT Headlines, 01/01/2000 - 12/31/2021
 startMonth = 1
 startYear = 2000
-endMonth = 5
-endYear = 2021
+endMonth = 1
+endYear = 2022
 
-
+load_dotenv()
 # 1851 oldest, newest is current day
-apiKey = "[APIKEY]"
+apiKey = os.getenv("apiKeyNYT")
 
 # python -u .\NewYorkTimesData.py
 
@@ -70,6 +72,12 @@ def getMonthDataframe(month, year):
     # Drop Sections that typically aren't about singular events
     #df = df[~df["section_name"].isin(["Opinion", "Fashion & Style"])]
 
+    # Drop Single Word Headlines
+    df = df[df["main_headline"].str.contains(" ")]
+
+    # Drop Missing Titles
+    df = df[~df["main_headline"].str.contains("No Title")]
+    
     # Visual Sanity Check
     print(df[["pub_date", "main_headline"]])
     return df
@@ -105,6 +113,7 @@ dfs = pd.concat(dfs)
 # The NYT API tends to return duplicates
 print("Dropping Duplicates")
 dfs = dfs.drop_duplicates(subset=["uri"], keep="first")
+dfs = dfs.drop_duplicates(subset=["main_headline"], keep=False)
 print(dfs)
 print("Writing to CSV")
 dfs.to_csv(
