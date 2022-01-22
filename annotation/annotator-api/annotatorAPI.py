@@ -1,6 +1,10 @@
+from datetime import timedelta
 import json
 import pandas as pd
 from flask import Flask, request, g
+from pandas.tseries.offsets import DateOffset
+from sqlalchemy.sql.elements import True_
+from sqlalchemy.sql.expression import true
 from flask_cors import CORS, cross_origin
 import sqlalchemy as sa
 import re
@@ -138,7 +142,7 @@ def findTextEvents(text, events, dateField, granularity):
     (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
 
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
-    sqlQuery = sa.text("SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH (article.main_headline, article.abstract, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH (article.main_headline, article.abstract, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
+    sqlQuery = sa.text("SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
     # NOTE: We bind parameters separately to prevent SQL injections
     sqlQuery = sqlQuery.bindparams(textSearch=text)
 
@@ -174,25 +178,26 @@ def findEvents(df, events, dateField, granularity):
     period = granularityToPeriod[granularity]
 
     # Cut dates to granularity specified
-    df['period_date'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
-    events["period_date"] = pd.to_datetime(events[dateField]).dt.to_period(period)
-    df = df[df["period_date"].isin(events["period_date"])]
-
-    print(df)
+    df['date_period'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
+    events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
+    df = df[df["date_period"].isin(events["date_period"])]
     
-    print(df['period_date'])
-    print(events["period_date"])
+    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
 
-    print(events)
-    print(df)
+    dfh = pd.DataFrame()
+    alternates = True
+    if (alternates):
+        dfh = df
+        dfh["alternate"] = dfh.duplicated(subset=["date_period"], keep="first")
+    else:
+        # If multiple articles keep most recent one - most likely to have most information
+        # NOTE NLP temporal / volume-based event detection should help with which article to use later on
+        dfh = df.drop_duplicates(subset=["date_period"], keep="last")
 
-    # If multiple articles keep most recent one - most likely to have most information
-    # NOTE NLP temporal / volume-based event detection should help with which article to use later on
-    df = df.drop_duplicates(subset=["period_date"], keep="last")
-    df = df[["pub_date", "period_date", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
-    df = pd.merge(df, events, on="period_date")
-    df = df.drop(columns=["period_date"])
-    return df
+    dfh = pd.merge(dfh, events, on="date_period")
+
+    #df = df.drop(columns=["date_period"])
+    return dfh
 
 def findRelevantEvents(df, events, dateField, granularity):
     granularityToPeriod = {
@@ -202,25 +207,45 @@ def findRelevantEvents(df, events, dateField, granularity):
     }
     period = granularityToPeriod[granularity]
 
-    # Cut dates to granularity specified
-    df['period_date'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
-    events["period_date"] = pd.to_datetime(events[dateField]).dt.to_period(period)
-    df = df[df["period_date"].isin(events["period_date"])]
+    granularityToCutoffDeltaHours= {
+        "month": 24,
+        "week": 12,
+        "day": 4,
+    }
 
-    print(df)
+    cutoffDeltaHours  = granularityToCutoffDeltaHours[granularity]
     
-    print(df['period_date'])
-    print(events["period_date"])
 
-    print(events)
-    print(df)
+    # Cut dates to granularity specified
+    # df["date_period"] = pd.to_datetime(df["pub_date"]).dt.to_period(period)
+    # df["date_period"] = df["pub_dt"].dt.to_period(period)
+    # df["date_period"] = (pd.to_datetime(df["pub_date"]) + timedelta(hours=cutoffDeltaHours)).dt.to_period(period)
+    df["pub_date_delta"] = pd.to_datetime(df["pub_date"]) + timedelta(hours=cutoffDeltaHours)
+    df["date_period"] = df["pub_date_delta"].dt.to_period(period)
+    events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
+    
+    df = df[df["date_period"].isin(events["date_period"])]
+    
+    # print(df['date_period'])
+    # print(events["date_period"])
 
-    # If multiple articles in a period, keep the first one (articles are sorted highest relevance first)
-    df = df.drop_duplicates(subset=["period_date"], keep="first")
-    df = df[["pub_date", "period_date", "main_headline", "lead_paragraph",  "abstract", "web_url", "relevance"]]
-    df = pd.merge(df, events, on="period_date")
-    df = df.drop(columns=["period_date"])
-    return df
+    # print(events)
+    # print(df)
+    
+    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph",  "abstract", "web_url", "relevance"]]
+    dfh = pd.DataFrame()
+    alternates = True
+    if (alternates):
+        dfh = df
+        dfh["alternate"] = dfh.duplicated(subset=["date_period"], keep="first")
+    else:
+        # If multiple articles in a period, keep the first one (articles are sorted highest relevance first)
+        dfh = df.drop_duplicates(subset=["date_period"], keep="first")
+
+    dfh = pd.merge(dfh, events, on="date_period")
+    #dfh = dfh.drop(columns=["date_period"])
+
+    return dfh
 
 @app.route("/search/<tagType>/<query>", methods=["GET"])
 def searchRoute(tagType, query):
@@ -237,7 +262,7 @@ def searchRoute(tagType, query):
 
 
 @app.route("/headlines", methods=["POST"])
-def eventsRoute():
+def headlinesRoute():
     data = json.loads(request.data)
     print(data)
     events = pd.DataFrame.from_records(data["data"])
@@ -245,6 +270,7 @@ def eventsRoute():
     granularity = data["granularity"]
 
     df = pd.DataFrame()
+
     if (data["method"] == "person"):
         df = findPersonEvents(data["tag"], events, dateField, granularity)
     elif (data["method"] == "topic"):
@@ -254,7 +280,18 @@ def eventsRoute():
     elif (data["method"] == "org"):
         df = findOrgEvents(data["tag"], events, dateField, granularity)
 
-    return df.to_json(orient='records')
+    df["date_period"] = df["date_period"].astype(str)
+    #headlines = json.loads(df.to_json(orient="records"))
+    #alternates = json.loads(pd.DataFrame().to_json(orient="records"))
+    #if (data["method"] == "text" or data["method"] == "topic"):
+    print(df)
+
+    headlines = json.loads(df[df["alternate"] == False].to_json(orient="records"))
+    alternates = json.loads(df[df["alternate"] == True].to_json(orient="records"))
+
+    outData = { "headlines": headlines, "alternates": alternates}
+
+    return json.dumps(outData)
 
 
 @app.route("/warmup", methods=["GET"])
