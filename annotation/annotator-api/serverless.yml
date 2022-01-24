@@ -23,7 +23,7 @@ functions:
           cors: true
 custom:
   wsgi:
-    app: annotatorAPI.app
+    app: annotatorApp.app
     pythonBin: python3 # Some systems with Python3 may require this
     packRequirements: false
   pythonRequirements:
