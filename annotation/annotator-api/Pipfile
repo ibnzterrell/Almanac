@@ -13,6 +13,7 @@ Flask-Cors = "*"
 PyMySQL = "*"
 SQLAlchemy = "*"
 pymysql = "*"
+
 [dev-packages]
 
 [requires]
