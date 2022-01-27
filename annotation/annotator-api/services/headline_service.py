@@ -128,14 +128,10 @@ def findClusters(df, events, dateField, granularity):
     
     date_periods = pd.unique(df["date_period"])
 
-    df["doc"] = df["main_headline"] + " " + df["lead_paragraph"]
+    # df["doc"] = df["main_headline"] + " " + df["lead_paragraph"]
+    df["doc"] = df["main_headline"]
     df["doc"] = df["doc"].str.lower()
-
-    df["hdoc"] = df["main_headline"]
-    df["hdoc"] = df["hdoc"].str.lower()
-
     df["doc"] = list(nlp.pipe(df["doc"]))
-    df["hdoc"] = list(nlp.pipe(df["hdoc"]))
 
     all_words = [token.lemma_ for doc in df["doc"] for token in doc if not (token.is_stop or token.is_punct)]
 
@@ -205,7 +201,7 @@ def headline_cluster_query(data):
     df["date_period"] = df["date_period"].astype(str)
     # print(df)
 
-    df = df.loc[:, ~df.columns.isin(["doc", "hdoc"])]
+    df = df.loc[:, ~df.columns.isin(["doc"])]
 
     headlines = json.loads(df[df["alternate"] == False].to_json(orient="records"))
     alternates = json.loads(df[df["alternate"] == True].to_json(orient="records"))
