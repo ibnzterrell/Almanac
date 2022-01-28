@@ -14,6 +14,10 @@ def warmupRoute():
     db_connect()
     return "OK"
 
+@app.route("/health", methods=["GET"])
+def healthRoute():
+    return "OK"
+
 # Close database on shutdown
 @app.teardown_appcontext
 def close_connection(exception):
@@ -26,4 +30,4 @@ app.register_blueprint(searchAPI)
 
 CORS(app)
 if __name__ == '__main__':
-    app.run(port=3030, debug=True)
+    app.run(port=80, host='0.0.0.0', debug=True)

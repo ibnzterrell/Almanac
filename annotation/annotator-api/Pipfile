@@ -4,15 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-requests = "*"
-python-dotenv = "*"
-Werkzeug = "*"
-Flask = "==1.1.4"
-Flask-Cors = "*"
-PyMySQL = "*"
-SQLAlchemy = "*"
-pymysql = "*"
+aws-cdk-lib = "==2.9.0"
+constructs = "<11.0.0,>=10.0.0"
 
 [dev-packages]
 

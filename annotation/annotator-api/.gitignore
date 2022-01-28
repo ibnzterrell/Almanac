@@ -1,9 +1,3 @@
-# package directories
-node_modules
-jspm_packages
-
-# Serverless directories
-.serverless
-
-# Environment Variables
-.env
+# CDK asset staging directory
+.cdk.staging
+cdk.out
