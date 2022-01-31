@@ -9,6 +9,10 @@ load_dotenv()
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET"])
+def defaultRoute():
+    return "OK"
+
 @app.route("/warmup", methods=["GET"])
 def warmupRoute():
     db_connect()

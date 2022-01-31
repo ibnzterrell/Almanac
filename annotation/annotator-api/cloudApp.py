@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-import os
+from os import getenv
+from dotenv import load_dotenv
 
 import aws_cdk as cdk
 
 from annotatorAPIStack import AnnotatorAPIStack
 
-
+load_dotenv()
+account_env = getenv("account")
+region_env = getenv("region")
 app = cdk.App()
 AnnotatorAPIStack(app, "AnnotatorAPIStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
@@ -15,12 +18,12 @@ AnnotatorAPIStack(app, "AnnotatorAPIStack",
     # Uncomment the next line to specialize this stack for the AWS Account
     # and Region that are implied by the current CLI configuration.
 
-    #env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
+    env=cdk.Environment(account=getenv('CDK_DEFAULT_ACCOUNT'), region=getenv('CDK_DEFAULT_REGION')),
 
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
 
-    #env=cdk.Environment(account='123456789012', region='us-east-1'),
+    #env=cdk.Environment(account=account_env, region=region_env),
 
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
     )
