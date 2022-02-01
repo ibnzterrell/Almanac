@@ -27,13 +27,14 @@ class AnnotatorAPIStack(Stack):
         self.zone_name = getenv("zone_name")
         self.domain_name = getenv("domain_name")
         self.service_cluster_min = int(getenv("service_cluster_min"))
-        self.service_cluster_max= int(getenv("service_cluster_max"))
+        self.service_cluster_max = int(getenv("service_cluster_max"))
         self.api_service_min = int(getenv("api_service_min"))
         self.api_service_max= int(getenv("api_service_max"))
+        self.db_cluster_name = getenv("db_cluster_name")
 
         self.vpc = ec2.Vpc(self, self.vpc_name)
         self.hosted_zone = route53.HostedZone.from_lookup(self, id="AnnotatorZone", domain_name=self.zone_name)
-
+        
         self.service_cluster = ecs.Cluster(self, "AnnotatorCluster",
         vpc=self.vpc)
 
@@ -96,4 +97,15 @@ class AnnotatorAPIStack(Stack):
 
         self.api_scalable_target.scale_on_memory_utilization("MemoryScaling",
             target_utilization_percent=80
+        )
+
+        self.db_cluster = rds.DatabaseCluster(self, "AnnotationDatabase",
+            engine=rds.DatabaseClusterEngine.aurora_mysql(version=rds.AuroraMysqlEngineVersion.VER_3_01_0),
+            instance_props=rds.InstanceProps(vpc=self.vpc, instance_type=ec2.InstanceType("t4g.medium"),
+            allow_major_version_upgrade=False,
+            auto_minor_version_upgrade=True,
+            publicly_accessible=True,
+            vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)),
+            cluster_identifier=self.db_cluster_name,
+            storage_encrypted=True
         )
