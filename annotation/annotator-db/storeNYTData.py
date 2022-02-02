@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 import sqlalchemy as sa
+from sqlalchemy.pool import SingletonThreadPool
+
 from dotenv import load_dotenv
 import os
 
@@ -11,14 +13,12 @@ def rank_array(df, column):
             rank = i + 1
             yield(uri, rank, a)
 
-
 def rank_df(df, df_col, rank_col):
     data = []
     for (uri, rank, rankee) in rank_array(df, df_col):
         data.append([uri, rank, rankee])
     ranked_df = pd.DataFrame(data, columns=["uri", "rank", rank_col])
     return ranked_df
-
 
 def createIdsFromTag(tag_df, tag):
     id_df = pd.DataFrame()
@@ -39,73 +39,83 @@ article_df = pd.read_csv(fileRead)
 article_df["pub_date"] = pd.to_datetime(article_df["pub_date"])
 article_df["articleId"] = range(1, len(article_df) + 1)
 
+person_tag_df = rank_df(article_df, "people", "person")
+organization_tag_df = rank_df(article_df, "organizations", "organization")
+subject_tag_df = rank_df(article_df, "subjects", "subject")
+location_tag_df = rank_df(article_df, "locations", "location")
+
+articleUriToId = {
+    uri: id for (uri, id) in zip(article_df["uri"], article_df["articleId"])
+}
+
+article_df = article_df[["articleId", "pub_date", "main_headline",
+                            "web_url", "abstract", "lead_paragraph", "print_headline"]]
+
+tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
+                                                    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
+for df, df_col in tag_df_tables:
+    df["articleId"] = df["uri"].map(articleUriToId)
+
+person_df = createIdsFromTag(person_tag_df, "person")
+organization_df = createIdsFromTag(organization_tag_df, "organization")
+subject_df = createIdsFromTag(subject_tag_df, "subject")
+location_df = createIdsFromTag(location_tag_df, "location")
+
+person_tag_df = person_tag_df[["articleId", "rank", "personId"]]
+organization_tag_df = organization_tag_df[[
+    "articleId", "rank", "organizationId"]]
+subject_tag_df = subject_tag_df[[
+    "articleId", "rank", "subjectId"]]
+location_tag_df = location_tag_df[[
+    "articleId", "rank", "locationId"]]
+
+print(article_df)
+print(person_df)
+print(person_tag_df)
+print(organization_tag_df)
+print(subject_tag_df)
+print(location_tag_df)
+
+df_tables = [(article_df, "article"), (person_df, "person"), (organization_df,
+    "organization"), (subject_df, "subject"), (location_df, "location")]
+
+tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
+    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
+
+print("Table Updates Generated")
+
+print("Connecting to Database")
 load_dotenv()
-
 database_engine = os.getenv("SQL_ENGINE")
-
 engine = sa.create_engine(
-    database_engine, echo=True)
+    database_engine, encoding="utf-8", poolclass=SingletonThreadPool, echo=True)
 
-with engine.begin() as connection:
+with engine.connect() as connection:
+    print("Connected to Database")
     metadata = sa.MetaData()
     metadata.reflect(bind=engine)
 
-    # Truncate all tables
-    connection.execute("SET SESSION FOREIGN_KEY_CHECKS = OFF")
-    for table in metadata.sorted_tables:
-        connection.execute(table.delete())
+    with connection.begin():
+        print("Truncating Tables")
+        connection.execute("SET SESSION FOREIGN_KEY_CHECKS = OFF")
+        for table in metadata.sorted_tables:
+            connection.execute(table.delete())
 
-    person_tag_df = rank_df(article_df, "people", "person")
-    organization_tag_df = rank_df(article_df, "organizations", "organization")
-    subject_tag_df = rank_df(article_df, "subjects", "subject")
-    location_tag_df = rank_df(article_df, "locations", "location")
+    with connection.begin():
+        print("Updating Tables")
 
-    articleUriToId = {
-        uri: id for (uri, id) in zip(article_df["uri"], article_df["articleId"])
-    }
-
-    article_df = article_df[["articleId", "pub_date", "main_headline",
-                            "web_url", "abstract", "lead_paragraph", "print_headline"]]
-
-    tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
-                                                    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
-    for df, df_col in tag_df_tables:
-        df["articleId"] = df["uri"].map(articleUriToId)
-
-    person_df = createIdsFromTag(person_tag_df, "person")
-    organization_df = createIdsFromTag(organization_tag_df, "organization")
-    subject_df = createIdsFromTag(subject_tag_df, "subject")
-    location_df = createIdsFromTag(location_tag_df, "location")
-
-    person_tag_df = person_tag_df[["articleId", "rank", "personId"]]
-    organization_tag_df = organization_tag_df[[
-        "articleId", "rank", "organizationId"]]
-    subject_tag_df = subject_tag_df[[
-        "articleId", "rank", "subjectId"]]
-    location_tag_df = location_tag_df[[
-        "articleId", "rank", "locationId"]]
-
-    print(article_df)
-    print(person_df)
-    print(person_tag_df)
-    print(organization_tag_df)
-    print(subject_tag_df)
-    print(location_tag_df)
-
-    print("Updating Tables")
-
-    df_tables = [(article_df, "article"), (person_df, "person"), (organization_df,
-                                                                "organization"), (subject_df, "subject"), (location_df, "location")]
-
-    tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
-                                                    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
-    for df, table in df_tables:
-        df.to_sql(table, connection, if_exists="append",
-                index=False, chunksize=1000)
-
-    for tag_df, tag_table in tag_df_tables:
-        tag_df.to_sql(tag_table, connection, if_exists="append",
+        for df, table in df_tables:
+            df.to_sql(table, connection, if_exists="append",
                     index=False, chunksize=1000)
 
-    print("Finished Uploading Data")
-print("Finished Writing Data")
+    with connection.begin():
+        print("Updating Tags")
+
+        for tag_df, tag_table in tag_df_tables:
+            tag_df.to_sql(tag_table, connection, if_exists="append",
+                        index=False, chunksize=1000)
+
+    connection.close()
+engine.dispose()
+
+print("Finished Updating")
