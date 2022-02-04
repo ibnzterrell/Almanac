@@ -8,3 +8,4 @@ SQLAlchemy
 python-dotenv
 pymysql
 spacy
+gunicorn

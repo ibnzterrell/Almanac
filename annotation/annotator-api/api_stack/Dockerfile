@@ -8,6 +8,7 @@ COPY api /app/api
 COPY model /app/model
 COPY services /app/services
 
+COPY gunicorn.conf.py /app/gunicorn.conf.py
 COPY appAPI.py /app/appAPI.py
 COPY .env /app/.env
 COPY requirements.txt /app/requirements.txt
@@ -15,4 +16,5 @@ COPY requirements.txt /app/requirements.txt
 RUN python -m pip install -r requirements.txt
 RUN python -m spacy download en_core_web_sm
 
-CMD ["python", "appAPI.py"]
+# Gunicorn bind / options are in gunicorn.conf.py
+CMD ["gunicorn", "appAPI:app"]
