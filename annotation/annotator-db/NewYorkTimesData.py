@@ -8,7 +8,7 @@ import os
 # Downloads last two decades of NYT Headlines, 01/01/2000 - 12/31/2021
 startMonth = 1
 startYear = 2000
-endMonth = 1
+endMonth = 2
 endYear = 2022
 
 load_dotenv()

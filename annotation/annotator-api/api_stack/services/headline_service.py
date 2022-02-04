@@ -170,12 +170,14 @@ def findClusters(df, events, dateField, granularity):
         tfirf = {w: tf[w] * irf[w] for w in dictionary}
         tfirfs.append(tfirf)
 
+    topks = []
+
     for (dp, tfirf) in zip(date_periods, tfirfs):
-        print(dp)
         topk = heapq.nlargest(25, tf, key=tfirf.get)
-        topktfirf = [tfirf[w] for w in topk]
-        print(topk)
-        print(topktfirf)
+        topk = {w: tfirf[w] for w in topk}
+        topks.append(topk)
+
+    dptopKs = {str(dp) : topktfirf for (dp, topktfirf) in zip(date_periods, topks)}
     
     tfDateLookup = {dp : tf for (dp, tf) in zip (date_periods, tfs)}
 
@@ -186,7 +188,7 @@ def findClusters(df, events, dateField, granularity):
     df["alternate"] = df.duplicated(subset=["date_period"], keep="first")
     df = pd.merge(df, events, on="date_period")
     
-    return df
+    return (df, dptopKs)
 
 
 def headline_cluster_query(data):
@@ -196,7 +198,7 @@ def headline_cluster_query(data):
 
     df = textEventQuery(data["tag"])
 
-    df = findClusters(df, events, dateField, granularity)
+    (df, dptopKs) = findClusters(df, events, dateField, granularity)
 
     df["date_period"] = df["date_period"].astype(str)
     # print(df)
@@ -206,7 +208,7 @@ def headline_cluster_query(data):
     headlines = json.loads(df[df["alternate"] == False].to_json(orient="records"))
     alternates = json.loads(df[df["alternate"] == True].to_json(orient="records"))
 
-    res_data = { "headlines": headlines, "alternates": alternates}
+    res_data = { "headlines": headlines, "alternates": alternates, "periodtopK": dptopKs}
 
     return json.dumps(res_data)
 
