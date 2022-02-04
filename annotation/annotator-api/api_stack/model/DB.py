@@ -4,20 +4,16 @@ import sqlalchemy as sa
 import pandas as pd
 
 def db_connect():
-    db = getattr(g, '_database', None)
+    engine = getattr(g, '_engine', None)
     articleTable = getattr(g, '_articleTable', None)
     personTable = getattr(g, '_personTable', None)
     personTagTable = getattr(g, '_personTagTable', None)
     organizationTable = getattr(g, '_organizationTable', None)
     organizationTagTable = getattr(g, '_organizationTagTable', None)
-    engine = getattr(g, '_engine', None)
 
     if engine is None:
         engine = g._engine = sa.create_engine(
             os.getenv("SQL_ENGINE"), echo=True)
-    
-    if db is None:
-        db = g._database = engine.connect()
 
     if articleTable is None:
         md = sa.MetaData()
@@ -36,7 +32,15 @@ def db_connect():
     if organizationTagTable is None:
         organizationTagTable = g.__organizationTagTable = md.tables["organization_tag"]
 
+    db = engine.connect()
+
     return (db, articleTable, personTable, personTagTable, organizationTable, organizationTagTable)
+
+def db_disconnect():
+    engine = getattr(g, '_engine', None)
+    if engine is not None:
+        engine.dispose()
+        g._engine = None
 
 def personEventQuery(name):
     (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
@@ -52,6 +56,8 @@ def personEventQuery(name):
                               articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinPersonTagArticle).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
+
     return df
 
 def topicEventQuery(topic):
@@ -62,6 +68,8 @@ def topicEventQuery(topic):
         articleTable.c.subjects.ilike(f"[\'{topic}%"))
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
+
     return df
 
 def textEventQuery(text):
@@ -73,7 +81,8 @@ def textEventQuery(text):
     sqlQuery = sqlQuery.bindparams(textSearch=text)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
-    
+    db_conn.close()
+
     return df
 
 def orgEventQuery(org):
@@ -90,6 +99,8 @@ def orgEventQuery(org):
                               articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinOrgTagArticle).where(organizationTable.c.organization == org).where(organizationTagTable.c.rank <= 1)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
+
     return df
 
 def personQuery(name):
@@ -99,6 +110,7 @@ def personQuery(name):
 
     sqlQuery = sa.sql.select([personTable.c.person, sa.func.count().label("articleCount")]).select_from(joinPersonTag).where(personTable.c.person.like(f"{name}%")).group_by(personTable.c.person).order_by(sa.desc("articleCount"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
 
     return df
 
@@ -107,6 +119,7 @@ def topicQuery(topic):
 
     sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{topic}%"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
 
     return df
 
@@ -117,3 +130,6 @@ def orgQuery(org):
 
     sqlQuery = sa.sql.select([organizationTable.c.organization, sa.func.count().label("articleCount")]).select_from(joinOrgTag).where(organizationTable.c.organization.like(f"{org}%")).group_by(organizationTable.c.organization).order_by(sa.desc("articleCount"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
+    db_conn.close()
+
+    return df

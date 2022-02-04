@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, g
 from flask_cors import CORS
-from model.DB import db_connect
+from model.DB import db_connect, db_disconnect
 from api.headline_route import headlineAPI
 from api.search_route import searchAPI
 
@@ -24,10 +24,8 @@ def healthRoute():
 
 # Close database on shutdown
 @app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
+def shutdown(exception):
+    db_disconnect()
 
 app.register_blueprint(headlineAPI)
 app.register_blueprint(searchAPI)
