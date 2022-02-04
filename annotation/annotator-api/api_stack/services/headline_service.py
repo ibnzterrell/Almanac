@@ -2,7 +2,7 @@ import pandas as pd
 import json
 from datetime import timedelta
 from model.DB import personEventQuery, topicEventQuery, textEventQuery, orgEventQuery
-from model.NLP import loadNLP
+from model.NLP import loadNLP, wordFilter
 from collections import Counter
 import heapq
 import math
@@ -133,7 +133,7 @@ def findClusters(df, events, dateField, granularity):
     df["doc"] = df["doc"].str.lower()
     df["doc"] = list(nlp.pipe(df["doc"]))
 
-    all_words = [token.lemma_ for doc in df["doc"] for token in doc if not (token.is_stop or token.is_punct)]
+    all_words = [token.lemma_ for doc in df["doc"] for token in doc if wordFilter(token)]
 
     dictionary = sorted(set(all_words))
 
@@ -151,7 +151,7 @@ def findClusters(df, events, dateField, granularity):
 
     # Calculate Range Term Frequencies
     for dp in date_periods:
-        words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if not (token.is_stop or token.is_punct)]
+        words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token)]
         f = Counter(words)
         tf = {w: f.get(w, 0) / len(words) for w in dictionary}
         tfs.append(tf)
@@ -215,7 +215,7 @@ def headline_cluster_query(data):
 def scoreDocs(docs, date_periods, tfLookup):
     scores = []
     for (d, dp) in zip(docs, date_periods):
-        words = [token.lemma_ for token in d if not (token.is_stop or token.is_punct)]
+        words = [token.lemma_ for token in d if wordFilter(token)]
         score = sum([tfLookup[dp][w] for w in words])
         scores.append(score)
 
