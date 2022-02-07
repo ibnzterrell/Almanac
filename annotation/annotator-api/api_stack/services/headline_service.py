@@ -168,6 +168,12 @@ def findClusters(df, events, dateField, granularity):
     # Calculate TF-IRFs
     for tf in tfs:
         tfirf = {w: tf[w] * irf[w] for w in dictionary}
+
+        # Apply Exponential Decay Weighting
+        tfsorted = sorted(tfirf.items(), key =
+             lambda kv : kv[1], reverse=True)
+        tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
+
         tfirfs.append(tfirf)
 
     topks = []
@@ -216,6 +222,7 @@ def scoreDocs(docs, date_periods, tfLookup):
     scores = []
     for (d, dp) in zip(docs, date_periods):
         words = [token.lemma_ for token in d if wordFilter(token)]
+        words = set(words)
         score = sum([tfLookup[dp][w] for w in words])
         scores.append(score)
 
