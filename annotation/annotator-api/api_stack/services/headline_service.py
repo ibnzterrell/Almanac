@@ -142,8 +142,6 @@ def findClusters(df, events, dateField, granularity):
 
     # Range Term Frequencies
     tfs = []
-    # Inverse Range Frequencies
-    irfs = []
     # Range Words
     rwords = []
 
@@ -170,9 +168,9 @@ def findClusters(df, events, dateField, granularity):
         tfirf = {w: tf[w] * irf[w] for w in dictionary}
 
         # Apply Exponential Decay Weighting
-        tfsorted = sorted(tfirf.items(), key =
-             lambda kv : kv[1], reverse=True)
-        tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
+        # tfsorted = sorted(tfirf.items(), key =
+        #      lambda kv : kv[1], reverse=True)
+        # tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
 
         tfirfs.append(tfirf)
 

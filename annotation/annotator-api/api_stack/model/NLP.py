@@ -9,4 +9,5 @@ def loadNLP():
     return nlp
 
 def wordFilter(token):
-    return token.is_alpha and not token.is_stop
+    # return token.is_alpha and not token.is_stop
+    return ((not token.is_punct) and (not token.is_stop))
