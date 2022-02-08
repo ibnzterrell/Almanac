@@ -4,37 +4,16 @@ import sqlalchemy as sa
 import pandas as pd
 
 def db_connect():
-    engine = getattr(g, '_engine', None)
-    articleTable = getattr(g, '_articleTable', None)
-    personTable = getattr(g, '_personTable', None)
-    personTagTable = getattr(g, '_personTagTable', None)
-    organizationTable = getattr(g, '_organizationTable', None)
-    organizationTagTable = getattr(g, '_organizationTagTable', None)
+    engine = getattr(g, '_engine', sa.create_engine(
+            os.getenv("SQL_ENGINE"), echo=True))
+    md = sa.MetaData()
+    
+    db_conn = engine.connect()
+    md.reflect(bind=db_conn)
+    
+    g._engine = engine
 
-    if engine is None:
-        engine = g._engine = sa.create_engine(
-            os.getenv("SQL_ENGINE"), echo=True)
-
-    if articleTable is None:
-        md = sa.MetaData()
-        md.reflect(bind=engine)
-        articleTable = g.__articleTable = md.tables["article"]
-
-    if personTable is None:
-        personTable = g.__personTable = md.tables["person"]
-
-    if personTagTable is None:
-        personTagTable = g.__personTagTable = md.tables["person_tag"]
-
-    if organizationTable is None:
-        organizationTable = g.__organizationTable = md.tables["organization"]
-
-    if organizationTagTable is None:
-        organizationTagTable = g.__organizationTagTable = md.tables["organization_tag"]
-
-    db = engine.connect()
-
-    return (db, articleTable, personTable, personTagTable, organizationTable, organizationTagTable)
+    return (db_conn, md)
 
 def db_disconnect():
     engine = getattr(g, '_engine', None)
@@ -43,7 +22,11 @@ def db_disconnect():
         g._engine = None
 
 def personEventQuery(name):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
+
+    articleTable = md.tables["article"]
+    personTable = md.tables["person"]
+    personTagTable = md.tables["person_tag"]
 
     joinPersonTag = sa.sql.join(
         personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
@@ -61,7 +44,9 @@ def personEventQuery(name):
     return df
 
 def topicEventQuery(topic):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
+
+    articleTable = md.tables["article"]
 
        # Tags are ordered by relevance, only select articles where they are first person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
@@ -73,7 +58,7 @@ def topicEventQuery(topic):
     return df
 
 def textEventQuery(text):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
 
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
     sqlQuery = sa.text("SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
@@ -86,7 +71,11 @@ def textEventQuery(text):
     return df
 
 def orgEventQuery(org):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
+
+    articleTable = md.tables["article"]
+    organizationTable = md.tables["organization"]
+    organizationTagTable = md.tables["organization_tag"]
 
     joinOrgTag = sa.sql.join(
         organizationTable, organizationTagTable, organizationTable.c.organizationId == organizationTagTable.c.organizationId)
@@ -104,7 +93,10 @@ def orgEventQuery(org):
     return df
 
 def personQuery(name):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
+
+    personTable = md.tables["person"]
+    personTagTable = md.tables["person_tag"]
 
     joinPersonTag = sa.sql.join(personTable, personTagTable, personTable.c.personId == personTagTable.c.personId)
 
@@ -115,7 +107,9 @@ def personQuery(name):
     return df
 
 def topicQuery(topic):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
+
+    personTable = md.tables["person"]
 
     sqlQuery = sa.sql.select([personTable.c.person]).select_from(personTable).where(personTable.c.person.ilike(f"{topic}%"))
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
@@ -124,8 +118,11 @@ def topicQuery(topic):
     return df
 
 def orgQuery(org):
-    (db_conn, articleTable, personTable, personTagTable, organizationTable, organizationTagTable) = db_connect()
+    (db_conn, md) = db_connect()
     
+    organizationTable = md.tables["organization"]
+    organizationTagTable = md.tables["organization_tag"]
+
     joinOrgTag = sa.sql.join(organizationTable, organizationTagTable, organizationTable.c.organizationId == organizationTagTable.c.organizationId)
 
     sqlQuery = sa.sql.select([organizationTable.c.organization, sa.func.count().label("articleCount")]).select_from(joinOrgTag).where(organizationTable.c.organization.like(f"{org}%")).group_by(organizationTable.c.organization).order_by(sa.desc("articleCount"))
