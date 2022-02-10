@@ -39,45 +39,28 @@ class AnnotatorAPIStack(Stack):
         self.service_cluster = ecs.Cluster(self, "AnnotatorCluster",
         vpc=self.vpc)
 
-        # self.service_cluster_image = ecs.BottleRocketImage(architecture=ecs.AmiHardwareType.ARM)
-        # TODO: BottleRocket is more efficient than AL2, but ECS does not properly support it on ARM (yet)
-        self.service_cluster_image = ecs.EcsOptimizedImage.amazon_linux2(hardware_type=ecs.AmiHardwareType.STANDARD)
-        # self.service_cluster_instance_type = ec2.InstanceType("t3a.small")
-
-        # self.auto_scaling_group = autoscaling.AutoScalingGroup(
-        #     self, "ASG", vpc=self.vpc, 
-        #     instance_type=self.service_cluster_instance_type,
-        #     machine_image=self.service_cluster_image,
-        #     min_capacity=self.service_cluster_min,
-        #     max_capacity=self.service_cluster_max,
-        #     max_instance_lifetime=Duration.days(7)
-        # )
-
-        # self.capacity_provider = ecs.AsgCapacityProvider(self, "AsgCapacityProvider", auto_scaling_group=self.auto_scaling_group)
-
-        # self.service_cluster.add_asg_capacity_provider(self.capacity_provider)
-
         self.api_container_image = ecs.ContainerImage.from_asset("./api_stack/")
 
-        # self.api_service = ecs_patterns.ApplicationLoadBalancedEc2Service(self, "AnnotatorAPIService",
-        #     cluster=self.service_cluster,
-        #     cpu=1024, memory_limit_mib=1024,
-        #     public_load_balancer=True,
-        #     protocol=elb.ApplicationProtocol.HTTPS,
-        #     #redirect_http=True,
-        #     target_protocol=elb.ApplicationProtocol.HTTP,
-        #     task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
-        #         image=self.api_container_image,
-        #         container_port=80),
-        #     domain_name=self.domain_name,
-        #     domain_zone=self.hosted_zone
-        # )
+        self.service_cluster_image = ecs.BottleRocketImage(architecture=ec2.InstanceArchitecture.X86_64)
+        # TODO: Use ARM_64 BottleRocket with BURSTABLE4_GRAVITON
+        self.service_cluster_instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3_AMD, ec2.InstanceSize.SMALL)
 
-        self.api_service = ecs_patterns.ApplicationLoadBalancedFargateService(self, "AnnotatorAPIService",
+        self.service_cluster_asg = self.service_cluster.add_capacity("DefaultAutoScalingGroupCapacity",
+            instance_type=self.service_cluster_instance_type,
+            machine_image=self.service_cluster_image,
+            min_capacity=self.service_cluster_min,
+            max_capacity=self.service_cluster_max
+        )
+
+        self.service_cluster_asg.scale_on_cpu_utilization("ClusterCPUScaling",
+        target_utilization_percent=20)
+
+        self.api_service = ecs_patterns.ApplicationLoadBalancedEc2Service(self, "AnnotatorAPIService",
             cluster=self.service_cluster,
-            cpu=1024, memory_limit_mib=2048,
+            cpu=1024,
+            memory_limit_mib=768,
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
-                image=self.api_container_image
+                image=self.api_container_image,
             ),
             public_load_balancer=True,
             protocol=elb.ApplicationProtocol.HTTPS,
@@ -92,11 +75,7 @@ class AnnotatorAPIStack(Stack):
             min_capacity=self.api_service_min, max_capacity=self.api_service_max
         )
 
-        self.api_scalable_target.scale_on_cpu_utilization("CpuScaling",
-            target_utilization_percent=80
-        )
-
-        self.api_scalable_target.scale_on_memory_utilization("MemoryScaling",
+        self.api_scalable_target.scale_on_cpu_utilization("APIServiceCpuScaling",
             target_utilization_percent=80
         )
 
