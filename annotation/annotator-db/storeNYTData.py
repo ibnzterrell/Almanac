@@ -90,7 +90,7 @@ database_engine = os.getenv("SQL_ENGINE")
 engine = sa.create_engine(
     database_engine, encoding="utf-8", poolclass=SingletonThreadPool, echo=True)
 
-with engine.connect() as connection:
+with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as connection:
     print("Connected to Database")
     metadata = sa.MetaData()
     metadata.reflect(bind=engine)
@@ -101,19 +101,17 @@ with engine.connect() as connection:
         for table in metadata.sorted_tables:
             connection.execute(table.delete())
 
-    with connection.begin():
-        print("Updating Tables")
+    print("Updating Tables")
 
-        for df, table in df_tables:
-            df.to_sql(table, connection, if_exists="append",
-                    index=False, chunksize=1000)
+    for df, table in df_tables:
+        df.to_sql(table, connection, if_exists="append",
+            index=False, chunksize=1000, method="multi")
 
-    with connection.begin():
-        print("Updating Tags")
+    print("Updating Tags")
 
-        for tag_df, tag_table in tag_df_tables:
-            tag_df.to_sql(tag_table, connection, if_exists="append",
-                        index=False, chunksize=1000)
+    for tag_df, tag_table in tag_df_tables:
+        tag_df.to_sql(tag_table, connection, if_exists="append",
+            index=False, chunksize=1000, method="multi")
 
     connection.close()
 engine.dispose()
