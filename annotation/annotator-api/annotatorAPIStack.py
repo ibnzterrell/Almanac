@@ -49,7 +49,8 @@ class AnnotatorAPIStack(Stack):
             instance_type=self.service_cluster_instance_type,
             machine_image=self.service_cluster_image,
             min_capacity=self.service_cluster_min,
-            max_capacity=self.service_cluster_max
+            max_capacity=self.service_cluster_max,
+            cooldown=Duration.seconds(60)
         )
 
         self.service_cluster_asg.scale_on_cpu_utilization("ClusterCPUScaling",
@@ -57,8 +58,8 @@ class AnnotatorAPIStack(Stack):
 
         self.api_service = ecs_patterns.ApplicationLoadBalancedEc2Service(self, "AnnotatorAPIService",
             cluster=self.service_cluster,
-            cpu=1024,
-            memory_limit_mib=768,
+            cpu=512,
+            memory_reservation_mib=512,
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
                 image=self.api_container_image,
             ),
@@ -76,7 +77,9 @@ class AnnotatorAPIStack(Stack):
         )
 
         self.api_scalable_target.scale_on_cpu_utilization("APIServiceCpuScaling",
-            target_utilization_percent=80
+            target_utilization_percent=20,
+            scale_in_cooldown=Duration.seconds(60),
+            scale_out_cooldown=Duration.seconds(60)
         )
 
         self.db_cluster = rds.DatabaseCluster(self, "AnnotationDatabase",
