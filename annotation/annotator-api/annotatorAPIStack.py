@@ -24,6 +24,7 @@ class AnnotatorAPIStack(Stack):
         load_dotenv()
 
         self.vpc_name = getenv("vpc_name")
+        self.vpc_max_azs = int(getenv("vpc_max_azs"))
         self.zone_name = getenv("zone_name")
         self.domain_name = getenv("domain_name")
         self.service_cluster_min = int(getenv("service_cluster_min"))
@@ -32,8 +33,10 @@ class AnnotatorAPIStack(Stack):
         self.api_service_max= int(getenv("api_service_max"))
         self.db_cluster_name = getenv("db_cluster_name")
         self.db_cluster_instances = int(getenv("db_cluster_instances"))
-
-        self.vpc = ec2.Vpc(self, self.vpc_name)
+        
+        self.db_subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
+        self.vpc = ec2.Vpc(self, self.vpc_name,
+        max_azs=self.vpc_max_azs)
         self.hosted_zone = route53.HostedZone.from_lookup(self, id="AnnotatorZone", domain_name=self.zone_name)
         
         self.service_cluster = ecs.Cluster(self, "AnnotatorCluster",
@@ -90,7 +93,7 @@ class AnnotatorAPIStack(Stack):
                 allow_major_version_upgrade=False,
                 auto_minor_version_upgrade=True,
                 publicly_accessible=True,
-                vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
+                vpc_subnets=self.db_subnet_selection
             ),
             instances = self.db_cluster_instances,
             cluster_identifier=self.db_cluster_name,
