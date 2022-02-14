@@ -39,7 +39,7 @@ class AnnotatorAPIStack(Stack):
         self.service_cluster = ecs.Cluster(self, "AnnotatorCluster",
         vpc=self.vpc)
 
-        self.api_container_image = ecs.ContainerImage.from_asset("./api_stack/")
+        self.api_container_image = ecs.ContainerImage.from_asset("./api_container/")
 
         self.service_cluster_image = ecs.BottleRocketImage(architecture=ec2.InstanceArchitecture.X86_64)
         # TODO: Use ARM_64 BottleRocket with BURSTABLE4_GRAVITON

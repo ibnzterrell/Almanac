@@ -4,18 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-requests = "*"
 python-dotenv = "*"
-Werkzeug = "*"
-Flask = "==1.1.4"
-Flask-Cors = "*"
-PyMySQL = "*"
-SQLAlchemy = "*"
+fastapi = "*"
+gunicorn = "*"
+uvicorn = "*"
+sqlalchemy = "*"
 pymysql = "*"
+pandas = "*"
 spacy = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"

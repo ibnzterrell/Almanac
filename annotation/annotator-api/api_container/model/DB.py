@@ -1,28 +1,25 @@
-from flask import g
 import os
 import sqlalchemy as sa
 import pandas as pd
 
-def db_connect():
-    engine = getattr(g, '_engine', sa.create_engine(
-            os.getenv("SQL_ENGINE"), echo=True))
+def db_startup():
+    engine = sa.create_engine(
+            os.getenv("SQL_ENGINE"), echo=True)
+    return engine
+
+def db_connect(engine):
     md = sa.MetaData()
     
     db_conn = engine.connect()
     md.reflect(bind=db_conn)
-    
-    g._engine = engine
 
     return (db_conn, md)
 
-def db_disconnect():
-    engine = getattr(g, '_engine', None)
-    if engine is not None:
-        engine.dispose()
-        g._engine = None
+def db_shutdown(engine):
+    engine.dispose()
 
-def personEventQuery(name):
-    (db_conn, md) = db_connect()
+def personEventQuery(db, name):
+    (db_conn, md) = db
 
     articleTable = md.tables["article"]
     personTable = md.tables["person"]
@@ -43,8 +40,8 @@ def personEventQuery(name):
 
     return df
 
-def topicEventQuery(topic):
-    (db_conn, md) = db_connect()
+def topicEventQuery(db, topic):
+    (db_conn, md) = db
 
     articleTable = md.tables["article"]
 
@@ -57,8 +54,8 @@ def topicEventQuery(topic):
 
     return df
 
-def textEventQuery(text):
-    (db_conn, md) = db_connect()
+def textEventQuery(db, text):
+    (db_conn, md) = db
 
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
     sqlQuery = sa.text("SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH (article.main_headline, article.lead_paragraph) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
@@ -70,8 +67,8 @@ def textEventQuery(text):
 
     return df
 
-def orgEventQuery(org):
-    (db_conn, md) = db_connect()
+def orgEventQuery(db, org):
+    (db_conn, md) = db
 
     articleTable = md.tables["article"]
     organizationTable = md.tables["organization"]
@@ -92,8 +89,8 @@ def orgEventQuery(org):
 
     return df
 
-def personQuery(name):
-    (db_conn, md) = db_connect()
+def personQuery(db, name):
+    (db_conn, md) = db
 
     personTable = md.tables["person"]
     personTagTable = md.tables["person_tag"]
@@ -106,8 +103,8 @@ def personQuery(name):
 
     return df
 
-def topicQuery(topic):
-    (db_conn, md) = db_connect()
+def topicQuery(db, topic):
+    (db_conn, md) = db
 
     personTable = md.tables["person"]
 
@@ -117,8 +114,8 @@ def topicQuery(topic):
 
     return df
 
-def orgQuery(org):
-    (db_conn, md) = db_connect()
+def orgQuery(db, org):
+    (db_conn, md) = db
     
     organizationTable = md.tables["organization"]
     organizationTagTable = md.tables["organization_tag"]

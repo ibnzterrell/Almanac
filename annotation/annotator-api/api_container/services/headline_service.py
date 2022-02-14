@@ -31,7 +31,7 @@ granularityToPeriod = {
 
 def findEvents(df, events, dateField, granularity):
 
-    period = granularityToPeriod[granularity]
+    period = granularityToPeriod[granularity.value]
 
     # Cut dates to granularity specified
     df['date_period'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
@@ -87,33 +87,11 @@ def findRelevantEvents(df, events, dateField, granularity):
     dfh = pd.merge(dfh, events, on="date_period")
 
     return dfh
-  
-def headline_query(data):
-    events = pd.DataFrame.from_records(data["data"])
-    dateField = data["date"]
-    granularity = data["granularity"]
 
-    df = pd.DataFrame()
-
-    methodToFindEvents = {
-        "person": findPersonEvents,
-        "topic": findTopicEvents,
-        "text": findTextEvents,
-        "org": findOrgEvents
-    }
-
-    findEventsMethod = methodToFindEvents[data["method"]]
+def headline_query(db, data: list[dict], granularity: str, dateField: str, query: str):
+    data = pd.DataFrame.from_records(data)
     
-    df = findEventsMethod(data["tag"], events, dateField, granularity)
-    
-    df["date_period"] = df["date_period"].astype(str)
-
-    headlines = json.loads(df[df["alternate"] == False].to_json(orient="records"))
-    alternates = json.loads(df[df["alternate"] == True].to_json(orient="records"))
-
-    res_data = { "headlines": headlines, "alternates": alternates}
-
-    return json.dumps(res_data)
+    return headline_cluster(db, data, granularity, dateField, query)
 
 def findClusters(df, events, dateField, granularity):
     nlp = loadNLP()
@@ -195,12 +173,8 @@ def findClusters(df, events, dateField, granularity):
     return (df, dptopKs)
 
 
-def headline_cluster_query(data):
-    events = pd.DataFrame.from_records(data["data"])
-    dateField = data["date"]
-    granularity = data["granularity"]
-
-    df = textEventQuery(data["tag"])
+def headline_cluster(db, events, granularity, dateField, query):
+    df = textEventQuery(db, query)
 
     (df, dptopKs) = findClusters(df, events, dateField, granularity)
 
@@ -214,7 +188,7 @@ def headline_cluster_query(data):
 
     res_data = { "headlines": headlines, "alternates": alternates, "periodtopK": dptopKs}
 
-    return json.dumps(res_data)
+    return res_data
 
 def scoreDocs(docs, date_periods, tfLookup):
     scores = []

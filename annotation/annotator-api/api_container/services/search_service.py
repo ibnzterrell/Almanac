@@ -1,15 +1,13 @@
-import pandas as pd
-import json
 from model.DB import personQuery, topicQuery, orgQuery
 
-def findPerson(name):
-    return personQuery(name)
+def findPerson(db, name):
+    return personQuery(db, name)
 
-def findTopic(topic):
-    return topicQuery(topic)
+def findTopic(db, topic):
+    return topicQuery(db, topic)
 
-def findOrg(org):
-    return orgQuery(org)
+def findOrg(db, org):
+    return orgQuery(db, org)
 
 tagTypeToFind = {
     "person": findPerson,
@@ -17,8 +15,8 @@ tagTypeToFind = {
     "org": findOrg 
 }
 
-def search_query(tagType, query):
+def search_query(db, tagType, query):
     findTag = tagTypeToFind[tagType]
-    res_data = findTag(query).to_json(orient='records')
+    res_data = findTag(db, query).to_json(orient='records')
     
     return res_data

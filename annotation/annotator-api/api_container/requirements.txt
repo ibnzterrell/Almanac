@@ -1,11 +1,8 @@
-werkzeug
-Flask==1.1.4
-Flask-Cors
-pandas
-pymysql
-requests
-SQLAlchemy
 python-dotenv
-pymysql
-spacy
+fastAPI
+uvicorn
 gunicorn
+pymysql
+sqlalchemy
+pandas
+spacy

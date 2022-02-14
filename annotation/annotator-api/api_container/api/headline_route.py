@@ -1,21 +1,20 @@
-from flask import Blueprint, request, make_response
-from services.headline_service import headline_query, headline_cluster_query
-import json
+from fastapi import APIRouter, Request
+from model.DB import db_connect
+from model.DataFrameContainer import DataFrameContainer
+from model.APIOptions import Granularity
+from services.headline_service import headline_query
 
-headlineAPI = Blueprint("headline_route", __name__)
+headlineAPI = APIRouter()
 
-@headlineAPI.route("/headline", methods=["POST"])
-def headline_route():
-    req_data = json.loads(request.data)
+@headlineAPI.post("/headline")
+async def headline_route(request: Request, 
+        granularity: Granularity,
+        dateField: str,
+        query: str
+    ):
+    db = db_connect(request.app.state.engine)
     #print(req_data)
-    res_data = headline_query(req_data)
+    data = (await request.json())["data"]
+    res_data = headline_query(db, data, granularity, dateField, query)
     #print(res_data)
-    return make_response(res_data, 200)
-
-@headlineAPI.route("/cluster", methods=["POST"])
-def cluster_route():
-    req_data = json.loads(request.data)
-    #print(req_data)
-    res_data = headline_cluster_query(req_data)
-    #print(res_data)
-    return make_response(res_data, 200)
+    return res_data
