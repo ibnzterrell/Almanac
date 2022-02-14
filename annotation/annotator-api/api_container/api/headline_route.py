@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Request
 from model.DB import db_connect
-from model.DataFrameContainer import DataFrameContainer
 from model.APIOptions import Granularity
 from services.headline_service import headline_query
 
