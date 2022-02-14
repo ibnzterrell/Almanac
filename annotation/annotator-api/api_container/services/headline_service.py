@@ -88,12 +88,12 @@ def findRelevantEvents(df, events, dateField, granularity):
 
     return dfh
 
-def headline_query(db, data: list[dict], granularity: str, dateField: str, query: str):
+def headline_query(db, data: list[dict], granularity: str, dateField: str, query: str, options: dict):
     data = pd.DataFrame.from_records(data)
     
-    return headline_cluster(db, data, granularity, dateField, query)
+    return headline_cluster(db, data, granularity, dateField, query, options)
 
-def findClusters(df, events, dateField, granularity):
+def findClusters(df, events, dateField, granularity, options):
     nlp = loadNLP()
 
     period = granularityToPeriod[granularity]
@@ -111,12 +111,9 @@ def findClusters(df, events, dateField, granularity):
     df["doc"] = df["doc"].str.lower()
     df["doc"] = list(nlp.pipe(df["doc"]))
 
-    all_words = [token.lemma_ for doc in df["doc"] for token in doc if wordFilter(token)]
+    all_words = [token.lemma_ for doc in df["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
 
     dictionary = sorted(set(all_words))
-
-    total_tf = Counter(all_words)
-    #print(tdf)
 
     # Range Term Frequencies
     tfs = []
@@ -127,7 +124,7 @@ def findClusters(df, events, dateField, granularity):
 
     # Calculate Range Term Frequencies
     for dp in date_periods:
-        words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token)]
+        words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
         f = Counter(words)
         tf = {w: f.get(w, 0) / len(words) for w in dictionary}
         tfs.append(tf)
@@ -145,10 +142,11 @@ def findClusters(df, events, dateField, granularity):
     for tf in tfs:
         tfirf = {w: tf[w] * irf[w] for w in dictionary}
 
-        # Apply Exponential Decay Weighting
-        # tfsorted = sorted(tfirf.items(), key =
-        #      lambda kv : kv[1], reverse=True)
-        # tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
+        if (options["decayWeighting"]):
+            # Apply Exponential Decay Weighting
+            tfsorted = sorted(tfirf.items(), key =
+                lambda kv : kv[1], reverse=True)
+            tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
 
         tfirfs.append(tfirf)
 
@@ -163,7 +161,7 @@ def findClusters(df, events, dateField, granularity):
     
     tfDateLookup = {dp : tf for (dp, tf) in zip (date_periods, tfs)}
 
-    df["score"] = scoreDocs(df["doc"], df["date_period"], tfDateLookup)
+    df["score"] = scoreDocs(df["doc"], df["date_period"], tfDateLookup, options)
 
     df = df.sort_values(by="score", ascending=False)
 
@@ -173,10 +171,10 @@ def findClusters(df, events, dateField, granularity):
     return (df, dptopKs)
 
 
-def headline_cluster(db, events, granularity, dateField, query):
+def headline_cluster(db, events, granularity, dateField, query, options):
     df = textEventQuery(db, query)
 
-    (df, dptopKs) = findClusters(df, events, dateField, granularity)
+    (df, dptopKs) = findClusters(df, events, dateField, granularity, options)
 
     df["date_period"] = df["date_period"].astype(str)
     # print(df)
@@ -184,16 +182,21 @@ def headline_cluster(db, events, granularity, dateField, query):
     df = df.loc[:, ~df.columns.isin(["doc"])]
 
     headlines = json.loads(df[df["alternate"] == False].to_json(orient="records"))
-    alternates = json.loads(df[df["alternate"] == True].to_json(orient="records"))
 
-    res_data = { "headlines": headlines, "alternates": alternates, "periodtopK": dptopKs}
+    res_data = { "headlines": headlines}
+
+    if (options["alternates"]):
+        res_data["alternates"] = json.loads(df[df["alternate"] == True].to_json(orient="records"))
+
+    if (options["topK"]):
+        res_data["topK"] = dptopKs
 
     return res_data
 
-def scoreDocs(docs, date_periods, tfLookup):
+def scoreDocs(docs, date_periods, tfLookup, options):
     scores = []
     for (d, dp) in zip(docs, date_periods):
-        words = [token.lemma_ for token in d if wordFilter(token)]
+        words = [token.lemma_ for token in d if wordFilter(token, options["alphaFilter"])]
         words = set(words)
         score = sum([tfLookup[dp][w] for w in words])
         scores.append(score)
