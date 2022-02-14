@@ -106,8 +106,12 @@ def findClusters(df, events, dateField, granularity, options):
     
     date_periods = pd.unique(df["date_period"])
 
-    # df["doc"] = df["main_headline"] + " " + df["lead_paragraph"]
-    df["doc"] = df["main_headline"]
+    match options["scoringSpace"]:
+        case "headline":
+            df["doc"] = df["main_headline"]
+        case "headlinewithlead":
+            df["doc"] = df["main_headline"] + " " + df["lead_paragraph"]
+
     df["doc"] = df["doc"].str.lower()
     df["doc"] = list(nlp.pipe(df["doc"]))
 
@@ -172,7 +176,7 @@ def findClusters(df, events, dateField, granularity, options):
 
 
 def headline_cluster(db, events, granularity, dateField, query, options):
-    df = textEventQuery(db, query)
+    df = textEventQuery(db, query, options)
 
     (df, dptopKs) = findClusters(df, events, dateField, granularity, options)
 
