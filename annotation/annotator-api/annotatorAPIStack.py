@@ -34,8 +34,7 @@ class AnnotatorAPIStack(Stack):
         self.service_cluster_max = int(getenv("service_cluster_max"))
         self.api_service_min = int(getenv("api_service_min"))
         self.api_service_max= int(getenv("api_service_max"))
-        self.db_cluster_name = getenv("db_cluster_name")
-        self.db_cluster_instances = int(getenv("db_cluster_instances"))
+        self.db_instance_name = getenv("db_instance_name")
         
         self.db_subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
         self.vpc = ec2.Vpc(self, self.vpc_name,
@@ -90,17 +89,14 @@ class AnnotatorAPIStack(Stack):
             scale_out_cooldown=Duration.seconds(300)
         )
 
-        self.db_cluster = rds.DatabaseCluster(self, "AnnotationDatabase",
-            engine=rds.DatabaseClusterEngine.aurora_mysql(version=rds.AuroraMysqlEngineVersion.VER_3_01_0),
-            instance_props=rds.InstanceProps(
-                vpc=self.vpc,
-                instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MEDIUM),
-                allow_major_version_upgrade=False,
-                auto_minor_version_upgrade=True,
-                publicly_accessible=True,
-                vpc_subnets=self.db_subnet_selection
-            ),
-            instances = self.db_cluster_instances,
-            cluster_identifier=self.db_cluster_name,
+        self.db_instance = rds.DatabaseInstance(self, "AnnotationDatabase",
+            engine=rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0_26),
+            vpc=self.vpc,
+            instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.SMALL),
+            allow_major_version_upgrade=False,
+            auto_minor_version_upgrade=True,
+            publicly_accessible=True,
+            vpc_subnets=self.db_subnet_selection,
+            instance_identifier=self.db_instance_name,
             storage_encrypted=True
         )
