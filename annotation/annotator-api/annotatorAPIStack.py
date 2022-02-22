@@ -56,8 +56,7 @@ class AnnotatorAPIStack(Stack):
             instance_type=self.service_cluster_instance_type,
             machine_image=self.service_cluster_image,
             min_capacity=self.service_cluster_min,
-            max_capacity=self.service_cluster_max,
-            cooldown=Duration.seconds(60)
+            max_capacity=self.service_cluster_max
         )
 
         self.service_cluster_asg.scale_on_cpu_utilization("ClusterCPUScaling",
@@ -84,9 +83,7 @@ class AnnotatorAPIStack(Stack):
         )
 
         self.api_scalable_target.scale_on_cpu_utilization("APIServiceCpuScaling",
-            target_utilization_percent=80,
-            scale_in_cooldown=Duration.seconds(300),
-            scale_out_cooldown=Duration.seconds(120)
+            target_utilization_percent=80
         )
 
         self.db_instance = rds.DatabaseInstance(self, "AnnotationDatabase",
