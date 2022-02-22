@@ -38,7 +38,7 @@ def findEvents(df, events, dateField, granularity):
     events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
     df = df[df["date_period"].isin(events["date_period"])]
     
-    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
+    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph", "web_url"]]
 
     dfh = pd.DataFrame()
     alternates = True
@@ -73,7 +73,7 @@ def findRelevantEvents(df, events, dateField, granularity):
     
     df = df[df["date_period"].isin(events["date_period"])]
     
-    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph",  "abstract", "web_url", "relevance"]]
+    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph", "web_url", "relevance"]]
 
     dfh = pd.DataFrame()
     alternates = True
@@ -102,7 +102,7 @@ def findClusters(df, events, dateField, granularity, options):
     events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
     df = df[df["date_period"].isin(events["date_period"])]
     
-    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph",  "abstract", "web_url"]]
+    df = df[["pub_date", "date_period", "main_headline", "lead_paragraph", "web_url"]]
     
     date_periods = pd.unique(df["date_period"])
 

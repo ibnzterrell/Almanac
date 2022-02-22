@@ -33,7 +33,7 @@ def personEventQuery(db, name):
 
     # Tags are ordered by relevance, only select articles where they are first or second person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinPersonTagArticle).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
+                            articleTable.c.lead_paragraph, articleTable.c.pub_date, articleTable.c.web_url]).select_from(joinPersonTagArticle).where(personTable.c.person == name).where(personTagTable.c.rank <= 2)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     db_conn.close()
@@ -46,7 +46,7 @@ def topicEventQuery(db, topic):
     articleTable = md.tables["article"]
 
        # Tags are ordered by relevance, only select articles where they are first person listed
-    sqlQuery = sa.sql.select([articleTable.c.main_headline, articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).where(
+    sqlQuery = sa.sql.select([articleTable.c.main_headline,  articleTable.c.lead_paragraph, articleTable.c.pub_date, articleTable.c.web_url]).where(
         articleTable.c.subjects.ilike(f"[\'{topic}%"))
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
@@ -66,7 +66,7 @@ def textEventQuery(db, text, options):
             matchCols = "article.main_headline, article.lead_paragraph"
 
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
-    sqlQuery = sa.text(f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.abstract, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
+    sqlQuery = sa.text(f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
     # NOTE: We bind parameters separately to prevent SQL injections
     sqlQuery = sqlQuery.bindparams(textSearch=text)
 
@@ -90,7 +90,7 @@ def orgEventQuery(db, org):
 
     # Tags are ordered by relevance, only select articles where they are first or second person listed
     sqlQuery = sa.sql.select([articleTable.c.main_headline,
-                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.abstract, articleTable.c.web_url]).select_from(joinOrgTagArticle).where(organizationTable.c.organization == org).where(organizationTagTable.c.rank <= 1)
+                              articleTable.c.pub_date, articleTable.c.lead_paragraph, articleTable.c.web_url]).select_from(joinOrgTagArticle).where(organizationTable.c.organization == org).where(organizationTagTable.c.rank <= 1)
 
     df = pd.read_sql_query(sql=sqlQuery, con=db_conn)
     db_conn.close()
