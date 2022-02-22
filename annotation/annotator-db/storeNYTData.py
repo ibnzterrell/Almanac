@@ -48,8 +48,8 @@ articleUriToId = {
     uri: id for (uri, id) in zip(article_df["uri"], article_df["articleId"])
 }
 
-article_df = article_df[["articleId", "pub_date", "main_headline",
-                            "web_url", "abstract", "lead_paragraph", "print_headline"]]
+article_df = article_df[["articleId", "pub_date", "main_headline", 
+                            "lead_paragraph", "web_url"]]
 
 tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
                                                     "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
