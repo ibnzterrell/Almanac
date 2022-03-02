@@ -119,20 +119,19 @@ def findClusters(df, events, dateField, granularity, options):
 
     dictionary = sorted(set(all_words))
 
-    # Range Term Frequencies
+    # Term Frequencies
     tfs = []
-    # Range Words
-    rwords = []
-
+    trfs = []
     tfirfs = []
 
     # Calculate Range Term Frequencies
     for dp in date_periods:
         words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
         f = Counter(words)
-        tf = {w: f.get(w, 0) / len(words) for w in dictionary}
+        tf = {w: f.get(w, 0) for w in dictionary}
         tfs.append(tf)
-        rwords.append(words)
+        trf = {w: f.get(w, 0) / len(words) for w in dictionary}
+        trfs.append(trf)
     
     N = len(date_periods)
 
@@ -143,22 +142,22 @@ def findClusters(df, events, dateField, granularity, options):
     irf = {w: math.log(N / (1 + rf[w])) for w in dictionary}    
 
     # Calculate TF-IRFs
-    for tf in tfs:
-        tfirf = {w: tf[w] * irf[w] for w in dictionary}
+    for trf in trfs:
+        trfirf = {w: trf[w] * irf[w] for w in dictionary}
 
         if (options["decayWeighting"]):
             # Apply Exponential Decay Weighting
-            tfsorted = sorted(tfirf.items(), key =
+            trfsorted = sorted(trfirf.items(), key =
                 lambda kv : kv[1], reverse=True)
-            tfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(tfsorted, 0)}
+            trfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(trfsorted, 0)}
 
-        tfirfs.append(tfirf)
+        tfirfs.append(trfirf)
 
     topks = []
 
-    for (dp, tfirf) in zip(date_periods, tfirfs):
-        topk = heapq.nlargest(25, tf, key=tfirf.get)
-        topk = {w: tfirf[w] for w in topk}
+    for (tf, trf, trfirf) in zip(tfs, trfs, tfirfs):
+        topk = heapq.nlargest(25, trf, key=trfirf.get)
+        topk = {w: {"tf": tf[w], "trf": trf[w], "irf": irf[w], "rf":rf[w], "trfirf": trfirf[w]} for w in topk}
         topks.append(topk)
 
     dptopKs = {str(dp) : topktfirf for (dp, topktfirf) in zip(date_periods, topks)}
