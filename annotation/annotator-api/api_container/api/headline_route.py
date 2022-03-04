@@ -15,7 +15,8 @@ async def headline_route(request: Request,
         alphaFilter: bool = False,
         decayWeighting: bool = False,
         alternates: bool = False,
-        topK: bool = False
+        topK: bool = False,
+        singleDocumentFilter: bool = False
     ):
     db = db_connect(request.app.state.engine)
     data = (await request.json())["data"]
@@ -26,7 +27,8 @@ async def headline_route(request: Request,
         alternates = alternates,
         topK = topK,
         querySpace = querySpace.value,
-        scoringSpace = scoringSpace.value
+        scoringSpace = scoringSpace.value,
+        singleDocumentFilter = singleDocumentFilter
     )
 
     res_data = headline_query(db, data, granularity, dateField, query, options)

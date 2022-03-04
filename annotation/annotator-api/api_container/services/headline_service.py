@@ -124,6 +124,19 @@ def findClusters(df, events, dateField, granularity, options):
     trfs = []
     tfirfs = []
 
+    if (options["singleDocumentFilter"]):
+        wordsets = []
+        for dp in date_periods:
+            docwordsets = []
+            for doc in df[df["date_period"] == dp]["doc"]:
+                docwordset = set([token.lemma_ for token in doc if wordFilter(token, options["alphaFilter"])])
+                docwordsets.append(docwordset)
+            rangewords = [word for docset in docwordsets for word in docset]
+            f = Counter(rangewords)
+            rangewords = [word for word in rangewords if f.get(word, 0) > 1]
+            wordsets.append(set(rangewords))
+        dictionary = sorted(set([word for wordset in wordsets for word in wordset]))
+
     # Calculate Range Term Frequencies
     for dp in date_periods:
         words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
@@ -201,7 +214,7 @@ def scoreDocs(docs, date_periods, tfLookup, options):
     for (d, dp) in zip(docs, date_periods):
         words = [token.lemma_ for token in d if wordFilter(token, options["alphaFilter"])]
         words = set(words)
-        score = sum([tfLookup[dp][w] for w in words])
+        score = sum([tfLookup[dp].get(w, 0) for w in words])
         scores.append(score)
 
     return scores
