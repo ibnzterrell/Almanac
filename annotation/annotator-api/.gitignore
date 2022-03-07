@@ -4,3 +4,5 @@ cdk.out
 
 .env
 cdk.context.json
+
+__pycache__/

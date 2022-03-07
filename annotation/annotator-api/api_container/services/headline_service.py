@@ -139,17 +139,26 @@ def findClusters(df, events, dateField, granularity, options):
 
     # Calculate Range Term Frequencies
     for dp in date_periods:
-        words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
+        words = []
+        if (options["booleanFrequencies"]):
+            docwordsets = []
+            for doc in df[df["date_period"] == dp]["doc"]:
+                docwordset = set([token.lemma_ for token in doc if wordFilter(token, options["alphaFilter"])])
+                docwordsets.append(docwordset)
+            words = [word for docset in docwordsets for word in docset]
+        else:
+            words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
         f = Counter(words)
+
         tf = {w: f.get(w, 0) for w in dictionary}
         tfs.append(tf)
-        trf = {w: f.get(w, 0) / len(words) for w in dictionary}
+        trf = {w: tf.get(w, 0) / len(words) for w in dictionary}
         trfs.append(trf)
     
     N = len(date_periods)
 
     # Calculate Range Frequencies
-    rf = {w: sum([1 if (tf[w] > 0) else 0 for tf in tfs]) for w in dictionary}
+    rf = {w: sum([1 if (tf.get(w, 0) > 0) else 0 for tf in tfs]) for w in dictionary}
 
     #Calculate Inverse Range Frequencies
     irf = {w: math.log(N / (1 + rf[w])) for w in dictionary}    
@@ -170,7 +179,7 @@ def findClusters(df, events, dateField, granularity, options):
 
     for (tf, trf, trfirf) in zip(tfs, trfs, tfirfs):
         topk = heapq.nlargest(25, trf, key=trfirf.get)
-        topk = {w: {"tf": tf[w], "trf": trf[w], "irf": irf[w], "rf":rf[w], "trfirf": trfirf[w]} for w in topk}
+        topk = {w: {"tf": tf.get(w, 0), "trf": trf.get(w, 0), "irf": irf.get(w, 0), "rf":rf.get(w, 0), "trfirf": trfirf.get(w, 0)} for w in topk}
         topks.append(topk)
 
     dptopKs = {str(dp) : topktfirf for (dp, topktfirf) in zip(date_periods, topks)}
