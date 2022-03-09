@@ -120,9 +120,9 @@ def findClusters(df, events, dateField, granularity, options):
     dictionary = sorted(set(all_words))
 
     # Term Frequencies
-    tfs = []
+    fs = []
     trfs = []
-    tfirfs = []
+    trfirfs = []
 
     if (options["singleDocumentFilter"]):
         wordsets = []
@@ -132,8 +132,6 @@ def findClusters(df, events, dateField, granularity, options):
                 docwordset = set([token.lemma_ for token in doc if wordFilter(token, options["alphaFilter"])])
                 docwordsets.append(docwordset)
             rangewords = [word for docset in docwordsets for word in docset]
-            f = Counter(rangewords)
-            rangewords = [word for word in rangewords if f.get(word, 0) > 1]
             wordsets.append(set(rangewords))
         dictionary = sorted(set([word for wordset in wordsets for word in wordset]))
 
@@ -148,22 +146,22 @@ def findClusters(df, events, dateField, granularity, options):
             words = [word for docset in docwordsets for word in docset]
         else:
             words = [token.lemma_ for doc in df[df["date_period"] == dp]["doc"] for token in doc if wordFilter(token, options["alphaFilter"])]
-        f = Counter(words)
+        fc = Counter(words)
 
-        tf = {w: f.get(w, 0) for w in dictionary}
-        tfs.append(tf)
-        trf = {w: tf.get(w, 0) / len(words) for w in dictionary}
+        f = {w: fc.get(w, 0) for w in dictionary}
+        fs.append(f)
+        trf = {w: f.get(w, 0) / len(words) for w in dictionary}
         trfs.append(trf)
     
     N = len(date_periods)
 
     # Calculate Range Frequencies
-    rf = {w: sum([1 if (tf.get(w, 0) > 0) else 0 for tf in tfs]) for w in dictionary}
+    rf = {w: sum([1 if (f.get(w, 0) > 0) else 0 for f in fs]) for w in dictionary}
 
     #Calculate Inverse Range Frequencies
-    irf = {w: math.log(N / (1 + rf[w])) for w in dictionary}    
+    irf = {w: 1 + math.log(N / (1 + rf[w])) for w in dictionary}    
 
-    # Calculate TF-IRFs
+    # Calculate TRF-IRFs
     for trf in trfs:
         trfirf = {w: trf[w] * irf[w] for w in dictionary}
 
@@ -173,20 +171,20 @@ def findClusters(df, events, dateField, granularity, options):
                 lambda kv : kv[1], reverse=True)
             trfirf = {k: v * pow(0.80, i) for (i, (k, v)) in enumerate(trfsorted, 0)}
 
-        tfirfs.append(trfirf)
+        trfirfs.append(trfirf)
 
     topks = []
 
-    for (tf, trf, trfirf) in zip(tfs, trfs, tfirfs):
+    for (f, trf, trfirf) in zip(fs, trfs, trfirfs):
         topk = heapq.nlargest(25, trf, key=trfirf.get)
-        topk = {w: {"tf": tf.get(w, 0), "trf": trf.get(w, 0), "irf": irf.get(w, 0), "rf":rf.get(w, 0), "trfirf": trfirf.get(w, 0)} for w in topk}
+        topk = {w: {"f": f.get(w, 0), "trf": trf.get(w, 0), "irf": irf.get(w, 0), "rf":rf.get(w, 0), "trfirf": trfirf.get(w, 0)} for w in topk}
         topks.append(topk)
 
-    dptopKs = {str(dp) : topktfirf for (dp, topktfirf) in zip(date_periods, topks)}
+    dptopKs = {str(dp) : topktrfirf for (dp, topktrfirf) in zip(date_periods, topks)}
     
-    tfDateLookup = {dp : tf for (dp, tf) in zip (date_periods, tfs)}
+    trfDateLookup = {dp : trf for (dp, trf) in zip (date_periods, fs)}
 
-    df["score"] = scoreDocs(df["doc"], df["date_period"], tfDateLookup, options)
+    df["score"] = scoreDocs(df["doc"], df["date_period"], trfDateLookup, options)
 
     df = df.sort_values(by="score", ascending=False)
 
@@ -218,12 +216,12 @@ def headline_cluster(db, events, granularity, dateField, query, options):
 
     return res_data
 
-def scoreDocs(docs, date_periods, tfLookup, options):
+def scoreDocs(docs, date_periods, trfLookup, options):
     scores = []
     for (d, dp) in zip(docs, date_periods):
         words = [token.lemma_ for token in d if wordFilter(token, options["alphaFilter"])]
         words = set(words)
-        score = sum([tfLookup[dp].get(w, 0) for w in words])
+        score = sum([trfLookup[dp].get(w, 0) for w in words])
         scores.append(score)
 
     return scores
