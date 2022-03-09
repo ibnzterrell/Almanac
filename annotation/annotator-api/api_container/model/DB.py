@@ -3,8 +3,9 @@ import sqlalchemy as sa
 import pandas as pd
 
 def db_startup():
+    #NOTE: Default MySQL Timeout is 28800, if this is changed, it should match your DB's timeout
     engine = sa.create_engine(
-            os.getenv("SQL_ENGINE"), echo=True)
+            os.getenv("SQL_ENGINE"), pool_recycle=int(os.getenv("POOL_RECYCLE")), echo=True)
     return engine
 
 def db_connect(engine):
