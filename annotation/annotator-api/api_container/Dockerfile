@@ -20,6 +20,7 @@ RUN python -m spacy download en_core_web_sm
 # RUN python -m spacy download en_core_web_trf
 RUN python -m nltk.downloader wordnet
 RUN python -m nltk.downloader omw-1.4
+RUN pip install model/en_experimental_eddittree_ud_en_ewt-0.0.1.tar.gz
 
 # Gunicorn bind / options are in gunicorn.conf.py
 CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker"]

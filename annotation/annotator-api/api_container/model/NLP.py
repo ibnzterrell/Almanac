@@ -46,12 +46,14 @@ def stemmerSnowball(doc):
 def loadNLP():
     pipelines = {}
     pipelines[WordConsolidation.lemma_spaCy_sm] = spacy.load("en_core_web_sm", exclude=["ner"])
-    # pipes[WordConsolidation.lemma_spaCy_md] = spacy.load("en_core_web_md", exclude=["ner"])
-    # pipes[WordConsolidation.lemma_spaCy_lg] = spacy.load("en_core_web_lg", exclude=["ner"])
-    # pipes[WordConsolidation.lemma_RoBERTa] = spacy.load("en_core_web_trf", exclude=["ner"])
+    # pipelines[WordConsolidation.lemma_spaCy_md] = spacy.load("en_core_web_md", exclude=["ner"])
+    # pipelines[WordConsolidation.lemma_spaCy_lg] = spacy.load("en_core_web_lg", exclude=["ner"])
+    # pipelines[WordConsolidation.lemma_RoBERTa] = spacy.load("en_core_web_trf", exclude=["ner"])
     lemma_WordNetPipeline = spacy.load("en_core_web_sm", exclude=["lemmatizer", "ner"])
     lemma_WordNetPipeline.add_pipe("lemmatizer-WordNet")
     pipelines[WordConsolidation.lemma_WordNet] = lemma_WordNetPipeline
+
+    pipelines[WordConsolidation.lemma_neural_edittree] = spacy.load("en_experimental_eddittree_ud_en_ewt", exclude=["ner"])
 
     stem_PorterPipeline = spacy.load("en_core_web_sm", exclude=["lemmatizer", "ner"])
     stem_PorterPipeline.add_pipe("stemmer-porter")
@@ -65,6 +67,7 @@ def loadNLP():
     stem_SnowballPipeline.add_pipe("stemmer-snowball")
     pipelines[WordConsolidation.stem_snowball] = stem_SnowballPipeline
 
+    
     return pipelines
 
 def getNLP(pipelines, options):

@@ -15,6 +15,7 @@ class WordConsolidation(str, Enum):
     lemma_spaCy_lg = "lemma_spaCy_lg"
     lemma_RoBERTa = "lemma_RoBERTa"
     lemma_WordNet = "lemma_WordNet"
+    lemma_neural_edittree = "lemma_neural_edittree"
     stem_porter = "stem_porter"
     stem_lancaster = "stem_lancaster"
     stem_snowball = "stem_snowball"
