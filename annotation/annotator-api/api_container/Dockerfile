@@ -15,9 +15,9 @@ COPY requirements.txt /app/requirements.txt
 
 RUN python -m pip install -r requirements.txt
 RUN python -m spacy download en_core_web_sm
-RUN python -m spacy download en_core_web_md
-RUN python -m spacy download en_core_web_lg
-RUN python -m spacy download en_core_web_trf
+# RUN python -m spacy download en_core_web_md
+# RUN python -m spacy download en_core_web_lg
+# RUN python -m spacy download en_core_web_trf
 
 # Gunicorn bind / options are in gunicorn.conf.py
 CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker"]
