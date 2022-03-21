@@ -15,3 +15,4 @@ class WordConsolidation(str, Enum):
     lemma_spaCy_lg = "lemma_spaCy_lg"
     lemma_RoBERTa = "lemma_RoBERTa"
     lemma_WordNet = "lemma_WordNet"
+    stem_porter = "stem_porter"

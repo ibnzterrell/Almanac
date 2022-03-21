@@ -79,13 +79,13 @@ def findRelevantEvents(df, events, dateField, granularity):
 
     return dfh
 
-def headline_query(db, pipes, data: list[dict], granularity: str, dateField: str, query: str, options: dict):
+def headline_query(db, pipelines, data: list[dict], granularity: str, dateField: str, query: str, options: dict):
     data = pd.DataFrame.from_records(data)
     
-    return headline_cluster(db, pipes, data, granularity, dateField, query, options)
+    return headline_cluster(db, pipelines, data, granularity, dateField, query, options)
 
-def findClusters(df, pipes, events, dateField, granularity, options):
-    nlp = getNLP(pipes, options)
+def findClusters(df, pipelines, events, dateField, granularity, options):
+    nlp = getNLP(pipelines, options)
 
     period = granularityToPandasPeriod[granularity]
 

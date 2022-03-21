@@ -21,7 +21,7 @@ async def headline_route(request: Request,
         booleanFrequencies: bool = False
     ):
     db = db_connect(request.app.state.engine)
-    pipes = request.app.state.pipes
+    pipelines = request.app.state.pipelines
     data = (await request.json())["data"]
 
     options = dict(
@@ -36,6 +36,6 @@ async def headline_route(request: Request,
         booleanFrequencies = booleanFrequencies
     )
 
-    res_data = headline_query(db, pipes, data, granularity, dateField, query, options)
+    res_data = headline_query(db, pipelines, data, granularity, dateField, query, options)
 
     return res_data

@@ -1,5 +1,6 @@
 import spacy
 from nltk.stem import WordNetLemmatizer
+from nltk.stem.porter import PorterStemmer
 from model.Options import WordConsolidation
 
 def wordFilter(token, alphaFilter: bool):
@@ -7,26 +8,38 @@ def wordFilter(token, alphaFilter: bool):
         return token.is_alpha and not token.is_stop
     return ((not token.is_punct) and (not token.is_stop))
 
-wordNet = WordNetLemmatizer()
+WordNet = WordNetLemmatizer()
+porter = PorterStemmer()
 
 @spacy.Language.component("lemmatizer-WordNet")
 def lemmatizerWordNet(doc):
     for token in doc:
-        token.lemma_ = wordNet.lemmatize(token.text)
+        token.lemma_ = WordNet.lemmatize(token.text)
+
+    return doc
+
+@spacy.Language.component("stemmer-porter")
+def stemmerPorter(doc):
+    for token in doc:
+        token.lemma_ = porter.stem(token.text)
 
     return doc
 
 def loadNLP():
-    pipes = {}
-    pipes[WordConsolidation.lemma_spaCy_sm] = spacy.load("en_core_web_sm", exclude=["ner"])
+    pipelines = {}
+    pipelines[WordConsolidation.lemma_spaCy_sm] = spacy.load("en_core_web_sm", exclude=["ner"])
     # pipes[WordConsolidation.lemma_spaCy_md] = spacy.load("en_core_web_md", exclude=["ner"])
     # pipes[WordConsolidation.lemma_spaCy_lg] = spacy.load("en_core_web_lg", exclude=["ner"])
     # pipes[WordConsolidation.lemma_RoBERTa] = spacy.load("en_core_web_trf", exclude=["ner"])
-    lemma_WordNetPipe = spacy.load("en_core_web_sm", exclude=["ner"])
-    lemma_WordNetPipe.add_pipe("lemmatizer-WordNet")
-    pipes[WordConsolidation.lemma_WordNet] = lemma_WordNetPipe
+    lemma_WordNetPipeline = spacy.load("en_core_web_sm", exclude=["lemmatizer", "ner"])
+    lemma_WordNetPipeline.add_pipe("lemmatizer-WordNet")
+    pipelines[WordConsolidation.lemma_WordNet] = lemma_WordNetPipeline
 
-    return pipes
+    stem_PorterPipeline = spacy.load("en_core_web_sm", exclude=["lemmatizer", "ner"])
+    stem_PorterPipeline.add_pipe("stemmer-porter")
+    pipelines[WordConsolidation.stem_porter] = stem_PorterPipeline
 
-def getNLP(pipes, options):
-    return pipes[options["consolidationMethod"]]
+    return pipelines
+
+def getNLP(pipelines, options):
+    return pipelines[options["consolidationMethod"]]
