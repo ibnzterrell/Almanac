@@ -17,3 +17,4 @@ class WordConsolidation(str, Enum):
     lemma_WordNet = "lemma_WordNet"
     stem_porter = "stem_porter"
     stem_lancaster = "stem_lancaster"
+    stem_snowball = "stem_snowball"
