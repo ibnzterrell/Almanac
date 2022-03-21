@@ -19,7 +19,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup():
     app.state.engine = db_startup()
-    app.state.nlp = loadNLP()
+    app.state.pipes = loadNLP()
 
 @app.on_event("shutdown")
 async def shutdown():

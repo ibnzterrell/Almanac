@@ -33,7 +33,7 @@ def createIdsFromTag(tag_df, tag):
     tag_df[tag + "Id"] = tag_df[tag].map(tagToId)
     return id_df
 
-fileRead = "./data/NYT_Data_Raw_1_2000_to_2_2022.csv"
+fileRead = "./data/NYT_Data_Raw_1_2000_to_3_2022.csv"
 print("Reading " + fileRead)
 article_df = pd.read_csv(fileRead)
 article_df["pub_date"] = pd.to_datetime(article_df["pub_date"])

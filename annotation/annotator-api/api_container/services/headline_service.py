@@ -1,8 +1,8 @@
 import pandas as pd
 import json
-from datetime import timedelta
 from model.DB import personEventQuery, topicEventQuery, textEventQuery, orgEventQuery
-from model.NLP import loadNLP, wordFilter
+from model.NLP import getNLP, wordFilter
+from model.Options import Granularity, HeadlineSearch, WordConsolidation
 from collections import Counter
 import heapq
 import math
@@ -23,15 +23,15 @@ def findOrgEvents(org, events, dateField, granularity):
     df = orgEventQuery(org)
     return findEvents(df, events, dateField, granularity)
 
-granularityToPeriod = {
-    "month": "M",
-    "week": "W",
-    "day": "D"
+granularityToPandasPeriod = {
+    Granularity.month: "M",
+    Granularity.week: "W",
+    Granularity.day: "D"
 }
 
 def findEvents(df, events, dateField, granularity):
 
-    period = granularityToPeriod[granularity.value]
+    period = granularityToPandasPeriod[granularity]
 
     # Cut dates to granularity specified
     df['date_period'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
@@ -55,20 +55,11 @@ def findEvents(df, events, dateField, granularity):
     #df = df.drop(columns=["date_period"])
     return dfh
 
-granularityToCutoffDeltaHours= {
-    "month": 24,
-    "week": 12,
-    "day": 4,
-}
-
 def findRelevantEvents(df, events, dateField, granularity):
-    period = granularityToPeriod[granularity]
+    period = granularityToPandasPeriod[granularity]
 
-    cutoffDeltaHours  = granularityToCutoffDeltaHours[granularity]
-    
     # Cut dates to granularity specified
-    df["pub_date_delta"] = pd.to_datetime(df["pub_date"]) + timedelta(hours=cutoffDeltaHours)
-    df["date_period"] = df["pub_date_delta"].dt.to_period(period)
+    df["date_period"] = df["pub_date"].dt.to_period(period)
     events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
     
     df = df[df["date_period"].isin(events["date_period"])]
@@ -88,15 +79,15 @@ def findRelevantEvents(df, events, dateField, granularity):
 
     return dfh
 
-def headline_query(db, data: list[dict], granularity: str, dateField: str, query: str, options: dict):
+def headline_query(db, pipes, data: list[dict], granularity: str, dateField: str, query: str, options: dict):
     data = pd.DataFrame.from_records(data)
     
-    return headline_cluster(db, data, granularity, dateField, query, options)
+    return headline_cluster(db, pipes, data, granularity, dateField, query, options)
 
-def findClusters(df, events, dateField, granularity, options):
-    nlp = loadNLP()
+def findClusters(df, pipes, events, dateField, granularity, options):
+    nlp = getNLP(pipes, options)
 
-    period = granularityToPeriod[granularity]
+    period = granularityToPandasPeriod[granularity]
 
     df['date_period'] = pd.to_datetime(df['pub_date']).dt.to_period(period)
     events["date_period"] = pd.to_datetime(events[dateField]).dt.to_period(period)
@@ -107,9 +98,9 @@ def findClusters(df, events, dateField, granularity, options):
     date_periods = pd.unique(df["date_period"])
 
     match options["scoringSpace"]:
-        case "headline":
+        case HeadlineSearch.headline:
             df["doc"] = df["main_headline"]
-        case "headlinewithlead":
+        case HeadlineSearch.headlinewithlead:
             df["doc"] = df["main_headline"] + " " + df["lead_paragraph"]
 
     df["doc"] = df["doc"].str.lower()
@@ -194,10 +185,10 @@ def findClusters(df, events, dateField, granularity, options):
     return (df, dptopKs)
 
 
-def headline_cluster(db, events, granularity, dateField, query, options):
+def headline_cluster(db, pipes, events, granularity, dateField, query, options):
     df = textEventQuery(db, query, options)
 
-    (df, dptopKs) = findClusters(df, events, dateField, granularity, options)
+    (df, dptopKs) = findClusters(df, pipes, events, dateField, granularity, options)
 
     df["date_period"] = df["date_period"].astype(str)
     # print(df)
