@@ -12,6 +12,7 @@ sqlalchemy = "*"
 pymysql = "*"
 pandas = "*"
 spacy = "*"
+nltk = "*"
 
 [dev-packages]
 

@@ -18,6 +18,8 @@ RUN python -m spacy download en_core_web_sm
 # RUN python -m spacy download en_core_web_md
 # RUN python -m spacy download en_core_web_lg
 # RUN python -m spacy download en_core_web_trf
+RUN python -m nltk.downloader wordnet
+RUN python -m nltk.downloader omw-1.4
 
 # Gunicorn bind / options are in gunicorn.conf.py
 CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker"]
