@@ -26,8 +26,6 @@ class AnnotatorAPIStack(Stack):
         self.vpc_name = getenv("vpc_name")
         # NOTE: There must be at least 2 availability zones for RDS to deploy properly
         self.vpc_max_azs = int(getenv("vpc_max_azs"))
-        # NOTE: There must be at least one NAT gateway or ECS will not start EC2 instances
-        self.vpc_natgws = int(getenv("vpc_natgws"))
         self.zone_name = getenv("zone_name")
         self.domain_name = getenv("domain_name")
         self.service_cluster_min = int(getenv("service_cluster_min"))
@@ -36,10 +34,16 @@ class AnnotatorAPIStack(Stack):
         self.api_service_max= int(getenv("api_service_max"))
         self.db_instance_name = getenv("db_instance_name")
         
-        self.db_subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
+        self.subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
+        self.subnet_configuration = ec2.SubnetConfiguration(
+            name= getenv("vpc_name") + "Subnet",
+            subnet_type=ec2.SubnetType.PUBLIC,
+        )
         self.vpc = ec2.Vpc(self, self.vpc_name,
-        max_azs=self.vpc_max_azs,
-        nat_gateways=self.vpc_natgws)
+            max_azs=self.vpc_max_azs,
+            nat_gateways=0,
+            subnet_configuration = [self.subnet_configuration]
+        )
 
         self.hosted_zone = route53.HostedZone.from_lookup(self, id="AnnotatorZone", domain_name=self.zone_name)
         
@@ -93,7 +97,7 @@ class AnnotatorAPIStack(Stack):
             allow_major_version_upgrade=False,
             auto_minor_version_upgrade=True,
             publicly_accessible=True,
-            vpc_subnets=self.db_subnet_selection,
+            vpc_subnets=self.subnet_selection,
             instance_identifier=self.db_instance_name,
             storage_encrypted=True
         )
