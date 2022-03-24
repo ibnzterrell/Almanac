@@ -93,6 +93,7 @@ class AnnotatorAPIStack(Stack):
         self.db_engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0_26)
         self.db_parameters = {
             "ft_min_word_len": "3",
+            "ft_stopword_file": "/dev/null"
         }
         self.db_parametergroup = rds.ParameterGroup(self, "AnnotatorDBParameterGroup",
             engine=self.db_engine,
