@@ -90,8 +90,17 @@ class AnnotatorAPIStack(Stack):
             target_utilization_percent=80
         )
 
+        self.db_engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0_26)
+        self.db_parameters = {
+            "ft_min_word_len": "3",
+        }
+        self.db_parametergroup = rds.ParameterGroup(self, "AnnotatorDBParameterGroup",
+            engine=self.db_engine,
+            parameters=self.db_parameters
+        )
+
         self.db_instance = rds.DatabaseInstance(self, "AnnotationDatabase",
-            engine=rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0_26),
+            engine=self.db_engine,
             vpc=self.vpc,
             instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.SMALL),
             allow_major_version_upgrade=False,
@@ -99,5 +108,6 @@ class AnnotatorAPIStack(Stack):
             publicly_accessible=True,
             vpc_subnets=self.subnet_selection,
             instance_identifier=self.db_instance_name,
-            storage_encrypted=True
+            storage_encrypted=True,
+            parameter_group=self.db_parametergroup
         )
