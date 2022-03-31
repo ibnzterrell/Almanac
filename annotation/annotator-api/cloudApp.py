@@ -7,8 +7,6 @@ import aws_cdk as cdk
 from annotatorAPIStack import AnnotatorAPIStack
 
 load_dotenv()
-account_env = getenv("account")
-region_env = getenv("region")
 app = cdk.App()
 AnnotatorAPIStack(app, "AnnotatorAPIStack",
     # If you don't specify 'env', this stack will be environment-agnostic.

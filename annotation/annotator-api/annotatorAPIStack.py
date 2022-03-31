@@ -36,7 +36,7 @@ class AnnotatorAPIStack(Stack):
         
         self.subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
         self.subnet_configuration = ec2.SubnetConfiguration(
-            name= getenv("vpc_name") + "Subnet",
+            name= self.vpc_name + "Subnet",
             subnet_type=ec2.SubnetType.PUBLIC,
         )
         self.vpc = ec2.Vpc(self, self.vpc_name,

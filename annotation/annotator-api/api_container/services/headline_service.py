@@ -141,7 +141,7 @@ def findClusters(df, pipelines, events, dateField, granularity, options):
 
         f = {w: fc.get(w, 0) for w in dictionary}
         fs.append(f)
-        trf = {w: f.get(w, 0) / len(words) for w in dictionary}
+        trf = {w: f.get(w, 0) / (len(words) + 1) for w in dictionary}
         trfs.append(trf)
     
     N = len(date_periods)
