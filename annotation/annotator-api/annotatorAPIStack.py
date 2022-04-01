@@ -3,6 +3,7 @@ from platform import architecture
 from aws_cdk import (
     Stack,
     Duration,
+    RemovalPolicy,
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_ecs_patterns  as ecs_patterns,
@@ -110,5 +111,6 @@ class AnnotatorAPIStack(Stack):
             vpc_subnets=self.subnet_selection,
             instance_identifier=self.db_instance_name,
             storage_encrypted=True,
+            removal_policy=RemovalPolicy.DESTROY,
             parameter_group=self.db_parametergroup
         )
