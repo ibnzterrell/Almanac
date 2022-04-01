@@ -150,7 +150,7 @@ def findClusters(df, pipelines, events, dateField, granularity, options):
     rf = {w: sum([1 if (f.get(w, 0) > 0) else 0 for f in fs]) for w in dictionary}
 
     #Calculate Inverse Range Frequencies
-    irf = {w: 1 + math.log(N / (1 + rf[w])) for w in dictionary}    
+    irf = {w: math.log(N / (rf[w])) for w in dictionary}    
 
     # Calculate TRF-IRFs
     for trf in trfs:
