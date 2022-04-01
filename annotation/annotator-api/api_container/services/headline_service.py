@@ -173,7 +173,7 @@ def findClusters(df, pipelines, events, dateField, granularity, options):
 
     dptopKs = {str(dp) : topktrfirf for (dp, topktrfirf) in zip(date_periods, topks)}
     
-    trfDateLookup = {dp : trf for (dp, trf) in zip (date_periods, fs)}
+    trfDateLookup = {dp : trf for (dp, trf) in zip (date_periods, trfs)}
 
     df["score"] = scoreDocs(df["doc"], df["date_period"], trfDateLookup, options)
 
