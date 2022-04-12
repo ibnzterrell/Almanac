@@ -5,10 +5,10 @@ import requests
 from dotenv import load_dotenv
 import os
 
-# Downloads last two decades of NYT Headlines, 01/01/2000 - 12/31/2021
+# Downloads last ~two decades of NYT Headlines, 01/01/2000 - 04/31/2022
 startMonth = 1
 startYear = 2000
-endMonth = 3
+endMonth = 4
 endYear = 2022
 
 load_dotenv()

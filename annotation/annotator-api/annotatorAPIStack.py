@@ -104,7 +104,7 @@ class AnnotatorAPIStack(Stack):
         self.db_instance = rds.DatabaseInstance(self, "AnnotationDatabase",
             engine=self.db_engine,
             vpc=self.vpc,
-            instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.SMALL),
+            instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MEDIUM),
             allow_major_version_upgrade=False,
             auto_minor_version_upgrade=True,
             publicly_accessible=True,
