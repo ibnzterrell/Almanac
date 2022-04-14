@@ -55,7 +55,7 @@ class AnnotatorAPIStack(Stack):
 
         self.service_cluster_image = ecs.BottleRocketImage(architecture=ec2.InstanceArchitecture.X86_64)
         # TODO: Use ARM_64 BottleRocket with BURSTABLE4_GRAVITON
-        self.service_cluster_instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3_AMD, ec2.InstanceSize.SMALL)
+        self.service_cluster_instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3_AMD, ec2.InstanceSize.MEDIUM)
 
         self.service_cluster_asg = self.service_cluster.add_capacity("DefaultAutoScalingGroupCapacity",
             instance_type=self.service_cluster_instance_type,
