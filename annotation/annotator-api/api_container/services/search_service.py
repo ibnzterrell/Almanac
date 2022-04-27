@@ -12,13 +12,15 @@ def findOrg(db, org):
 
 def findTextHeadline(db, text):
     options = {
-        "querySpace": "headline"
+        "querySpace": "headline",
+        "queryMode": "boolean"
     }
     return textEventQuery(db, text, options)
 
 def findTextHeadlineWithLead(db, text):
     options = {
-        "querySpace": "headlinewithlead"
+        "querySpace": "headlinewithlead",
+        "queryMode": "boolean"
     }
     return textEventQuery(db, text, options)
 

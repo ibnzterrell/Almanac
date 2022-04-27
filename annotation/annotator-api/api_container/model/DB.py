@@ -66,8 +66,15 @@ def textEventQuery(db, text, options):
         case "headlinewithlead":
             matchCols = "article.main_headline, article.lead_paragraph"
 
+    matchMode = ""
+    match options["queryMode"]:
+        case "similarity":
+            matchMode = "NATURAL LANGUAGE MODE"
+        case "boolean":
+            matchMode = "BOOLEAN MODE"
+    
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
-    sqlQuery = sa.text(f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN NATURAL LANGUAGE MODE)")
+    sqlQuery = sa.text(f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode}) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode})")
     # NOTE: We bind parameters separately to prevent SQL injections
     sqlQuery = sqlQuery.bindparams(textSearch=text)
 
