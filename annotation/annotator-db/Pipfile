@@ -9,6 +9,7 @@ sqlalchemy = "*"
 python-dotenv = "*"
 requests = "*"
 pymysql = "*"
+pyarrow = "*"
 
 [dev-packages]
 

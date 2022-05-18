@@ -5,6 +5,16 @@ from sqlalchemy.pool import SingletonThreadPool
 
 from dotenv import load_dotenv
 import os
+from datetime import datetime, timedelta
+
+load_dotenv()
+
+startMonth = int(os.getenv("START_MONTH"))
+startYear = int(os.getenv("START_YEAR"))
+
+yesterday = datetime.today() - timedelta(days=1)
+endMonth = yesterday.month
+endYear = yesterday.year
 
 def rank_array(df, column):
     for uri, arr in zip(df["uri"], df[column]):
@@ -33,9 +43,10 @@ def createIdsFromTag(tag_df, tag):
     tag_df[tag + "Id"] = tag_df[tag].map(tagToId)
     return id_df
 
-fileRead = "./data/NYT_Data_Raw_1_2000_to_4_2022.csv"
+fileRead = f"./data/NYT_Data_Clean_{startMonth}_{startYear}_to_{endMonth}_{endYear}.parquet"
+
 print("Reading " + fileRead)
-article_df = pd.read_csv(fileRead)
+article_df = pd.read_parquet(fileRead)
 article_df["pub_date"] = pd.to_datetime(article_df["pub_date"])
 article_df["articleId"] = range(1, len(article_df) + 1)
 

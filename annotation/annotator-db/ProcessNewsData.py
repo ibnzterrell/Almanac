@@ -4,34 +4,32 @@ import json
 import requests
 from dotenv import load_dotenv
 import os
-
-# Downloads last ~two decades of NYT Headlines, 01/01/2000 - 04/31/2022
-startMonth = 1
-startYear = 2000
-endMonth = 4
-endYear = 2022
+from datetime import datetime, timedelta
 
 load_dotenv()
-# 1851 oldest, newest is current day
-apiKey = os.getenv("apiKeyNYT")
 
-# python -u .\NewYorkTimesData.py
+startMonth = int(os.getenv("START_MONTH"))
+startYear = int(os.getenv("START_YEAR"))
 
+yesterday = datetime.today() - timedelta(days=1)
+endMonth = yesterday.month
+endYear = yesterday.year
 
-def getMonthDataframe(month, year):
-    print(f"Retrieving {year}-{month}")
-    rawMonthData = requests.get(
-        f"https://api.nytimes.com/svc/archive/v1/{year}/{month}.json?api-key={apiKey}")
-    data = json.loads(rawMonthData.content)
-    print("Retrieved. Processing Month.")
+def processMonthDataframe(month, year):
+    print(f"Loading {year}-{month}")
+
+    data = {}
+    with open(f"./data/raw/{year}_{month}.json", "r") as inFile:
+        data = json.load(inFile)
+
+    print("Loaded. Processing Month.")
 
     # Convert JSON to Dataframe
     df = pd.json_normalize(data["response"]["docs"])
 
-    # Some months are missing, don't process those
+    # If data is missing stop processing
     if df.empty:
-        print(f"Missing Month: {year}-{month}")
-        return df
+        raise Exception(f"Missing Month: {year}-{month}")
 
     # Drop Non-Articles
     df = df[df["document_type"] == "article"]
@@ -49,15 +47,13 @@ def getMonthDataframe(month, year):
                       for kwlist in df["keywords"]]
     df["locations"] = [json.dumps([obj["value"] for obj in kwlist if obj["name"]
                                    == "glocations"]) for kwlist in df["keywords"]]
-    # df = df[["uri", "pub_date", "type_of_material", "main_headline", "print_headline", "lead_paragraph",
-    #          "abstract", "keywords", "news_desk", "section_name", "subsection_name", "web_url"]]
-
-    # NOTE: Changed due to lead_paragraph, abstract, and subsection_name missing from 2018/8 forward
-    # df = df[["uri", "pub_date", "type_of_material", "main_headline",
-    #          "print_headline", "snippet", "news_desk", "section_name", "web_url", "people", "organizations", "subjects", "locations"]]
 
     df = df[["uri", "pub_date", "type_of_material", "main_headline",
              "print_headline", "abstract", "snippet", "lead_paragraph", "news_desk", "section_name", "web_url", "people", "organizations", "subjects", "locations"]]
+
+    # Drop Invalid Dates
+    df["pub_date"] = pd.to_datetime(df["pub_date"], errors="coerce")
+    df = df.dropna(subset=["pub_date"])
 
     # Drop Unlabeled Material
     df = df.dropna(subset=["type_of_material"])
@@ -66,11 +62,8 @@ def getMonthDataframe(month, year):
     df = df[df["type_of_material"].isin(
         ["Archives", "News", "Brief", "Obituary", "Obituary (Obit)"])]
 
-    # Drop News Desks that aren't event headlines
-    #df = df[~df['news_desk'].isin(["BookReview", "Podcasts", "Upshot"])]
-
-    # Drop Sections that typically aren't about singular events
-    #df = df[~df["section_name"].isin(["Opinion", "Fashion & Style"])]
+    # Drop Media News Desks that aren't text articles
+    df = df[~df['news_desk'].isin(["Podcasts"])]
 
     # Drop Single Word Headlines
     df = df[df["main_headline"].str.contains(" ")]
@@ -78,6 +71,10 @@ def getMonthDataframe(month, year):
     # Drop Missing Titles
     df = df[~df["main_headline"].str.contains("No Title")]
     
+    # Drop Duplicates
+    df = df.drop_duplicates(subset=["uri"], keep="first")
+    df = df.drop_duplicates(subset=["main_headline"], keep=False)
+
     # Visual Sanity Check
     print(df[["pub_date", "main_headline"]])
     return df
@@ -101,12 +98,9 @@ def month_year_range(startMonth, startYear, endMonth, endYear):
 
 
 for month, year in month_year_range(startMonth, startYear, endMonth, endYear):
-
-    mdf = getMonthDataframe(month, year)
+    mdf = processMonthDataframe(month, year)
     if (not mdf.empty):
         dfs.append(mdf)
-        # NOTE NYT API has a rate limit of 10 requests per minute
-    time.sleep(6)
 
 print("Concatenating")
 dfs = pd.concat(dfs)
@@ -115,6 +109,11 @@ print("Dropping Duplicates")
 dfs = dfs.drop_duplicates(subset=["uri"], keep="first")
 dfs = dfs.drop_duplicates(subset=["main_headline"], keep=False)
 print(dfs)
-print("Writing to CSV")
-dfs.to_csv(
-    f"./data/NYT_Data_Raw_{startMonth}_{startYear}_to_{endMonth}_{endYear}.csv", index=False, index_label=False)
+print("Sections: ")
+print(dfs["section_name"].unique())
+print("News Desks:")
+print(dfs["news_desk"].unique())
+print(dfs.describe())
+print("Writing to Parquet")
+dfs.to_parquet(
+    f"./data/NYT_Data_Clean_{startMonth}_{startYear}_to_{endMonth}_{endYear}.parquet", index=False)
