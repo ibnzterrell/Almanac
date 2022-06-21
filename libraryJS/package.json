@@ -1,0 +1,32 @@
+{
+  "name": "twinpeaks",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index_bundle.cjs.js",
+  "module": "dist/index_bundle.esm.js",
+  "browser": "dist/index_bundle.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibnzterrell/TwinPeaks.git"
+  },
+  "author": "Terrell Ibanez <terrell.ibanez@stanford.edu> (https://stanford.edu/~ibanezt)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ibnzterrell/TwinPeaks/issues"
+  },
+  "homepage": "https://github.com/ibnzterrell/TwinPeaks#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.75.7"
+  },
+  "files": [
+    "dist"
+  ]
+}
