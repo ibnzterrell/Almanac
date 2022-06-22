@@ -1,4 +1,8 @@
-// Begin Setup Vega-Lite //
+import * as vega from 'vega';
+import * as vegaLite from 'vega-lite';
+import * as vl from 'vega-lite-api';
+import * as vegaTooltip from 'vega-tooltip';
+import * as vegaDatasets from 'vega-datasets';
 
 // setup API options
 const options = {
