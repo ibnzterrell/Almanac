@@ -60,12 +60,39 @@
           vl.y().fieldQ("precipitation")
         );
 
-        vl.layer(lineChart, featureMarks)
-        .render()
-        .then(viewElement => {
-            // render returns a promise to a DOM element containing the chart
-            // viewElement.value contains the Vega View object instance
-            document.getElementById('view').appendChild(viewElement);
+        let annotator = new TwinPeaks.Annotator();
+        let queryOptions = TwinPeaks.Annotator.getDefaultQueryOptions();
+
+        annotator.headlines_query(featureData, "date", "day", "+seattle", queryOptions).then( queryResults => {
+          let annotationData = queryResults.headlines;
+
+          console.log(annotationData);
+
+          let annotationTextProps = {
+            align: "left",
+            dx: 10,
+            dy: 0,
+            angle: -30,
+            radius: 5
+          };
+
+          let textAnnotations = lineChart.markText(annotationTextProps, {})
+          .data(annotationData)
+          .encode(
+            vl.x().fieldT("date"),
+            vl.y().fieldQ("precipitation"),
+            vl.text().fieldN("main_headline"),
+            vl.href().fieldN("web_url"),
+            vl.tooltip("publish_date")
+          );
+
+          vl.layer(lineChart, featureMarks, textAnnotations)
+          .render()
+          .then(viewElement => {
+              // render returns a promise to a DOM element containing the chart
+              // viewElement.value contains the Vega View object instance
+              document.getElementById('view').appendChild(viewElement);
+          });        
         });
       });
     </script>
