@@ -3,6 +3,8 @@ import * as vegaLite from 'vega-lite';
 import * as vl from 'vega-lite-api';
 import * as vegaTooltip from 'vega-tooltip';
 import * as vegaDatasets from 'vega-datasets';
+import * as TwinPeaks from '../public/dist/twinpeaks';
+import AnnotatorClient from './AnnotatorClient';
 
 // setup API options
 const options = {
@@ -38,49 +40,45 @@ vegaDatasets['seattle-weather.csv']().then((weatherData) => {
     .width(1500)
     .height(500);
 
-  // console.log(TwinPeaks);
+  const featureData = TwinPeaks.Analyzer.peaks(weatherData, 'prominence', 'date', 'precipitation').slice(0, 25);
 
-  // let featureData = TwinPeaks.Analyzer.peaks(weatherData, "prominence", "date", "precipitation").slice(0, 25);
-  // let featureMarks = lineChart.markCircle({ stroke: "red" })
-  // .data(featureData)
-  // .encode(
-  //   vl.x().fieldT("date"),
-  //   vl.y().fieldQ("precipitation")
-  // );
+  const featureMarks = lineChart.markCircle({ stroke: 'red' })
+    .data(featureData)
+    .encode(
+      vl.x().fieldT('date'),
+      vl.y().fieldQ('precipitation'),
+    );
 
-  // let annotator = new TwinPeaks.Annotator();
-  // let queryOptions = TwinPeaks.Annotator.getDefaultQueryOptions();
+  AnnotatorClient.annotate(featureData, 'date', 'day', 'seattle').then(
+    (results) => {
+      console.log(results);
+      const annotationData = results.headlines;
 
-  // annotator.headlines_query(featureData, "date", "day", "+seattle", queryOptions).then( queryResults => {
-  //   let annotationData = queryResults.headlines;
+      const annotationTextProps = {
+        align: 'left',
+        dx: 10,
+        dy: 0,
+        angle: -30,
+        radius: 5,
+      };
 
-  //   console.log(annotationData);
-
-  //   let annotationTextProps = {
-  //     align: "left",
-  //     dx: 10,
-  //     dy: 0,
-  //     angle: -30,
-  //     radius: 5
-  //   };
-
-  //   let textAnnotations = lineChart.markText(annotationTextProps, {})
-  //   .data(annotationData)
-  //   .encode(
-  //     vl.x().fieldT("date"),
-  //     vl.y().fieldQ("precipitation"),
-  //     vl.text().fieldN("main_headline"),
-  //     vl.href().fieldN("web_url"),
-  //     vl.tooltip("publish_date")
-  //   );
-
-  // vl.layer(lineChart, featureMarks, textAnnotations)
-  vl.layer(lineChart)
-    .render()
-    .then((viewElement) => {
-      // render returns a promise to a DOM element containing the chart
-      // viewElement.value contains the Vega View object instance
-      document.getElementById('view').appendChild(viewElement);
-    });
-  // });
+      const textAnnotations = lineChart.markText(annotationTextProps, {})
+        .data(annotationData)
+        .encode(
+          vl.x().fieldT('date'),
+          vl.y().fieldQ('precipitation'),
+          vl.text().fieldN('main_headline'),
+          vl.href().fieldN('web_url'),
+          vl.tooltip('publish_date'),
+        );
+      console.log(annotationData);
+      vl.layer(lineChart, featureMarks, textAnnotations)
+        .render()
+        .then((viewElement) => {
+        // render returns a promise to a DOM element containing the chart
+        // viewElement.value contains the Vega View object instance
+          document.getElementById('view').appendChild(viewElement);
+        });
+    },
+  );
 });

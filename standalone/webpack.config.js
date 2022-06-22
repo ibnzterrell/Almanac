@@ -6,4 +6,7 @@ module.exports = {
     filename: 'frontend.js',
     path: path.resolve(__dirname, 'public/dist'),
   },
+  optimization: {
+    minimize: false,
+  },
 };
