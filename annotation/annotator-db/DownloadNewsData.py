@@ -33,6 +33,7 @@ def saveMonth(month, year):
     dataResponse = requests.get(
         f"https://api.nytimes.com/svc/archive/v1/{year}/{month}.json?api-key={apiKey}")
     monthData = json.loads(dataResponse.content)
+    print(monthData)
     with open(f"./data/raw/{year}_{month}.json", "w") as outFile:
         json.dump(monthData, outFile)
 

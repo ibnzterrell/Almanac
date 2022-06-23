@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './frontend/chart.js',
+  entry: './frontend/chartD3.js',
   output: {
     filename: 'frontend.js',
     path: path.resolve(__dirname, 'public/dist'),

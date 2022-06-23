@@ -77,7 +77,7 @@ vegaDatasets['seattle-weather.csv']().then((weatherData) => {
         .then((viewElement) => {
         // render returns a promise to a DOM element containing the chart
         // viewElement.value contains the Vega View object instance
-          document.getElementById('view').appendChild(viewElement);
+          document.getElementById('graphView').appendChild(viewElement);
         });
     },
   );
