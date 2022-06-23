@@ -1,4 +1,6 @@
 import * as d3 from 'd3';
+import * as TwinPeaks from '../public/dist/twinpeaks';
+import AnnotatorClient from './AnnotatorClient';
 
 const graphViewProps = ({
   width: 1120,
@@ -56,8 +58,6 @@ getApprovalData().then(
     const yAxisGroup = svg.append('g');
     const line = svg.append('path');
 
-    console.log('RENDER CHART');
-
     const xScale = d3.scaleTime().domain(d3.extent(
       data,
       (d) => d.Month,
@@ -82,10 +82,20 @@ getApprovalData().then(
     line.datum(data).attr(
       'd',
       (d) => lineGenerator(d),
-    ).attr('fill', 'none').attr('stroke', 'firebrick');
+    ).attr('fill', 'none').attr('stroke', 'blue');
 
-    console.log('END RENDER CHART');
+    const featureData = TwinPeaks.Analyzer.peaks(data, 'persistence', 'Month', 'ApprovalRate').slice(0, 7);
 
-    console.log(svg);
+    console.log(featureData);
+
+    svg.selectAll('peaks')
+      .data(featureData)
+      .enter()
+      .append('circle')
+      .attr('fill', 'red')
+      .attr('stroke', 'none')
+      .attr('cx', (d) => xScale(d.Month))
+      .attr('cy', (d) => yScale(d.ApprovalRate))
+      .attr('r', 3);
   },
 );
