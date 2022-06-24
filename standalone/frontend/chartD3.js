@@ -104,7 +104,9 @@ getApprovalData().then(
     AnnotatorClient.annotate(featureData, 'Month', 'month', '+president +("united states" states)').then(
       (results) => {
         console.log(results);
-        const annotations = results.headlines.map((f, i) => {
+        const headlines = results.headlines.sort((a, b) => ((a.Month > b.Month) ? 1 : -1));
+
+        const annotations = headlines.map((f, i) => {
           const fx = xScale(d3.isoParse(f.Month));
           const fy = yScale(f.ApprovalRate);
 
