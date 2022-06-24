@@ -1,4 +1,6 @@
 import * as d3 from 'd3';
+import * as d3Annotation from 'd3-svg-annotation';
+import { every } from 'vega-lite';
 import * as TwinPeaks from '../public/dist/twinpeaks';
 import AnnotatorClient from './AnnotatorClient';
 
@@ -57,6 +59,7 @@ getApprovalData().then(
     const xAxisGroup = svg.append('g');
     const yAxisGroup = svg.append('g');
     const line = svg.append('path');
+    const annotGroup = svg.append('g');
 
     const xScale = d3.scaleTime().domain(d3.extent(
       data,
@@ -88,7 +91,7 @@ getApprovalData().then(
 
     console.log(featureData);
 
-    svg.selectAll('peaks')
+    svg.selectAll('features')
       .data(featureData)
       .enter()
       .append('circle')
@@ -97,5 +100,46 @@ getApprovalData().then(
       .attr('cx', (d) => xScale(d.Month))
       .attr('cy', (d) => yScale(d.ApprovalRate))
       .attr('r', 3);
+
+    AnnotatorClient.annotate(featureData, 'Month', 'month', '+president +("united states" states)').then(
+      (results) => {
+        console.log(results);
+        const annotations = results.headlines.map((f, i) => {
+          const fx = xScale(d3.isoParse(f.Month));
+          const fy = yScale(f.ApprovalRate);
+
+          // TODO proper label placement algo
+
+          const xOffset = (i / featureData.length) * graphViewProps.width + 70;
+          // Even / odd stagger Y
+          const yOffset = (i % 2 === 1) ? 150 : 300;
+
+          const ax = -fx + xOffset;
+          const ay = -fy + yOffset;
+
+          console.log(fx, fy, ax, ay, f);
+          return {
+            note: {
+              title: f.main_headline,
+              // label: 'TEST LABEL',
+            },
+            x: fx,
+            y: fy,
+            dx: ax,
+            dy: ay,
+            connector: {
+              end: 'arrow',
+            },
+          };
+        });
+
+        const buildAnnotations = d3Annotation.annotation()
+          .type(d3Annotation.annotationLabel)
+          .annotations(annotations);
+
+        annotGroup.attr('class', 'annotation-group')
+          .call(buildAnnotations);
+      },
+    );
   },
 );
