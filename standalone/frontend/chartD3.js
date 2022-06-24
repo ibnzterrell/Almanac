@@ -107,12 +107,15 @@ getApprovalData().then(
         const headlines = results.headlines.sort((a, b) => ((a.Month > b.Month) ? 1 : -1));
 
         const annotations = headlines.map((f, i) => {
-          const fx = xScale(d3.isoParse(f.Month));
+          const isoDate = d3.isoParse(f.Month);
+
+          const fx = xScale(isoDate);
           const fy = yScale(f.ApprovalRate);
 
           // TODO proper label placement algo
+          const xaWidth = graphViewProps.width / (featureData.length);
+          const xOffset = xaWidth * i + (xaWidth / 2);
 
-          const xOffset = (i / featureData.length) * graphViewProps.width + 70;
           // Even / odd stagger Y
           const yOffset = (i % 2 === 1) ? 150 : 300;
 
@@ -123,7 +126,10 @@ getApprovalData().then(
           return {
             note: {
               title: f.main_headline,
-              // label: 'TEST LABEL',
+              // TODO - Auto switch between month / day level
+              // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
+              label: `${isoDate.toLocaleString('default', { month: 'short' })}, ${isoDate.getFullYear()}`,
+              wrap: xaWidth,
             },
             x: fx,
             y: fy,
