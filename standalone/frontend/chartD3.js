@@ -5,8 +5,8 @@ import * as TwinPeaks from '../public/dist/twinpeaks';
 import AnnotatorClient from './AnnotatorClient';
 
 const graphViewProps = ({
-  width: 1120,
-  height: 400,
+  width: 1920,
+  height: 540,
   margin: 50,
   backgroundColor: 'whitesmoke',
 });
@@ -61,8 +61,9 @@ getApprovalData().then(
     // Render the Chart
     console.log(data);
     const svg = d3.select('#graphView').append('svg')
-      .attr('width', graphViewProps.width)
-      .attr('height', graphViewProps.height)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${graphViewProps.width} ${graphViewProps.height}`)
+      .classed('svg-content-responsive', true)
       .attr('margin', graphViewProps.margin)
       .style('background-color', graphViewProps.backgroundColor);
     const xAxisGroup = svg.append('g');
