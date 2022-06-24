@@ -47,6 +47,15 @@ async function getApprovalData() {
   return data;
 }
 
+const peakCircleRadius = 4;
+
+function peakClicked(event, d) {
+  d3.select(this).transition()
+    .attr('r', peakCircleRadius * 2)
+    .transition()
+    .attr('r', peakCircleRadius);
+}
+
 getApprovalData().then(
   (data) => {
     // Render the Chart
@@ -99,7 +108,8 @@ getApprovalData().then(
       .attr('stroke', 'none')
       .attr('cx', (d) => xScale(d.Month))
       .attr('cy', (d) => yScale(d.ApprovalRate))
-      .attr('r', 3);
+      .attr('r', peakCircleRadius)
+      .on('click', peakClicked);
 
     AnnotatorClient.annotate(featureData, 'Month', 'month', '+president +("united states" states)').then(
       (results) => {
