@@ -80,13 +80,13 @@ getApprovalData().then(
       [0, d3.max(data, (d) => d.ApprovalRate)],
     ).range([graphViewProps.height, 0]);
 
-    const xAxis = d3.axisBottom()
+    const xAxis = d3.axisTop()
       .scale(xScale);
 
     const yAxis = d3.axisRight()
       .scale(yScale);
 
-    xAxisGroup.call(xAxis);
+    xAxisGroup.attr('transform', `translate(0,${graphViewProps.height})`).call(xAxis);
     yAxisGroup.call(yAxis);
 
     const lineGenerator = d3.line().x((d) => xScale(d.Month))
