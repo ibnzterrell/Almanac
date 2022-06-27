@@ -19,7 +19,6 @@ async function getWildfireData() {
   const data = raw.map((w) => ({
     Month: w.Started,
     AcresBurned: parseInt(w.AcresBurned, 10),
-    selected: false,
   }))
     .filter((x) => x.Month != '') // Remove Null Data
     .map((y) => {
@@ -46,26 +45,6 @@ async function getApprovalData() {
     (d) => ({ Month: d3.timeParse('%Y-%m-%d')(d.Time), ApprovalRate: parseFloat(d.ApprovalRate) }),
   );
   return data;
-}
-
-const peakCircleRadius = 4;
-
-function peakClicked(event, d) {
-  if (!d.selected) {
-    d3.select(this).attr('fill', 'green');
-    d.selected = true;
-  } else {
-    d3.select(this).attr('fill', 'red');
-    d.selected = false;
-  }
-}
-
-function peakMouseover(event, d) {
-  d3.select(this).attr('r', peakCircleRadius * 2);
-}
-
-function peakMouseout(event, d) {
-  d3.select(this).attr('r', peakCircleRadius);
 }
 
 getApprovalData().then(
@@ -113,6 +92,89 @@ getApprovalData().then(
 
     console.log(featureData);
 
+    function displayAnnotationResults(results) {
+      annotGroup.selectAll('*').remove();
+      console.log(results);
+      const headlines = results.headlines.sort((a, b) => ((a.Month > b.Month) ? 1 : -1));
+
+      const annotations = headlines.map((f, i) => {
+        const isoDate = d3.isoParse(f.Month);
+
+        const fx = xScale(isoDate);
+        const fy = yScale(f.ApprovalRate);
+
+        // TODO proper label placement algo
+        const xaWidth = graphViewProps.width / (featureData.length);
+        const xOffset = xaWidth * i + (xaWidth / 2);
+
+        // Even / odd stagger Y
+        const yOffset = (i % 2 === 1) ? 150 : 300;
+
+        const ax = -fx + xOffset;
+        const ay = -fy + yOffset;
+
+        console.log(fx, fy, ax, ay, f);
+
+        const disableAnnotation = f.selected ? [] : ['connector', 'subject', 'note'];
+
+        return {
+          note: {
+            title: f.main_headline,
+            // TODO - Auto switch between month / day level
+            // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
+            label: `${isoDate.toLocaleString('default', { month: 'short' })}, ${isoDate.getFullYear()}`,
+            wrap: xaWidth,
+          },
+          x: fx,
+          y: fy,
+          dx: ax,
+          dy: ay,
+          connector: {
+            end: 'arrow',
+          },
+          disable: disableAnnotation,
+        };
+      });
+
+      const buildAnnotations = d3Annotation.annotation()
+        .type(d3Annotation.annotationLabel)
+        .annotations(annotations);
+
+      annotGroup.attr('class', 'annotation-group')
+        .call(buildAnnotations);
+    }
+
+    const peakCircleRadius = 4;
+
+    let resultsCache = {};
+
+    function peakClicked(event, d) {
+      console.log(d);
+      console.log('ResultsCachePeak');
+      console.log(resultsCache);
+      const h = resultsCache.headlines.find(
+        (e) => new Date(e.Month).getTime() === d.Month.getTime(),
+      );
+      console.log(h);
+
+      if (!h.selected) {
+        d3.select(this).attr('fill', 'green');
+        h.selected = true;
+      } else {
+        d3.select(this).attr('fill', 'red');
+        h.selected = false;
+      }
+      displayAnnotationResults(resultsCache);
+    }
+
+    function peakMouseover(event, d) {
+      d3.select(this).attr('r', peakCircleRadius * 2);
+    }
+
+    function peakMouseout(event, d) {
+      d3.select(this).attr('r', peakCircleRadius);
+    }
+
     svg.selectAll('features')
       .data(featureData)
       .enter()
@@ -128,50 +190,12 @@ getApprovalData().then(
 
     AnnotatorClient.annotate(featureData, 'Month', 'month', '+president +("united states" states)').then(
       (results) => {
-        console.log(results);
-        const headlines = results.headlines.sort((a, b) => ((a.Month > b.Month) ? 1 : -1));
-
-        const annotations = headlines.map((f, i) => {
-          const isoDate = d3.isoParse(f.Month);
-
-          const fx = xScale(isoDate);
-          const fy = yScale(f.ApprovalRate);
-
-          // TODO proper label placement algo
-          const xaWidth = graphViewProps.width / (featureData.length);
-          const xOffset = xaWidth * i + (xaWidth / 2);
-
-          // Even / odd stagger Y
-          const yOffset = (i % 2 === 1) ? 150 : 300;
-
-          const ax = -fx + xOffset;
-          const ay = -fy + yOffset;
-
-          console.log(fx, fy, ax, ay, f);
-          return {
-            note: {
-              title: f.main_headline,
-              // TODO - Auto switch between month / day level
-              // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
-              label: `${isoDate.toLocaleString('default', { month: 'short' })}, ${isoDate.getFullYear()}`,
-              wrap: xaWidth,
-            },
-            x: fx,
-            y: fy,
-            dx: ax,
-            dy: ay,
-            connector: {
-              end: 'arrow',
-            },
-          };
+        results.headlines = results.headlines.map((r) => {
+          r.selected = true;
+          return r;
         });
-
-        const buildAnnotations = d3Annotation.annotation()
-          .type(d3Annotation.annotationLabel)
-          .annotations(annotations);
-
-        annotGroup.attr('class', 'annotation-group')
-          .call(buildAnnotations);
+        resultsCache = results;
+        displayAnnotationResults(resultsCache);
       },
     );
   },
