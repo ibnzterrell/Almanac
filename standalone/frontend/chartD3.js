@@ -19,6 +19,7 @@ async function getWildfireData() {
   const data = raw.map((w) => ({
     Month: w.Started,
     AcresBurned: parseInt(w.AcresBurned, 10),
+    selected: false,
   }))
     .filter((x) => x.Month != '') // Remove Null Data
     .map((y) => {
@@ -50,10 +51,21 @@ async function getApprovalData() {
 const peakCircleRadius = 4;
 
 function peakClicked(event, d) {
-  d3.select(this).transition()
-    .attr('r', peakCircleRadius * 2)
-    .transition()
-    .attr('r', peakCircleRadius);
+  if (!d.selected) {
+    d3.select(this).attr('fill', 'green');
+    d.selected = true;
+  } else {
+    d3.select(this).attr('fill', 'red');
+    d.selected = false;
+  }
+}
+
+function peakMouseover(event, d) {
+  d3.select(this).attr('r', peakCircleRadius * 2);
+}
+
+function peakMouseout(event, d) {
+  d3.select(this).attr('r', peakCircleRadius);
 }
 
 getApprovalData().then(
@@ -105,12 +117,14 @@ getApprovalData().then(
       .data(featureData)
       .enter()
       .append('circle')
-      .attr('fill', 'red')
+      .attr('fill', 'green')
       .attr('stroke', 'none')
       .attr('cx', (d) => xScale(d.Month))
       .attr('cy', (d) => yScale(d.ApprovalRate))
       .attr('r', peakCircleRadius)
-      .on('click', peakClicked);
+      .on('click', peakClicked)
+      .on('mouseover', peakMouseover)
+      .on('mouseout', peakMouseout);
 
     AnnotatorClient.annotate(featureData, 'Month', 'month', '+president +("united states" states)').then(
       (results) => {
