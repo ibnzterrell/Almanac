@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 import * as d3Annotation from 'd3-svg-annotation';
-import { every } from 'vega-lite';
 import * as TwinPeaks from '../public/dist/twinpeaks';
 import AnnotatorClient from './AnnotatorClient';
 
@@ -55,19 +54,24 @@ async function getUnemploymentData() {
   return data;
 }
 
+const svg = d3.select('#graphView').append('svg')
+  .attr('preserveAspectRatio', 'xMinYMin meet')
+  .attr('viewBox', `0 0 ${graphViewProps.width} ${graphViewProps.height}`)
+  .classed('svg-content-responsive', true)
+  .attr('margin', graphViewProps.margin)
+  .style('background-color', graphViewProps.backgroundColor);
+const xAxisGroup = svg.append('g');
+const yAxisGroup = svg.append('g');
+const line = svg.append('path');
+const featureGroup = svg.append('g');
+const annotGroup = svg.append('g');
+
 function renderChart(data, params) {
+  // Erase existing chart
+  featureGroup.selectAll('*').remove();
+
   // Render the Chart
   console.log(data);
-  const svg = d3.select('#graphView').append('svg')
-    .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('viewBox', `0 0 ${graphViewProps.width} ${graphViewProps.height}`)
-    .classed('svg-content-responsive', true)
-    .attr('margin', graphViewProps.margin)
-    .style('background-color', graphViewProps.backgroundColor);
-  const xAxisGroup = svg.append('g');
-  const yAxisGroup = svg.append('g');
-  const line = svg.append('path');
-  const annotGroup = svg.append('g');
 
   const xScale = d3.scaleTime().domain(d3.extent(
     data,
@@ -184,7 +188,7 @@ function renderChart(data, params) {
     d3.select(this).attr('r', peakCircleRadius);
   }
 
-  svg.selectAll('features')
+  featureGroup.selectAll('features')
     .data(featureData)
     .enter()
     .append('circle')
