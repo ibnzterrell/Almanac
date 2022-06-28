@@ -9,6 +9,18 @@
 </head>
 
 <body>
+  <div>
+    <p>Dataset:</p>
+    <input type="radio" id="wildfire" name="dataset" value="wildfire">
+    <label for="wildfire">California Fire Incidents</label>
+    <input type="radio" id="covid" name="dataset" value="covid">
+    <label for="covid">Confirmed COVID Cases in the US</label>
+    <input type="radio" id="approval" name="dataset" value="approval" checked>
+    <label for="approval">Presidential Approval Rate</label>
+    <input type="radio" id="unemployment" name="dataset" value="unemployment">
+    <label for="unemployment">Unemployment Rate</label>
+    <input type="submit" id="submitDataset" value="Submit">
+  </div>
   <div id="graphView"></div>
   <script src="/dist/frontend.js"></script>
 </body>
