@@ -1,6 +1,6 @@
 const AnnotatorClient = {};
 
-AnnotatorClient.basePath = 'http://localhost:3000';
+AnnotatorClient.basePath = window.location.href;
 
 AnnotatorClient.postForResponse = async (resource, data, params = {}) => {
   console.log(data);
@@ -24,7 +24,7 @@ AnnotatorClient.annotate = async (featuresF, timeFieldF, granularityF, queryText
     granularity: granularityF,
     queryText: queryTextF,
   };
-  return AnnotatorClient.postForResponse('/annotate', packedData);
+  return AnnotatorClient.postForResponse('annotate', packedData);
 };
 
 module.exports = AnnotatorClient;
