@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as d3Annotation from 'd3-svg-annotation';
+import * as d3Force from 'd3-force';
 import * as TwinPeaks from '../public/dist/twinpeaks';
 import AnnotatorClient from './AnnotatorClient';
 
@@ -65,6 +66,8 @@ const yAxisGroup = svg.append('g');
 const line = svg.append('path');
 const featureGroup = svg.append('g');
 const annotGroup = svg.append('g');
+const peakCircleRadius = 4;
+const annotCircleRadius = 4;
 
 function renderChart(data, params) {
   // Erase existing chart
@@ -100,13 +103,21 @@ function renderChart(data, params) {
   ).attr('fill', 'none').attr('stroke', 'blue');
 
   const featureData = TwinPeaks.Analyzer.peaks(data, 'persistence', params.timeVar, params.quantVar).slice(0, 7);
+  let annotationData = {};
 
   console.log(featureData);
 
-  function displayAnnotationResults(results) {
+  function renderAnnotations() {
     annotGroup.selectAll('*').remove();
-    console.log(results);
-    const headlines = results.headlines.sort(
+    console.log(annotationData);
+
+    const xaWidth = graphViewProps.width / (featureData.length);
+
+    const nodesFeatures = featureData.map((d) => ({ fx: xScale(d[params.timeVar]), fy: yScale(d[params.quantVar]) }));
+    const nodesAnnotations = featureData.map((d) => ({ x: xScale(d[params.timeVar]), y: yScale(d[params.quantVar]), ox: d[params.timeVar] }));
+    const nodeLinks = featureData.map((d, i) => ({ source: nodesFeatures[i], target: nodesAnnotations[i] }));
+
+    const headlines = annotationData.headlines.sort(
       (a, b) => ((a[params.timeVar] > b[params.timeVar]) ? 1 : -1),
     );
 
@@ -116,17 +127,14 @@ function renderChart(data, params) {
       const fx = xScale(isoDate);
       const fy = yScale(f[params.quantVar]);
 
-      // TODO proper label placement algo
-      const xaWidth = graphViewProps.width / (featureData.length);
       const xOffset = xaWidth * i + (xaWidth / 2);
-
       // Even / odd stagger Y
       const yOffset = (i % 2 === 1) ? 150 : 300;
 
       const ax = -fx + xOffset;
       const ay = -fy + yOffset;
 
-      console.log(fx, fy, ax, ay, f);
+      // console.log(fx, fy, ax, ay, f);
 
       const disableAnnotation = f.selected ? [] : ['connector', 'subject', 'note'];
 
@@ -140,8 +148,8 @@ function renderChart(data, params) {
         },
         x: fx,
         y: fy,
-        dx: ax,
-        dy: ay,
+        dx: fx,
+        dy: fy,
         connector: {
           end: 'arrow',
         },
@@ -151,21 +159,51 @@ function renderChart(data, params) {
 
     const buildAnnotations = d3Annotation.annotation()
       .type(d3Annotation.annotationLabel)
-      .annotations(annotations);
+      .annotations(annotations)
+      .accessors({
+        x: (d) => d.x, y: (d) => d.y, dx: (d) => d.dx, dy: (d) => d.dy,
+      });
 
     annotGroup.attr('class', 'annotation-group')
       .call(buildAnnotations);
+
+    const annotCircles = annotGroup.selectAll('annotCircles')
+      .data(nodesAnnotations)
+      .enter()
+      .append('circle')
+      .attr('r', annotCircleRadius)
+      .attr('cx', (d) => d.x)
+      .attr('cy', (d) => d.y);
+
+    function simTick() {
+      annotCircles
+        .attr('cx', (d) => d.x)
+        .attr('cy', (d) => d.y);
+
+      buildAnnotations.annotations().forEach((d, i) => {
+        const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
+        console.log(d);
+        console.log(nodesAnnotations);
+        console.log(nodeAnnot);
+        d.dx = -d.x + nodeAnnot.x;
+        d.dy = -d.y + nodeAnnot.y;
+      });
+      buildAnnotations.update();
+    }
+
+    const simulation = d3Force.forceSimulation()
+      .force('link', d3Force.forceLink().id((d) => d.id))
+      .force('charge', d3Force.forceManyBody())
+      .force('center', d3Force.forceCenter(graphViewProps.width / 2, graphViewProps.height / 2));
+
+    simulation.nodes(nodesAnnotations).on('tick', simTick);
+    simulation.force('link').links(nodeLinks);
   }
-
-  const peakCircleRadius = 4;
-
-  let resultsCache = {};
 
   function peakClicked(event, d) {
     console.log(d);
-    console.log('ResultsCachePeak');
-    console.log(resultsCache);
-    const h = resultsCache.headlines.find(
+    console.log(annotationData);
+    const h = annotationData.headlines.find(
       (e) => new Date(e[params.timeVar]).getTime() === d[params.timeVar].getTime(),
     );
     console.log(h);
@@ -177,7 +215,7 @@ function renderChart(data, params) {
       d3.select(this).attr('fill', 'red');
       h.selected = false;
     }
-    displayAnnotationResults(resultsCache);
+    renderAnnotations();
   }
 
   function peakMouseover(event, d) {
@@ -188,7 +226,7 @@ function renderChart(data, params) {
     d3.select(this).attr('r', peakCircleRadius);
   }
 
-  featureGroup.selectAll('features')
+  const featureCircles = featureGroup.selectAll('features')
     .data(featureData)
     .enter()
     .append('circle')
@@ -202,13 +240,15 @@ function renderChart(data, params) {
     .on('mouseout', peakMouseout);
 
   AnnotatorClient.annotate(featureData, params.timeVar, params.granularity, params.query).then(
-    (results) => {
-      results.headlines = results.headlines.map((r) => {
-        r.selected = true;
-        return r;
+    (annotationResults) => {
+      // eslint-disable-next-line no-param-reassign
+      annotationResults.headlines = annotationResults.headlines.map((a) => {
+        // eslint-disable-next-line no-param-reassign
+        a.selected = true;
+        return a;
       });
-      resultsCache = results;
-      displayAnnotationResults(resultsCache);
+      annotationData = annotationResults;
+      renderAnnotations();
     },
   );
 }
