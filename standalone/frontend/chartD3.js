@@ -34,7 +34,8 @@ async function getWildfireData() {
       if (total) total.AcresBurned += e.AcresBurned;
       else sumarr.push(e);
       return sumarr;
-    }, []);
+    }, [])
+    .sort((a, b) => a.Month.getTime() - b.Month.getTime());
   return data;
 }
 
