@@ -117,39 +117,31 @@ function renderChart(data, params) {
     const nodesAnnotations = featureData.map((d) => ({ x: xScale(d[params.timeVar]), y: yScale(d[params.quantVar]), ox: d[params.timeVar] }));
     const nodeLinks = featureData.map((d, i) => ({ source: nodesFeatures[i], target: nodesAnnotations[i] }));
 
-    const headlines = annotationData.headlines.sort(
+    annotationData.combined.sort(
       (a, b) => ((a[params.timeVar] > b[params.timeVar]) ? 1 : -1),
     );
 
-    const annotations = headlines.map((f, i) => {
-      const isoDate = d3.isoParse(f[params.timeVar]);
+    const annotations = annotationData.combined.map((f, i) => {
+      const s = f.headlines[f.selection];
+      const isoDate = d3.isoParse(s[params.timeVar]);
 
-      const fx = xScale(isoDate);
-      const fy = yScale(f[params.quantVar]);
+      const ax = xScale(isoDate);
+      const ay = yScale(s[params.quantVar]);
 
-      const xOffset = xaWidth * i + (xaWidth / 2);
-      // Even / odd stagger Y
-      const yOffset = (i % 2 === 1) ? 150 : 300;
-
-      const ax = -fx + xOffset;
-      const ay = -fy + yOffset;
-
-      // console.log(fx, fy, ax, ay, f);
-
-      const disableAnnotation = f.selected ? [] : ['connector', 'subject', 'note'];
+      const disableAnnotation = f.enabled ? [] : ['connector', 'subject', 'note'];
 
       return {
         note: {
-          title: f.main_headline,
+          title: s.main_headline,
           // TODO - Auto switch between month / day level
           // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
           label: `${isoDate.toLocaleString('default', { month: 'short' })}, ${isoDate.getFullYear()}`,
           wrap: xaWidth,
         },
-        x: fx,
-        y: fy,
-        dx: fx,
-        dy: fy,
+        x: ax,
+        y: ay,
+        dx: ax,
+        dy: ay,
         connector: {
           end: 'arrow',
         },
@@ -208,12 +200,12 @@ function renderChart(data, params) {
     );
     console.log(h);
 
-    if (!h.selected) {
-      d3.select(this).attr('fill', 'green');
-      h.selected = true;
-    } else {
+    if (h.enabled) {
       d3.select(this).attr('fill', 'red');
-      h.selected = false;
+      h.enabled = false;
+    } else {
+      d3.select(this).attr('fill', 'green');
+      h.enabled = true;
     }
     renderAnnotations();
   }
@@ -242,9 +234,10 @@ function renderChart(data, params) {
   AnnotatorClient.annotate(featureData, params.timeVar, params.granularity, params.query).then(
     (annotationResults) => {
       // eslint-disable-next-line no-param-reassign
-      annotationResults.headlines = annotationResults.headlines.map((a) => {
+      annotationResults.combined = annotationResults.combined.map((a) => {
         // eslint-disable-next-line no-param-reassign
-        a.selected = true;
+        a.enabled = true;
+        a.selection = 0;
         return a;
       });
       annotationData = annotationResults;
