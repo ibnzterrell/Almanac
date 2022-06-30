@@ -111,10 +111,19 @@ function renderChart(data, params) {
     annotGroup.selectAll('*').remove();
     console.log(annotationData);
 
-    const xaWidth = graphViewProps.width / (featureData.length);
+    const aWidth = 200;
 
-    const nodesFeatures = featureData.map((d) => ({ fx: xScale(d[params.timeVar]), fy: yScale(d[params.quantVar]) }));
-    const nodesAnnotations = featureData.map((d) => ({ x: xScale(d[params.timeVar]), y: yScale(d[params.quantVar]), ox: d[params.timeVar] }));
+    const nodesFeatures = featureData.map((d) => ({ fx: xScale(d[params.timeVar]), fy: yScale(d[params.quantVar]), nodeType: 'feature' }));
+    const nodesAnnotations = featureData.map((d) => ({
+      x: xScale(d[params.timeVar]),
+      y: yScale(d[params.quantVar]),
+      ox: d[params.timeVar],
+      oy: d[params.quantVar],
+      nodeType: 'annotation',
+    }));
+    const nodesLine = data.map((d) => ({ fx: xScale(d[params.timeVar]), fy: yScale(d[params.quantVar]), nodeType: 'line' }));
+    // const nodesAll = nodesFeatures.concat(nodesAnnotations).concat(nodesLine);
+    const nodesAll = nodesFeatures.concat(nodesAnnotations);
     const nodeLinks = featureData.map((d, i) => ({ source: nodesFeatures[i], target: nodesAnnotations[i] }));
 
     annotationData.combined.sort(
@@ -136,7 +145,7 @@ function renderChart(data, params) {
           // TODO - Auto switch between month / day level
           // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
           label: `${isoDate.toLocaleString('default', { month: 'short' })}, ${isoDate.getFullYear()}`,
-          wrap: xaWidth,
+          wrap: aWidth,
         },
         x: ax,
         y: ay,
@@ -174,9 +183,9 @@ function renderChart(data, params) {
     function simTick() {
       annotCircles
         // eslint-disable-next-line no-return-assign
-        .attr('cx', (d) => d.x = clamp(d.x, 0, graphViewProps.width))
+        .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin, graphViewProps.width - aWidth / 2))
         // eslint-disable-next-line no-return-assign
-        .attr('cy', (d) => d.y = clamp(d.y, 0, graphViewProps.height));
+        .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin, graphViewProps.height - aWidth / 2 - graphViewProps.margin));
 
       buildAnnotations.annotations().forEach((d, i) => {
         const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
@@ -190,12 +199,28 @@ function renderChart(data, params) {
     }
 
     const simulation = d3Force.forceSimulation()
-      .force('link', d3Force.forceLink().id((d) => d.id))
-      .force('charge', d3Force.forceManyBody())
-      .force('center', d3Force.forceCenter(graphViewProps.width / 2, graphViewProps.height / 2));
+      // .force('x', d3.forceX().strength(0.1).x((d) => xScale(d.ox)))
+      // .force('y', d3.forceY().strength(0.1).y((d) => yScale(d.oy)))
+      // .force('charge', d3Force.forceManyBody().strength(-10))
+      // .force('link', d3Force.forceLink().distance(5).id((d) => d.id))
+      .force('collide', d3Force.forceCollide().radius(
+        (d) => {
+          if (d.nodeType === 'feature') {
+            return 10;
+          }
+          if (d.nodeType === 'annotation') {
+            return aWidth / 2;
+          }
+          if (d.nodeType === 'line') {
+            return 10;
+          }
 
-    simulation.nodes(nodesAnnotations).on('tick', simTick);
-    simulation.force('link').links(nodeLinks);
+          return 10;
+        },
+      ));
+
+    // simulation.force('link').links(nodeLinks);
+    simulation.nodes(nodesAll).on('tick', simTick);
   }
 
   function peakClicked(event, d) {
