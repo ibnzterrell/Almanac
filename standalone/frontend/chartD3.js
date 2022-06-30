@@ -167,10 +167,16 @@ function renderChart(data, params) {
       .attr('cx', (d) => d.x)
       .attr('cy', (d) => d.y);
 
+    function clamp(v, vMin, vMax) {
+      return Math.max(vMin, Math.min(vMax, v));
+    }
+
     function simTick() {
       annotCircles
-        .attr('cx', (d) => d.x)
-        .attr('cy', (d) => d.y);
+        // eslint-disable-next-line no-return-assign
+        .attr('cx', (d) => d.x = clamp(d.x, 0, graphViewProps.width))
+        // eslint-disable-next-line no-return-assign
+        .attr('cy', (d) => d.y = clamp(d.y, 0, graphViewProps.height));
 
       buildAnnotations.annotations().forEach((d, i) => {
         const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
