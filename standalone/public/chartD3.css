@@ -13,15 +13,29 @@
     left: 0;
 }
 
-.headlineTable {
+table.headlineViewTable {
     width: 100%;
     font-size: 14px;
+    border-spacing: 0;
 }
 
-.headlineTable table,
-th,
-td {
+table.headlineViewTable thead tr {
     border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid;
+    border-bottom: 1px solid;
+}
+
+table.headlineRankTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+.rankCell {
+    text-align: right;
+    width: 25px;
+}
+
+.scoreCell {
+    text-align: right;
+    width: 50px;
 }

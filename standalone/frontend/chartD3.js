@@ -234,7 +234,7 @@ function renderChart(data, params) {
     const periodHeadText = document.createTextNode('period');
     periodHead.appendChild(periodHeadText);
     const headlineHead = tHeadRow.insertCell();
-    const headlineHeadText = document.createTextNode('headline');
+    const headlineHeadText = document.createTextNode('headlines');
     headlineHead.appendChild(headlineHeadText);
 
     const tBody = tableView.createTBody();
@@ -243,14 +243,49 @@ function renderChart(data, params) {
       const periodCell = tRow.insertCell();
       const periodCellText = document.createTextNode(f.date_period);
       periodCell.appendChild(periodCellText);
-      const headlineCell = tRow.insertCell();
-      const headlineSelected = f.headlines[f.selection];
-      const headlineLink = document.createElement('a');
-      const headlineCellText = document.createTextNode(headlineSelected.main_headline);
-      headlineLink.href = headlineSelected.web_url;
-      headlineLink.target = '_blank';
-      headlineLink.appendChild(headlineCellText);
-      headlineCell.appendChild(headlineLink);
+      const headlinesCell = tRow.insertCell();
+
+      const headlineRankTable = document.createElement('table');
+      headlineRankTable.setAttribute('class', 'headlineRankTable');
+      const headlineTableHead = headlineRankTable.createTHead();
+      const headlineTableHeadRow = headlineTableHead.insertRow();
+      const rankHeadCell = headlineTableHeadRow.insertCell();
+      rankHeadCell.setAttribute('class', 'rankCell');
+      const rankHeadCellText = document.createTextNode('rank');
+      rankHeadCell.appendChild(rankHeadCellText);
+
+      const scoreHeadCell = headlineTableHeadRow.insertCell();
+      const scoreHeadCellText = document.createTextNode('score');
+      scoreHeadCell.setAttribute('class', 'scoreCell');
+      scoreHeadCell.appendChild(scoreHeadCellText);
+
+      const headlineHeadCell = headlineTableHeadRow.insertCell();
+      const headlineHeadCellText = document.createTextNode('headline');
+      headlineHeadCell.appendChild(headlineHeadCellText);
+
+      const headlineRankBody = headlineRankTable.createTBody();
+      f.headlines.map((h, i) => {
+        const headlineTableRow = headlineRankBody.insertRow();
+
+        const rankCell = headlineTableRow.insertCell();
+        const rankCellText = document.createTextNode(i.toString());
+        rankCell.setAttribute('class', 'rankCell');
+        rankCell.appendChild(rankCellText);
+
+        const scoreCell = headlineTableRow.insertCell();
+        const scoreCellText = document.createTextNode(h.score.toFixed(4).toString());
+        scoreCell.setAttribute('class', 'scoreCell');
+        scoreCell.appendChild(scoreCellText);
+
+        const headlineTableCell = headlineTableRow.insertCell();
+        const headlineLink = document.createElement('a');
+        const headlineCellText = document.createTextNode(h.main_headline);
+        headlineLink.href = h.web_url;
+        headlineLink.target = '_blank';
+        headlineLink.appendChild(headlineCellText);
+        headlineTableCell.appendChild(headlineLink);
+      });
+      headlinesCell.appendChild(headlineRankTable);
     });
   }
 
