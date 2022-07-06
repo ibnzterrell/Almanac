@@ -224,6 +224,36 @@ function renderChart(data, params) {
     simulation.nodes(nodesAll).on('tick', simTick);
   }
 
+  function renderTable() {
+    const tableView = document.getElementById('tableView');
+    tableView.innerHTML = '';
+
+    const tHead = tableView.createTHead();
+    const tHeadRow = tHead.insertRow();
+    const periodHead = tHeadRow.insertCell();
+    const periodHeadText = document.createTextNode('period');
+    periodHead.appendChild(periodHeadText);
+    const headlineHead = tHeadRow.insertCell();
+    const headlineHeadText = document.createTextNode('headline');
+    headlineHead.appendChild(headlineHeadText);
+
+    const tBody = tableView.createTBody();
+    annotationData.combined.map((f, i) => {
+      const tRow = tBody.insertRow();
+      const periodCell = tRow.insertCell();
+      const periodCellText = document.createTextNode(f.date_period);
+      periodCell.appendChild(periodCellText);
+      const headlineCell = tRow.insertCell();
+      const headlineSelected = f.headlines[f.selection];
+      const headlineLink = document.createElement('a');
+      const headlineCellText = document.createTextNode(headlineSelected.main_headline);
+      headlineLink.href = headlineSelected.web_url;
+      headlineLink.target = '_blank';
+      headlineLink.appendChild(headlineCellText);
+      headlineCell.appendChild(headlineLink);
+    });
+  }
+
   function peakClicked(event, d) {
     console.log(d);
     console.log(annotationData);
@@ -274,6 +304,7 @@ function renderChart(data, params) {
       });
       annotationData = annotationResults;
       renderAnnotations();
+      renderTable();
     },
   );
 }

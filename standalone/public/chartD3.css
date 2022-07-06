@@ -12,3 +12,16 @@
     display: inline-block;
     left: 0;
 }
+
+.headlineTable {
+    width: 100%;
+    font-size: 14px;
+}
+
+.headlineTable table,
+th,
+td {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid;
+}
