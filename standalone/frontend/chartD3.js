@@ -163,6 +163,27 @@ function renderChart(data, params) {
       };
     });
 
+    function annotClicked(event, d) {
+      console.log(d);
+      console.log(annotationData);
+      const h = annotationData.combined.find(
+        (e) => new Date(e[params.timeVar]).getTime() === new Date(d.ox).getTime(),
+      );
+      console.log(h);
+
+      h.selection = (h.selection + 1) % h.headlines.length;
+
+      renderAnnotations();
+    }
+
+    function annotMouseover(event, d) {
+      d3.select(this).attr('r', annotCircleRadius * 2);
+    }
+
+    function annotMouseout(event, d) {
+      d3.select(this).attr('r', annotCircleRadius);
+    }
+
     const buildAnnotations = d3Annotation.annotation()
       .type(d3Annotation.annotationLabel)
       .annotations(annotations)
@@ -179,7 +200,10 @@ function renderChart(data, params) {
       .append('circle')
       .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => d.y);
+      .attr('cy', (d) => d.y)
+      .on('click', annotClicked)
+      .on('mouseover', annotMouseover)
+      .on('mouseout', annotMouseout);
 
     function clamp(v, vMin, vMax) {
       return Math.max(vMin, Math.min(vMax, v));
