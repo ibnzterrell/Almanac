@@ -140,6 +140,10 @@ function renderChart(data, params) {
 
       const disableAnnotation = f.enabled ? [] : ['connector', 'subject', 'note'];
 
+      const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === ax);
+      console.log(nodeAnnot);
+      nodeAnnot.enabled = f.enabled;
+
       return {
         note: {
           title: s.main_headline,
@@ -190,11 +194,10 @@ function renderChart(data, params) {
 
       buildAnnotations.annotations().forEach((d, i) => {
         const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
-        console.log(d);
-        console.log(nodesAnnotations);
-        console.log(nodeAnnot);
-        d.dx = -d.x + nodeAnnot.x;
-        d.dy = -d.y + nodeAnnot.y;
+        if (d.disable.length === 0) {
+          d.dx = -d.x + nodeAnnot.x;
+          d.dy = -d.y + nodeAnnot.y;
+        }
       });
       buildAnnotations.update();
     }
@@ -210,7 +213,10 @@ function renderChart(data, params) {
             return 10;
           }
           if (d.nodeType === 'annotation') {
-            return aWidth / 2;
+            if (d.enabled) {
+              return aWidth / 2;
+            }
+            return 10;
           }
           if (d.nodeType === 'line') {
             return 10;
@@ -292,7 +298,7 @@ function renderChart(data, params) {
   function peakClicked(event, d) {
     console.log(d);
     console.log(annotationData);
-    const h = annotationData.headlines.find(
+    const h = annotationData.combined.find(
       (e) => new Date(e[params.timeVar]).getTime() === d[params.timeVar].getTime(),
     );
     console.log(h);
