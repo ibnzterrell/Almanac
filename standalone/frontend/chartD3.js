@@ -407,5 +407,5 @@ function datasetSelected() {
   getData().then((data) => renderChart(data, params));
 }
 
-document.getElementById('submitDataset').addEventListener('click', datasetSelected);
+Array.from(document.getElementsByName('dataset')).map((e) => e.addEventListener('click', datasetSelected));
 datasetSelected();
