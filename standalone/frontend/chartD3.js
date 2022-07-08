@@ -177,7 +177,7 @@ function renderChart(data, params) {
       .data(nodesAnnotations)
       .enter()
       .append('circle')
-      .attr('r', annotCircleRadius)
+      .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
       .attr('cx', (d) => d.x)
       .attr('cy', (d) => d.y);
 
