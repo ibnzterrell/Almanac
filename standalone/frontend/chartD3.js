@@ -69,6 +69,7 @@ const featureGroup = svg.append('g');
 const annotGroup = svg.append('g');
 const peakCircleRadius = 4;
 const annotCircleRadius = 4;
+const annotTriangeSize = 50;
 
 function renderChart(data, params) {
   // Erase existing chart
@@ -163,7 +164,7 @@ function renderChart(data, params) {
       };
     });
 
-    function annotClicked(event, d) {
+    function annotCircleClicked(event, d) {
       console.log(d);
       console.log(annotationData);
       const h = annotationData.combined.find(
@@ -176,12 +177,42 @@ function renderChart(data, params) {
       renderAnnotations();
     }
 
-    function annotMouseover(event, d) {
+    function annotCircleMouseover(event, d) {
       d3.select(this).attr('r', annotCircleRadius * 2);
     }
 
-    function annotMouseout(event, d) {
+    function annotCircleMouseout(event, d) {
       d3.select(this).attr('r', annotCircleRadius);
+    }
+
+    function annotPrevClicked(event, d) {
+      const h = annotationData.combined.find(
+        (e) => new Date(e[params.timeVar]).getTime() === new Date(d.ox).getTime(),
+      );
+      console.log(h);
+
+      h.selection = (h.selection + h.headlines.length - 1) % h.headlines.length;
+
+      renderAnnotations();
+    }
+
+    function annotNextClicked(event, d) {
+      const h = annotationData.combined.find(
+        (e) => new Date(e[params.timeVar]).getTime() === new Date(d.ox).getTime(),
+      );
+      console.log(h);
+
+      h.selection = (h.selection + 1) % h.headlines.length;
+
+      renderAnnotations();
+    }
+
+    function annotTriangleMouseover(event, d) {
+      d3.select(this).attr('d', d3.symbol().type(d3.symbolTriangle).size(annotTriangeSize * 4));
+    }
+
+    function annotTriangleMouseout(event, d) {
+      d3.select(this).attr('d', d3.symbol().type(d3.symbolTriangle).size(annotTriangeSize));
     }
 
     const buildAnnotations = d3Annotation.annotation()
@@ -200,10 +231,30 @@ function renderChart(data, params) {
       .append('circle')
       .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => d.y)
-      .on('click', annotClicked)
-      .on('mouseover', annotMouseover)
-      .on('mouseout', annotMouseout);
+      .attr('cy', (d) => d.y);
+      // .on('click', annotCircleClicked)
+      // .on('mouseover', annotCircleMouseover)
+      // .on('mouseout', annotCircleMouseout);
+
+    const annotPrev = annotGroup.selectAll('annotPrev')
+      .data(nodesAnnotations)
+      .enter()
+      .append('path')
+      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled ? annotTriangeSize : 0)())
+      .attr('transform', (d) => `translate(${d.x + 10}, ${d.y}) rotate(90)`)
+      .on('click', annotPrevClicked)
+      .on('mouseover', annotTriangleMouseover)
+      .on('mouseout', annotTriangleMouseout);
+
+    const annotNext = annotGroup.selectAll('annotNext')
+      .data(nodesAnnotations)
+      .enter()
+      .append('path')
+      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled ? annotTriangeSize : 0)())
+      .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`)
+      .on('click', annotNextClicked)
+      .on('mouseover', annotTriangleMouseover)
+      .on('mouseout', annotTriangleMouseout);
 
     function clamp(v, vMin, vMax) {
       return Math.max(vMin, Math.min(vMax, v));
@@ -215,6 +266,12 @@ function renderChart(data, params) {
         .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin, graphViewProps.width - aWidth / 2))
         // eslint-disable-next-line no-return-assign
         .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin, graphViewProps.height - aWidth / 2 - graphViewProps.margin));
+
+      annotPrev
+        .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`);
+
+      annotNext
+        .attr('transform', (d) => `translate(${d.x + 10}, ${d.y}) rotate(90)`);
 
       buildAnnotations.annotations().forEach((d, i) => {
         const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
