@@ -181,6 +181,7 @@ function renderChart(data, params) {
       const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === ax);
       console.log(nodeAnnot);
       nodeAnnot.enabled = f.enabled;
+      nodeAnnot.editing = f.editing;
 
       return {
         note: {
@@ -209,7 +210,7 @@ function renderChart(data, params) {
       );
       console.log(h);
 
-      h.selection = (h.selection + 1) % h.headlines.length;
+      h.editing = !h.editing;
 
       renderAnnotations();
     }
@@ -268,16 +269,16 @@ function renderChart(data, params) {
       .append('circle')
       .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => d.y);
-      // .on('click', annotCircleClicked)
-      // .on('mouseover', annotCircleMouseover)
-      // .on('mouseout', annotCircleMouseout);
+      .attr('cy', (d) => d.y)
+      .on('click', annotCircleClicked)
+      .on('mouseover', annotCircleMouseover)
+      .on('mouseout', annotCircleMouseout);
 
     const annotPrev = annotGroup.selectAll('annotPrev')
       .data(nodesAnnotations)
       .enter()
       .append('path')
-      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled ? annotTriangeSize : 0)())
+      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled && d.editing ? annotTriangeSize : 0)())
       .attr('transform', (d) => `translate(${d.x + 10}, ${d.y}) rotate(90)`)
       .on('click', annotPrevClicked)
       .on('mouseover', annotTriangleMouseover)
@@ -287,7 +288,7 @@ function renderChart(data, params) {
       .data(nodesAnnotations)
       .enter()
       .append('path')
-      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled ? annotTriangeSize : 0)())
+      .attr('d', (d) => d3.symbol().type(d3.symbolTriangle).size(d.enabled && d.editing ? annotTriangeSize : 0)())
       .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`)
       .on('click', annotNextClicked)
       .on('mouseover', annotTriangleMouseover)
@@ -459,6 +460,7 @@ function renderChart(data, params) {
         // eslint-disable-next-line no-param-reassign
         a.enabled = true;
         a.selection = 0;
+        a.editing = false;
         return a;
       });
       annotationData = annotationResults;
