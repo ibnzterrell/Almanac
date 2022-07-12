@@ -7,9 +7,9 @@ import AnnotatorClient from './AnnotatorClient';
 const graphViewProps = ({
   width: 1920,
   height: 540,
-  margin_top: 10,
-  margin_bottom: 20,
-  margin_left: 60,
+  margin_top: 15,
+  margin_bottom: 30,
+  margin_left: 75,
   margin_right: 20,
   backgroundColor: 'whitesmoke',
 });
@@ -67,6 +67,9 @@ const svg = d3.select('#graphView').append('svg')
   .style('background-color', graphViewProps.backgroundColor);
 const xAxisGroup = svg.append('g');
 const yAxisGroup = svg.append('g');
+const xAxisLabelGroup = svg.append('g');
+const yAxisLabelGroup = svg.append('g');
+const titleGroup = svg.append('g');
 const line = svg.append('path');
 const featureGroup = svg.append('g');
 const annotGroup = svg.append('g');
@@ -79,6 +82,9 @@ function renderChart(data, params) {
   line.selectAll('*').remove();
   xAxisGroup.selectAll('*').remove();
   yAxisGroup.selectAll('*').remove();
+  xAxisLabelGroup.selectAll('*').remove();
+  yAxisLabelGroup.selectAll('*').remove();
+  titleGroup.selectAll('*').remove();
   featureGroup.selectAll('*').remove();
   annotGroup.selectAll('*').remove();
 
@@ -102,6 +108,30 @@ function renderChart(data, params) {
 
   xAxisGroup.attr('transform', `translate(0,${graphViewProps.height - graphViewProps.margin_bottom})`).call(xAxis);
   yAxisGroup.attr('transform', `translate(${graphViewProps.margin_left}, 0)`).call(yAxis);
+
+  xAxisLabelGroup.append('text')
+    .attr('class', 'x label')
+    .attr('text-anchor', 'middle')
+    .attr('x', graphViewProps.width / 2)
+    .attr('y', graphViewProps.height - 5)
+    .text(params.xAxisLabel);
+
+  yAxisLabelGroup.append('text')
+    .attr('class', 'y label')
+    .attr('text-anchor', 'middle')
+    .attr('x', 0)
+    .attr('y', 0)
+    .text(params.yAxisLabel);
+
+  yAxisLabelGroup
+    .attr('transform', `translate(15, ${graphViewProps.height / 2}) rotate(-90)`);
+
+  titleGroup.append('text')
+    .attr('class', 'title')
+    .attr('text-anchor', 'middle')
+    .attr('x', graphViewProps.width / 2)
+    .attr('y', graphViewProps.margin_top)
+    .text(params.title);
 
   const lineGenerator = d3.line().x((d) => xScale(d[params.timeVar]))
     .y((d) => yScale(d[params.quantVar]));
@@ -452,16 +482,16 @@ function datasetSelected() {
 
   const paramsMap = {
     wildfire: {
-      timeVar: 'Month', quantVar: 'AcresBurned', granularity: 'month', query: '+california +wildfire',
+      timeVar: 'Month', quantVar: 'AcresBurned', granularity: 'month', query: '+california +wildfire', xAxisLabel: 'Month', yAxisLabel: 'Acres Burned', title: 'Wildfire Forest Destruction in California',
     },
     approval: {
-      timeVar: 'Month', quantVar: 'ApprovalRate', granularity: 'month', query: '+president +("united states" states)',
+      timeVar: 'Month', quantVar: 'ApprovalRate', granularity: 'month', query: '+president +("united states" states)', xAxisLabel: 'Month', yAxisLabel: 'Approval Rate', title: 'U.S. Presidential Approval Rate',
     },
     covid: {
-      timeVar: 'Month', quantVar: 'Cases', granularity: 'day', query: '+(coronavirus covid-19)',
+      timeVar: 'Month', quantVar: 'Cases', granularity: 'day', query: '+(coronavirus covid-19)', xAxisLabel: 'Month', yAxisLabel: 'New Cases', title: 'Coronavirus Cases in the United States',
     },
     unemployment: {
-      timeVar: 'Month', quantVar: 'UnemploymentRate', granularity: 'month', query: '+unemployment +"united states',
+      timeVar: 'Month', quantVar: 'UnemploymentRate', granularity: 'month', query: '+unemployment +"united states', xAxisLabel: 'Month', yAxisLabel: 'Unemployment Rate', title: 'Unemployment Rate in the United States',
     },
   };
 
