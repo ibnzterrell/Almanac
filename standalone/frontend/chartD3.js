@@ -76,7 +76,11 @@ const annotTriangeSize = 50;
 
 function renderChart(data, params) {
   // Erase existing chart
+  line.selectAll('*').remove();
+  xAxisGroup.selectAll('*').remove();
+  yAxisGroup.selectAll('*').remove();
   featureGroup.selectAll('*').remove();
+  annotGroup.selectAll('*').remove();
 
   // Render the Chart
   console.log(data);
