@@ -7,7 +7,10 @@ import AnnotatorClient from './AnnotatorClient';
 const graphViewProps = ({
   width: 1920,
   height: 540,
-  margin: 50,
+  margin_top: 10,
+  margin_bottom: 20,
+  margin_left: 60,
+  margin_right: 20,
   backgroundColor: 'whitesmoke',
 });
 
@@ -60,7 +63,7 @@ const svg = d3.select('#graphView').append('svg')
   .attr('preserveAspectRatio', 'xMinYMin meet')
   .attr('viewBox', `0 0 ${graphViewProps.width} ${graphViewProps.height}`)
   .classed('svg-content-responsive', true)
-  .attr('margin', graphViewProps.margin)
+  // .attr('margin', graphViewProps.margin)
   .style('background-color', graphViewProps.backgroundColor);
 const xAxisGroup = svg.append('g');
 const yAxisGroup = svg.append('g');
@@ -81,20 +84,20 @@ function renderChart(data, params) {
   const xScale = d3.scaleTime().domain(d3.extent(
     data,
     (d) => d[[params.timeVar]],
-  )).range([0, graphViewProps.width]);
+  )).range([graphViewProps.margin_left, graphViewProps.width - graphViewProps.margin_right]);
 
   const yScale = d3.scaleLinear().domain(
     [0, d3.max(data, (d) => d[params.quantVar])],
-  ).range([graphViewProps.height, 0]);
+  ).range([graphViewProps.height - graphViewProps.margin_bottom, graphViewProps.margin_top]);
 
-  const xAxis = d3.axisTop()
+  const xAxis = d3.axisBottom()
     .scale(xScale);
 
-  const yAxis = d3.axisRight()
+  const yAxis = d3.axisLeft()
     .scale(yScale);
 
-  xAxisGroup.attr('transform', `translate(0,${graphViewProps.height})`).call(xAxis);
-  yAxisGroup.call(yAxis);
+  xAxisGroup.attr('transform', `translate(0,${graphViewProps.height - graphViewProps.margin_bottom})`).call(xAxis);
+  yAxisGroup.attr('transform', `translate(${graphViewProps.margin_left}, 0)`).call(yAxis);
 
   const lineGenerator = d3.line().x((d) => xScale(d[params.timeVar]))
     .y((d) => yScale(d[params.quantVar]));
@@ -263,9 +266,9 @@ function renderChart(data, params) {
     function simTick() {
       annotCircles
         // eslint-disable-next-line no-return-assign
-        .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin, graphViewProps.width - aWidth / 2))
+        .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin_left, graphViewProps.width - aWidth / 2))
         // eslint-disable-next-line no-return-assign
-        .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin, graphViewProps.height - aWidth / 2 - graphViewProps.margin));
+        .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin_top, graphViewProps.height - aWidth / 2 - graphViewProps.margin_bottom));
 
       annotPrev
         .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`);
