@@ -58,20 +58,19 @@
 
   function loadTimeSeriesData() {
     tabularData = dataTable.data.map((row) => {
-      console.log(row);
       const time = row[timeFieldIndex];
       const quant = row[quantFieldIndex];
       const point = {};
       point[timeFieldName] = time.nativeValue;
       point[quantFieldName] = quant.nativeValue;
-      console.log(point);
       return point;
     });
     console.log(tabularData);
   }
 
   function selectMarks() {
-
+    const features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, 7);
+    console.log(features);
   }
 
   $(document).ready(() => {
