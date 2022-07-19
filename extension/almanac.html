@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Almanac</title>
+
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="../../lib/tableau.extensions.1.latest.js"></script>
+
+    <!-- Our extension's code -->
+    <script src="./almanac.js"></script>
+</head>
+
+<body>
+    <div id="dashboardTitle">DASHBOARD</div>
+    <div id="debugOutput">DEBUG</div>
+    <div>Worksheet:</div>
+    <select id="worksheetSelect"></select>
+    <div>Time Field:</div>
+    <select id="timeFieldSelect"></select>
+    <div>Quant Field:</div>
+    <select id="quantFieldSelect"></select>
+
+    <div>
+        <button id="selectMarks">Select Marks</button>
+    </div>
+</body>
+
+</html>
