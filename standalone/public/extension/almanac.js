@@ -2,7 +2,7 @@
 (() => {
   let worksheet = {};
   let worksheets = [];
-  let dataTableId = 0;
+  // const dataTableId = 0;
   let dataTable = {};
 
   let timeFieldIndex = -1;
@@ -18,34 +18,38 @@
   }
 
   function loadWorksheetData() {
-    worksheet.getUnderlyingTablesAsync().then((tables) => {
-      dataTableId = tables[0].id;
+    // worksheet.getUnderlyingTablesAsync().then((tables) => {
+    //   console.log(tables);
+    //   dataTableId = tables[0].id;
 
-      worksheet.getUnderlyingTableDataAsync(dataTableId).then((table) => {
-        dataTable = table;
+    //   worksheet.getUnderlyingTableDataAsync(dataTableId).then((table) => {
+    //     dataTable = table;
 
-        $('#timeFieldSelect').empty();
-        $('#quantFieldSelect').empty();
+    worksheet.getSummaryDataAsync().then(((table) => {
+      dataTable = table;
+      console.log(dataTable);
+      $('#timeFieldSelect').empty();
+      $('#quantFieldSelect').empty();
 
-        dataTable.columns.forEach((c) => {
-          if (c.dataType === 'date' || c.dataType === 'date-time') {
-            $('#timeFieldSelect').append($('<option/>', {
-              value: c.index,
-              text: c.fieldName,
-            }));
-          } else if (c.dataType === 'float' || c.dataType === 'integer') {
-            $('#quantFieldSelect').append($('<option/>', {
-              value: c.index,
-              text: c.fieldName,
-            }));
-          }
-        });
-
-        $('#timeFieldSelect').on('change', columnSelected);
-        $('#quantFieldSelect').on('change', columnSelected);
-        columnSelected();
+      dataTable.columns.forEach((c) => {
+        console.log(c.fieldName);
+        if (c.dataType === 'date' || c.dataType === 'date-time') {
+          $('#timeFieldSelect').append($('<option/>', {
+            value: c.index,
+            text: c.fieldName,
+          }));
+        } else if (c.dataType === 'float' || c.dataType === 'integer') {
+          $('#quantFieldSelect').append($('<option/>', {
+            value: c.index,
+            text: c.fieldName,
+          }));
+        }
       });
-    });
+
+      $('#timeFieldSelect').on('change', columnSelected);
+      $('#quantFieldSelect').on('change', columnSelected);
+      columnSelected();
+    }));
   }
 
   function columnSelected() {
@@ -68,9 +72,49 @@
     console.log(tabularData);
   }
 
+  function convertDateToUTC(date) {
+    return new Date(Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds(),
+    ));
+  }
+
   function selectMarks() {
     const features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, 7);
     console.log(features);
+
+    const selectionCriteria = features.map((f) => ({
+      fieldName: timeFieldName,
+      value: f[timeFieldName],
+    }));
+    console.log(selectionCriteria);
+
+    selectionCriteria.forEach((c) => {
+      worksheet.selectMarksByValueAsync(c, tableau.SelectionUpdateType.Add);
+    });
+
+    // worksheet.getHighlightedMarksAsync().then((marks) => {
+    //   console.log(marks);
+    // });
+  }
+
+  function debug() {
+    worksheet.getParametersAsync().then((parameters) => {
+      console.log(parameters);
+    });
+    worksheet.getFiltersAsync().then((filters) => {
+      console.log(filters);
+    });
+    worksheet.getSelectedMarksAsync().then((marks) => {
+      console.log(marks);
+    });
+    // worksheet.getSummaryDataAsync().then((data) => {
+    //   console.log(data);
+    // });
   }
 
   $(document).ready(() => {
@@ -91,6 +135,7 @@
 
       $('#worksheetSelect').on('change', worksheetSelected);
       $('#selectMarksButton').on('click', selectMarks);
+      $('#debugButton').on('click', debug);
       worksheetSelected();
     });
   });
