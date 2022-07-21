@@ -72,14 +72,18 @@
     console.log(tabularData);
   }
 
-  function convertDateToUTC(date) {
+  function lastMonth(date) {
+    const lastMonthDate = new Date(date);
+    lastMonthDate.setDate(1);
+    lastMonthDate.setHours(-1);
+
     return new Date(Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      date.getUTCHours(),
-      date.getUTCMinutes(),
-      date.getUTCSeconds(),
+      lastMonthDate.getUTCFullYear(),
+      lastMonthDate.getUTCMonth(),
+      lastMonthDate.getUTCDate(),
+      lastMonthDate.getUTCHours(),
+      lastMonthDate.getUTCMinutes(),
+      lastMonthDate.getUTCSeconds(),
     ));
   }
 
@@ -89,13 +93,21 @@
 
     const selectionCriteria = features.map((f) => ({
       fieldName: timeFieldName,
-      value: f[timeFieldName],
+      value: { min: lastMonth(f[timeFieldName]), max: f[timeFieldName] },
     }));
     console.log(selectionCriteria);
 
-    selectionCriteria.forEach((c) => {
-      worksheet.selectMarksByValueAsync(c, tableau.SelectionUpdateType.Add);
+    worksheet.clearSelectedMarksAsync().then(() => {
+      selectionCriteria.forEach((c) => {
+        worksheet.selectMarksByValueAsync([c], tableau.SelectionUpdateType.Add);
+      });
     });
+
+    // worksheet.selectMarksByValueAsync(selectionCriteria, tableau.SelectionUpdateType.Replace);
+
+    // worksheet.selectMarksByValueAsync([{ fieldName: timeFieldName, value: { min: lastMonth(maxDate), max: maxDate } }], tableau.SelectionUpdateType.Add);
+
+    // worksheet.selectMarksByValueAsync([{ fieldName: 'Segment', value: 'Consumer' }], tableau.SelectionUpdateType.Add);
 
     // worksheet.getHighlightedMarksAsync().then((marks) => {
     //   console.log(marks);
