@@ -53,7 +53,7 @@ def loadNLP():
     lemma_WordNetPipeline.add_pipe("lemmatizer-WordNet")
     pipelines[WordConsolidation.lemma_WordNet] = lemma_WordNetPipeline
 
-    pipelines[WordConsolidation.lemma_neural_edittree] = spacy.load("en_experimental_eddittree_ud_en_ewt", exclude=["ner"])
+    # pipelines[WordConsolidation.lemma_neural_edittree] = spacy.load("en_experimental_eddittree_ud_en_ewt", exclude=["ner"])
 
     stem_PorterPipeline = spacy.load("en_core_web_sm", exclude=["lemmatizer", "ner"])
     stem_PorterPipeline.add_pipe("stemmer-porter")
