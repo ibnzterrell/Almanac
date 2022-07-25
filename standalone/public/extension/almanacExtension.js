@@ -12,9 +12,19 @@
 
   let tabularData = [];
 
+  let features = [];
+  let annotations = [];
+  let queryText = '';
+
+  let annotator = {};
+  let annotQueryOptions = {};
+
   function worksheetSelected() {
     worksheet = worksheets.find((w) => w.name === $('#worksheetSelect').val());
     loadWorksheetData();
+
+    annotator = new window.TwinPeaks.Annotator();
+    annotQueryOptions = window.TwinPeaks.Annotator.getDefaultQueryOptions();
   }
 
   function loadWorksheetData() {
@@ -88,7 +98,7 @@
   }
 
   function selectMarks() {
-    const features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, 7);
+    features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, 7);
     console.log(features);
 
     const selectionCriteria = features.map((f) => ({
@@ -102,16 +112,14 @@
         worksheet.selectMarksByValueAsync([c], tableau.SelectionUpdateType.Add);
       });
     });
+  }
 
-    // worksheet.selectMarksByValueAsync(selectionCriteria, tableau.SelectionUpdateType.Replace);
-
-    // worksheet.selectMarksByValueAsync([{ fieldName: timeFieldName, value: { min: lastMonth(maxDate), max: maxDate } }], tableau.SelectionUpdateType.Add);
-
-    // worksheet.selectMarksByValueAsync([{ fieldName: 'Segment', value: 'Consumer' }], tableau.SelectionUpdateType.Add);
-
-    // worksheet.getHighlightedMarksAsync().then((marks) => {
-    //   console.log(marks);
-    // });
+  function annotateMarks() {
+    queryText = $('#queryText').val();
+    console.log(`Query Text: ${queryText}`);
+    annotations = annotator.headlines_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
+      console.log(annotResults);
+    });
   }
 
   function debug() {
@@ -147,6 +155,7 @@
 
       $('#worksheetSelect').on('change', worksheetSelected);
       $('#selectMarksButton').on('click', selectMarks);
+      $('#annotateMarksButton').on('click', annotateMarks);
       $('#debugButton').on('click', debug);
       worksheetSelected();
     });
