@@ -28,22 +28,22 @@ class Annotator {
       return response.json();
     }
     async headlines_query(data, dateField, granularity, query, options = {}) {
-      let data_container = {
-        data: data
-      };
-      let parameters = {
+      let params = {
         dateField: dateField,
         granularity: granularity,
         query: query
       };
+
+      let dataPack = {
+        data: data,
+        params: params,
+        options: options
+      };
   
-      parameters = { ...parameters, ...options };
-  
-      console.log(data_container);
+      console.log(dataPack);
       let resp = await this.postForResponse(
         "/headline",
-        data_container,
-        parameters
+        dataPack,
       );
       console.log(resp);
       resp.headlines = this.fixDateFormat(resp.headlines);
@@ -54,36 +54,13 @@ class Annotator {
   
       return resp;
     }
-    async headlines(dataA, dateA, methodA, tagA, granularityA) {
-      let packedData = {
-        data: dataA,
-        date: dateA,
-        method: methodA,
-        tag: tagA,
-        granularity: granularityA
-      };
-      let data = await this.postForResponse("/headline", packedData);
-      return this.fixDateFormat(data.headlines);
-    }
-    async headlinesAlternate(dataA, dateA, methodA, tagA, granularityA) {
-      let packedData = {
-        data: dataA,
-        date: dateA,
-        method: methodA,
-        tag: tagA,
-        granularity: granularityA
-      };
-      let data = await this.postForResponse("/headline", packedData);
-      console.log(data);
-      return this.fixDateFormat(data.alternates);
-    }
-    async postForResponse(resource, data, params = {}) {
+    async postForResponse(resource, dataPack) {
       let fetchOptions = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(dataPack)
       };
       let url =
-        this.basePath + resource + "?" + new URLSearchParams(params).toString();
+        this.basePath + resource;
       console.log(url);
       let response = await fetch(url, fetchOptions);
       return response.json();
