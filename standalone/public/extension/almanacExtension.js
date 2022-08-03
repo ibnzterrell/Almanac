@@ -148,7 +148,7 @@
           x += 50;
           const target = {x, y};
           const markTupleInfo = {tupleId: m.tupleId};
-          const formattedText =  `<formatted-text><run bold='true' fontalignment='0' fontcolor='#4f6e8d' fontname='Georgia' fontsize='12'>${m.annotation.main_headline}</run></formatted-text>`
+          const formattedText =  `<formatted-text><run fontname='Helvetica' fontsize='12'>${m.annotation.main_headline}</run></formatted-text>`
           worksheet.annotateMarkByIdAsync(target, markTupleInfo, formattedText);
         });
       });
