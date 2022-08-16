@@ -141,15 +141,11 @@
         });
         console.log(mappedMarks);
         mappedMarks = mappedMarks.filter((m) => m.annotation !== undefined);
-        let x  = 50;
-        const y = 50;
 
-        mappedMarks.forEach((m) => {
-          x += 50;
-          const target = {x, y};
+        mappedMarks.forEach((m, i) => {
           const markTupleInfo = {tupleId: m.tupleId};
           const formattedText =  `<formatted-text><run fontname='Helvetica' fontsize='12'>${m.annotation.main_headline}</run></formatted-text>`
-          worksheet.annotateMarkByIdAsync(target, markTupleInfo, formattedText);
+          worksheet.annotateMarkByIdAsync(markTupleInfo, formattedText);
         });
       });
     });
