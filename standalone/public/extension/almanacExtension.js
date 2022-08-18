@@ -144,8 +144,8 @@
 
         mappedMarks.forEach((m, i) => {
           const markTupleInfo = {tupleId: m.tupleId};
-          const formattedText =  `<formatted-text><run fontname='Helvetica' fontsize='12'>${m.annotation.main_headline}</run></formatted-text>`
-          worksheet.annotateMarkByIdAsync(markTupleInfo, formattedText);
+          const annotationText =  m.annotation.main_headline
+          worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
         });
       });
     });
