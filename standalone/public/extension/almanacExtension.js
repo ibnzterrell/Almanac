@@ -109,7 +109,7 @@
       value: { min: lastMonth(f[timeFieldName]), max: f[timeFieldName] },
     }));
     console.log(selectionCriteria);
-
+      
     worksheet.clearSelectedMarksAsync().then(() => {
       selectionCriteria.forEach((c) => {
         worksheet.selectMarksByValueAsync([c], tableau.SelectionUpdateType.Add);
@@ -123,6 +123,7 @@
     annotator.headlines_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
       annotations = annotResults.headlines;
       console.log(annotations);
+
       worksheet.getSelectedMarksAsync().then((marksCollection) => {
         console.log(marksCollection);
         marksTable = marksCollection.data[0];
@@ -142,26 +143,13 @@
         console.log(mappedMarks);
         mappedMarks = mappedMarks.filter((m) => m.annotation !== undefined);
 
-        const annotationPromises = mappedMarks.map((m, i) => {
+        mappedMarks.forEach((m, i) => {
           const markTupleInfo = {tupleId: m.tupleId};
           const annotationText =  m.annotation.main_headline
           return worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
         });
-
-        Promise.all(annotationPromises).then(() => {
-          worksheet.getMarkAnnotationsAsync().then((annotations) => {
-            console.log(annotations);
-          });
-        });
       });
     });
-  }
-
-  function dropDateTimeStringZ(datetimeString) {
-    if (datetimeString.endsWith('Z')) {
-      return datetimeString.substring(0, datetimeString.length - 1);
-    }
-    return datetimeString;
   }
 
   function debug() {
@@ -179,6 +167,7 @@
     // });
     worksheet.getMarkAnnotationsAsync().then((annotations) => {
       console.log(annotations);
+      annotations.forEach((a) => worksheet.removeMarkAnnotationByIdAsync(a));
     });
   }
 
