@@ -142,10 +142,16 @@
         console.log(mappedMarks);
         mappedMarks = mappedMarks.filter((m) => m.annotation !== undefined);
 
-        mappedMarks.forEach((m, i) => {
+        const annotationPromises = mappedMarks.map((m, i) => {
           const markTupleInfo = {tupleId: m.tupleId};
           const annotationText =  m.annotation.main_headline
-          worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
+          return worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
+        });
+
+        Promise.all(annotationPromises).then(() => {
+          worksheet.getMarkAnnotationsAsync().then((annotations) => {
+            console.log(annotations);
+          });
         });
       });
     });
@@ -171,6 +177,9 @@
     // worksheet.getSummaryDataAsync().then((data) => {
     //   console.log(data);
     // });
+    worksheet.getMarkAnnotationsAsync().then((annotations) => {
+      console.log(annotations);
+    });
   }
 
   $(document).ready(() => {
