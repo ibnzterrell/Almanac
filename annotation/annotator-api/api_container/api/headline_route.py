@@ -25,10 +25,10 @@ async def headline_range_route(request: Request):
     db = db_connect(request.app.state.engine)
     pipelines = request.app.state.pipelines
     req = await request.json()
-    data = req["data"]
+    ranges = req["ranges"]
     params = req["params"]
     options = req["options"]
 
-    res_data = headline_range_query(db, pipelines, data, params, options)
+    res_data = headline_range_query(db, pipelines, ranges, params, options)
 
     return res_data

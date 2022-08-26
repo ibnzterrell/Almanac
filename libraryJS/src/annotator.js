@@ -57,15 +57,13 @@ class Annotator {
 
     return resp;
   }
-  async headlines_range_query(data, dateField, ranges, query, options = {}) {
+  async headlines_range_query(ranges, query, options = {}) {
     let params = {
-      dateField: dateField,
-      ranges: ranges,
       query: query
     };
 
     let dataPack = {
-      data: data,
+      ranges: ranges,
       params: params,
       options: options
     };

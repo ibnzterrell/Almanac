@@ -6,6 +6,7 @@ from model.Options import Granularity, HeadlineSearch, WordConsolidation
 from collections import Counter
 import heapq
 import math
+from dateutil import parser
 
 
 def findPersonEvents(name, events, dateField, granularity):
@@ -60,7 +61,7 @@ def findPointEvents(df, events, dateField, granularity):
 
     dfh = pd.merge(dfh, events, on="date_period")
 
-    #df = df.drop(columns=["date_period"])
+    # df = df.drop(columns=["date_period"])
     return dfh
 
 
@@ -101,13 +102,10 @@ def headline_point_query(db, pipelines, data: list[dict], params: dict, options:
     return headline_point_cluster(db, pipelines, data, granularity, dateField, query, options)
 
 
-def headline_range_query(db, pipelines, data: list[dict], params: dict, options: dict):
-    ranges = params["ranges"]
+def headline_range_query(db, pipelines, ranges, params: dict, options: dict):
     query = params["query"]
 
-    data = pd.DataFrame.from_records(data)
-
-    return headline_range_cluster(db, pipelines, data, ranges, query, options)
+    return headline_range_cluster(db, pipelines, ranges, query, options)
 
 
 def findPointClusters(df, pipelines, events, dateField, granularity, options):
@@ -252,16 +250,23 @@ def headline_point_cluster(db, pipes, events, granularity, dateField, query, opt
 def findRangeClusters(df, pipelines, ranges, options):
     nlp = getNLP(pipelines, options)
 
-    df["date_p"] = pd.to_datetime(df['pub_date'])
+    df["date_p"] = pd.to_datetime(df["pub_date"])
 
-    rangemasks = [(df['date_p'] >= r.start & df['date_p'] <= r.end)
-                  for r in range]
+    ranges = [{"begin": parser.parse(
+        r["begin"]), "end": parser.parse(r["end"])}for r in ranges]
+
+    rangemasks = [((df["date_p"] >= r["begin"]) & (df["date_p"] <= r["end"]))
+                  for r in ranges]
+
+    print(ranges)
+    print(rangemasks)
 
     rdfs = []
     for r, rm in zip(ranges, rangemasks):
         rdf = df.loc[rm]
-        rdf["date_range"] = r.start.strftime(
-            "%Y-%m-%d") + " - " + r.end.strftime("%Y-%m-%d")
+        rdf["date_range"] = r["begin"].strftime(
+            "%Y-%m-%d") + " - " + r["end"].strftime("%Y-%m-%d")
+        rdfs.append(rdf)
 
     df = pd.concat(rdfs)
 
