@@ -10,22 +10,22 @@ import math
 
 def findPersonEvents(name, events, dateField, granularity):
     df = personEventQuery(name)
-    return findEvents(df, events, dateField, granularity)
+    return findPointEvents(df, events, dateField, granularity)
 
 
-def findTopicEvents(topic, events, dateField, granularity):
+def findTopicEventsPoint(topic, events, dateField, granularity):
     df = topicEventQuery(topic)
-    return findEvents(df, events, dateField, granularity)
+    return findPointEvents(df, events, dateField, granularity)
 
 
 def findTextEvents(text, events, dateField, granularity):
     df = textEventQuery(text)
-    return findRelevantEvents(df, events, dateField, granularity)
+    return findRelevantPointEvents(df, events, dateField, granularity)
 
 
 def findOrgEvents(org, events, dateField, granularity):
     df = orgEventQuery(org)
-    return findEvents(df, events, dateField, granularity)
+    return findPointEvents(df, events, dateField, granularity)
 
 
 granularityToPandasPeriod = {
@@ -35,7 +35,7 @@ granularityToPandasPeriod = {
 }
 
 
-def findEvents(df, events, dateField, granularity):
+def findPointEvents(df, events, dateField, granularity):
 
     period = granularityToPandasPeriod[granularity]
 
@@ -64,7 +64,7 @@ def findEvents(df, events, dateField, granularity):
     return dfh
 
 
-def findRelevantEvents(df, events, dateField, granularity):
+def findRelevantPointEvents(df, events, dateField, granularity):
     period = granularityToPandasPeriod[granularity]
 
     # Cut dates to granularity specified
@@ -98,7 +98,7 @@ def headline_point_query(db, pipelines, data: list[dict], params: dict, options:
 
     data = pd.DataFrame.from_records(data)
 
-    return headline_cluster(db, pipelines, data, granularity, dateField, query, options)
+    return headline_point_cluster(db, pipelines, data, granularity, dateField, query, options)
 
 
 def headline_range_query(db, pipelines, data: list[dict], params: dict, options: dict):
@@ -108,10 +108,10 @@ def headline_range_query(db, pipelines, data: list[dict], params: dict, options:
 
     data = pd.DataFrame.from_records(data)
 
-    return headline_cluster(db, pipelines, data, granularity, dateField, query, options)
+    return headline_point_cluster(db, pipelines, data, granularity, dateField, query, options)
 
 
-def findClusters(df, pipelines, events, dateField, granularity, options):
+def findPointClusters(df, pipelines, events, dateField, granularity, options):
     nlp = getNLP(pipelines, options)
 
     period = granularityToPandasPeriod[granularity]
@@ -224,11 +224,11 @@ def findClusters(df, pipelines, events, dateField, granularity, options):
     return (df, dptopKs)
 
 
-def headline_cluster(db, pipes, events, granularity, dateField, query, options):
+def headline_point_cluster(db, pipes, events, granularity, dateField, query, options):
     df = textEventQuery(db, query, options)
 
-    (df, dptopKs) = findClusters(df, pipes,
-                                 events, dateField, granularity, options)
+    (df, dptopKs) = findPointClusters(df, pipes,
+                                      events, dateField, granularity, options)
 
     df["date_period"] = df["date_period"].astype(str)
     # print(df)
