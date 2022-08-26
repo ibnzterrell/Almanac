@@ -91,7 +91,17 @@ def findRelevantEvents(df, events, dateField, granularity):
     return dfh
 
 
-def headline_query(db, pipelines, data: list[dict], params: dict, options: dict):
+def headline_point_query(db, pipelines, data: list[dict], params: dict, options: dict):
+    granularity = params["granularity"]
+    dateField = params["dateField"]
+    query = params["query"]
+
+    data = pd.DataFrame.from_records(data)
+
+    return headline_cluster(db, pipelines, data, granularity, dateField, query, options)
+
+
+def headline_range_query(db, pipelines, data: list[dict], params: dict, options: dict):
     granularity = params["granularity"]
     dateField = params["dateField"]
     query = params["query"]
