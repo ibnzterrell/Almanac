@@ -367,32 +367,6 @@ def findRangeClusters(df, pipelines, ranges, options):
     return (df, drtopKs)
 
 
-def headline_range_cluster(db, pipes, events, granularity, dateField, query, options):
-    df = textEventQuery(db, query, options)
-
-    (df, dptopKs) = findPointClusters(df, pipes,
-                                      events, dateField, granularity, options)
-
-    df["date_period"] = df["date_period"].astype(str)
-    # print(df)
-
-    df = df.loc[:, ~df.columns.isin(["doc"])]
-
-    headlines = json.loads(
-        df[df["alternate"] == False].to_json(orient="records"))
-
-    res_data = {"headlines": headlines}
-
-    if (options["alternates"]):
-        res_data["alternates"] = json.loads(
-            df[df["alternate"] == True].to_json(orient="records"))
-
-    if (options["topK"]):
-        res_data["topK"] = dptopKs
-
-    return res_data
-
-
 def headline_range_cluster(db, pipes, ranges, query, options):
     df = textEventQuery(db, query, options)
 
