@@ -53,6 +53,42 @@ class Analyzer {
     }
   }
 
+  static peaksvalleys(data, sort, x, y) {
+    let peaks = this.peaks(data, "persistence", x, y);
+    let valleys = this.valleys(data, "persistence", x, y);
+    let peaksvalleys = peaks.concat(valleys);
+
+    peaksvalleys
+      .sort((a, b) => (a.persistence > b.persistence ? 1 : -1))
+      .reverse();
+    // Filter out X min and X max
+    peaksvalleys = peaksvalleys.filter(
+      (f) =>
+        f[x] != Math.max(...peaksvalleys.map((g) => g[x])) &&
+        f[x] != Math.min(...peaksvalleys.map((g) => g[x]))
+    );
+    return peaksvalleys;
+  }
+
+  static trends(data, sort, x, y) {}
+
+  static features(data, featureSet, x, y) {
+    switch (featureSet) {
+      case "peaks":
+        return this.peaks(data, "persistence", x, y);
+        break;
+      case "valleys":
+        return this.valleys(data, "persistence", x, y);
+        break;
+      case "peaksvalleys":
+        return this.peaksvalleys(data, "persistence", x, y);
+        break;
+      default:
+        throw new Error(`${featureSet} is not valid feature set.`);
+        break;
+    }
+  }
+
   static indexPeaks(data, x, y) {
     let peaks = [];
 
@@ -243,18 +279,18 @@ class Analyzer {
       }
     }
 
+    // Calculate Persistences
+    valleysMeta.forEach((e, i, arr) => {
+      e.persistence = this.calculatePersistence(data, e, y);
+      data[e.born].persistence = e.persistence;
+    });
+
     // Sort by Persistences
     valleysMeta = valleysMeta
-      .sort((a, b) =>
-        this.calculatePersistence(data, a, y) >
-        this.calculatePersistence(data, b, y)
-          ? 1
-          : -1
-      )
+      .sort((a, b) => (a.persistence > b.persistence ? 1 : -1))
       .reverse();
 
     let valleysIndex = valleysMeta.map((p) => p.born);
-
     return this.getDataByIndex(data, valleysIndex, x, y);
   }
 
