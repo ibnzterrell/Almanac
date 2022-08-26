@@ -54,6 +54,10 @@ class Analyzer {
   }
 
   static peaksvalleys(data, sort, x, y) {
+    this.validateXY(data, x, y);
+
+    data = this.vSort(data, x);
+
     let peaks = this.peaks(data, "persistence", x, y);
     let valleys = this.valleys(data, "persistence", x, y);
     let peaksvalleys = peaks.concat(valleys);
@@ -70,8 +74,20 @@ class Analyzer {
     return peaksvalleys;
   }
 
-  static trends(data, sort, x, y) {}
+  static trends(data, x, y) {
+    return this.positiveTrends(data, x, y);
+  }
 
+  static positiveTrends(data, x, y) {
+    let dydx = this.derivative(data, x, y);
+
+    let trends = [this.maxSumSequence(dydx, y)];
+    trends = this.convert(data, trends, x);
+    return trends;
+  }
+  static convert(data, ranges, x) {
+    return ranges.map((r) => ({ begin: data[r.begin], end: data[r.end] }));
+  }
   static features(data, featureSet, x, y) {
     switch (featureSet) {
       case "peaks":
@@ -155,7 +171,6 @@ class Analyzer {
       drops.push(d);
       data[valleysIndex[i]]["drop"] = d;
     }
-    // console.log(drops);
 
     valleysIndex.sort((a, b) =>
       drops[valleysIndex.indexOf(a)] > drops[valleysIndex.indexOf(b)] ? -1 : 1
@@ -303,6 +318,41 @@ class Analyzer {
   }
   static isValley(data, i, y) {
     return data[i][y] < data[i - 1][y] && data[i][y] < data[i + 1][y];
+  }
+  static derivative(data, x, y) {
+    let dydx = [0];
+    for (let i = 1; i < data.length; i++) {
+      let dydxi = (data[i][y] - data[i - 1][y]) / (data[i][x] - data[i - 1][y]);
+      dydx.push(dydxi);
+    }
+    dydx[0] = dydx[1];
+    return dydx;
+  }
+  static maxSumSequence(arr, y) {
+    let maxSum = Number.NEGATIVE_INFINITY;
+
+    let maxBegin = 0;
+    let maxEnd = 0;
+
+    let sum = 0;
+    let begin = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      if (sum <= 0) {
+        begin = i;
+        sum = arr[i];
+      } else {
+        sum += arr[i];
+      }
+
+      if (sum > maxSum) {
+        maxSum = sum;
+        maxBegin = begin;
+        maxEnd = i;
+      }
+    }
+
+    return { begin: maxBegin, end: maxEnd };
   }
   static calculateProminence(data, peaksIndex, p, y) {
     let leftPeak = 0;
