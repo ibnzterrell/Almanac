@@ -4,11 +4,14 @@
   let worksheets = [];
   // const dataTableId = 0;
   let dataTable = {};
+  let marksTable = [];
 
-  let timeFieldIndex = -1;
-  let quantFieldIndex = -1;
   let timeFieldName = '';
   let quantFieldName = '';
+  let timeFieldDataIndex = -1;
+  let quantFieldDataIndex = -1;
+  let timeFieldMarkIndex = -1;
+  let quantFieldMarkIndex = -1;
 
   let tabularData = [];
 
@@ -63,17 +66,17 @@
   }
 
   function columnSelected() {
-    timeFieldIndex = $('#timeFieldSelect').val();
-    timeFieldName = dataTable.columns[timeFieldIndex].fieldName;
-    quantFieldIndex = $('#quantFieldSelect').val();
-    quantFieldName = dataTable.columns[quantFieldIndex].fieldName;
+    timeFieldDataIndex = $('#timeFieldSelect').val();
+    timeFieldName = dataTable.columns[timeFieldDataIndex].fieldName;
+    quantFieldDataIndex = $('#quantFieldSelect').val();
+    quantFieldName = dataTable.columns[quantFieldDataIndex].fieldName;
     loadTimeSeriesData();
   }
 
   function loadTimeSeriesData() {
     tabularData = dataTable.data.map((row) => {
-      const time = row[timeFieldIndex];
-      const quant = row[quantFieldIndex];
+      const time = row[timeFieldDataIndex];
+      const quant = row[quantFieldDataIndex];
       const point = {};
       point[timeFieldName] = time.nativeValue;
       point[quantFieldName] = quant.nativeValue;
@@ -106,7 +109,7 @@
       value: { min: lastMonth(f[timeFieldName]), max: f[timeFieldName] },
     }));
     console.log(selectionCriteria);
-
+      
     worksheet.clearSelectedMarksAsync().then(() => {
       selectionCriteria.forEach((c) => {
         worksheet.selectMarksByValueAsync([c], tableau.SelectionUpdateType.Add);
@@ -117,8 +120,35 @@
   function annotateMarks() {
     queryText = $('#queryText').val();
     console.log(`Query Text: ${queryText}`);
-    annotations = annotator.headlines_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
-      console.log(annotResults);
+    annotator.headlines_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
+      annotations = annotResults.headlines;
+      console.log(annotations);
+
+      worksheet.getSelectedMarksAsync().then((marksCollection) => {
+        console.log(marksCollection);
+        marksTable = marksCollection.data[0];
+        console.log(marksTable);
+
+        timeFieldMarkIndex = marksTable.columns.findIndex((c) => c.fieldName === timeFieldName);
+        quantFieldMarkIndex = marksTable.columns.findIndex((c) => c.fieldName === quantFieldName);
+
+        let mappedMarks = marksTable.data.map((m, mi) => {
+          const mark = {};
+          mark[timeFieldName] = m[timeFieldMarkIndex].nativeValue;
+          mark[quantFieldName] = m[quantFieldMarkIndex].nativeValue;
+          mark.tupleId = marksTable.marksInfo[mi].tupleId;
+          mark.annotation = annotations.find((a) => (new Date(a[timeFieldName])).getTime() === mark[timeFieldName].getTime());
+          return mark;
+        });
+        console.log(mappedMarks);
+        mappedMarks = mappedMarks.filter((m) => m.annotation !== undefined);
+
+        mappedMarks.forEach((m, i) => {
+          const markTupleInfo = {tupleId: m.tupleId};
+          const annotationText =  m.annotation.main_headline
+          return worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
+        });
+      });
     });
   }
 
@@ -135,6 +165,10 @@
     // worksheet.getSummaryDataAsync().then((data) => {
     //   console.log(data);
     // });
+    worksheet.getMarkAnnotationsAsync().then((annotations) => {
+      console.log(annotations);
+      annotations.forEach((a) => worksheet.removeMarkAnnotationByIdAsync(a));
+    });
   }
 
   $(document).ready(() => {
