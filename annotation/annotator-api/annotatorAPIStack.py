@@ -6,7 +6,7 @@ from aws_cdk import (
     RemovalPolicy,
     aws_ec2 as ec2,
     aws_ecs as ecs,
-    aws_ecs_patterns  as ecs_patterns,
+    aws_ecs_patterns as ecs_patterns,
     aws_elasticloadbalancingv2 as elb,
     aws_autoscaling as autoscaling,
     aws_route53 as route53,
@@ -16,6 +16,7 @@ from aws_cdk import (
 from dotenv import load_dotenv
 
 from constructs import Construct
+
 
 class AnnotatorAPIStack(Stack):
 
@@ -32,54 +33,59 @@ class AnnotatorAPIStack(Stack):
         self.service_cluster_min = int(getenv("service_cluster_min"))
         self.service_cluster_max = int(getenv("service_cluster_max"))
         self.api_service_min = int(getenv("api_service_min"))
-        self.api_service_max= int(getenv("api_service_max"))
+        self.api_service_max = int(getenv("api_service_max"))
         self.db_instance_name = getenv("db_instance_name")
-        
-        self.subnet_selection = ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC)
+
+        self.subnet_selection = ec2.SubnetSelection(
+            subnet_type=ec2.SubnetType.PUBLIC)
         self.subnet_configuration = ec2.SubnetConfiguration(
-            name= self.vpc_name + "Subnet",
+            name=self.vpc_name + "Subnet",
             subnet_type=ec2.SubnetType.PUBLIC,
         )
         self.vpc = ec2.Vpc(self, self.vpc_name,
-            max_azs=self.vpc_max_azs,
-            nat_gateways=0,
-            subnet_configuration = [self.subnet_configuration]
-        )
+                           max_azs=self.vpc_max_azs,
+                           nat_gateways=0,
+                           subnet_configuration=[self.subnet_configuration]
+                           )
 
-        self.hosted_zone = route53.HostedZone.from_lookup(self, id="AnnotatorZone", domain_name=self.zone_name)
-        
+        self.hosted_zone = route53.HostedZone.from_lookup(
+            self, id="AnnotatorZone", domain_name=self.zone_name)
+
         self.service_cluster = ecs.Cluster(self, "AnnotatorCluster",
-        vpc=self.vpc)
+                                           vpc=self.vpc)
 
-        self.api_container_image = ecs.ContainerImage.from_asset("./api_container/")
+        self.api_container_image = ecs.ContainerImage.from_asset(
+            "./api_container/")
 
-        self.service_cluster_image = ecs.BottleRocketImage(architecture=ec2.InstanceArchitecture.X86_64)
+        self.service_cluster_image = ecs.BottleRocketImage(
+            architecture=ec2.InstanceArchitecture.X86_64)
         # TODO: Use ARM_64 BottleRocket with BURSTABLE4_GRAVITON
-        self.service_cluster_instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3_AMD, ec2.InstanceSize.MEDIUM)
+        self.service_cluster_instance_type = ec2.InstanceType.of(
+            ec2.InstanceClass.BURSTABLE3_AMD, ec2.InstanceSize.MEDIUM)
 
         self.service_cluster_asg = self.service_cluster.add_capacity("DefaultAutoScalingGroupCapacity",
-            instance_type=self.service_cluster_instance_type,
-            machine_image=self.service_cluster_image,
-            min_capacity=self.service_cluster_min,
-            max_capacity=self.service_cluster_max
-        )
+                                                                     instance_type=self.service_cluster_instance_type,
+                                                                     machine_image=self.service_cluster_image,
+                                                                     min_capacity=self.service_cluster_min,
+                                                                     max_capacity=self.service_cluster_max
+                                                                     )
 
         self.service_cluster_asg.scale_on_cpu_utilization("ClusterCPUScaling",
-        target_utilization_percent=20)
+                                                          target_utilization_percent=20)
 
         self.api_service = ecs_patterns.ApplicationLoadBalancedEc2Service(self, "AnnotatorAPIService",
-            cluster=self.service_cluster,
-            cpu=256,
-            memory_reservation_mib=512,
-            task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
-                image=self.api_container_image,
-            ),
-            public_load_balancer=True,
-            protocol=elb.ApplicationProtocol.HTTPS,
-            target_protocol=elb.ApplicationProtocol.HTTP,
-            domain_name=self.domain_name,
-            domain_zone=self.hosted_zone
-        )
+                                                                          cluster=self.service_cluster,
+                                                                          cpu=256,
+                                                                          memory_reservation_mib=512,
+                                                                          task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
+                                                                              image=self.api_container_image,
+                                                                          ),
+                                                                          public_load_balancer=True,
+                                                                          protocol=elb.ApplicationProtocol.HTTPS,
+                                                                          target_protocol=elb.ApplicationProtocol.HTTP,
+                                                                          domain_name=self.domain_name,
+                                                                          domain_zone=self.hosted_zone
+                                                                          )
 
         self.api_service.target_group.configure_health_check(path="/health")
 
@@ -88,29 +94,31 @@ class AnnotatorAPIStack(Stack):
         )
 
         self.api_scalable_target.scale_on_cpu_utilization("APIServiceCpuScaling",
-            target_utilization_percent=80
-        )
+                                                          target_utilization_percent=80
+                                                          )
 
-        self.db_engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_8_0_26)
+        self.db_engine = rds.DatabaseInstanceEngine.mysql(
+            version=rds.MysqlEngineVersion.VER_8_0)
         self.db_parameters = {
             "ft_min_word_len": "3",
             "ft_stopword_file": "/dev/null"
         }
         self.db_parametergroup = rds.ParameterGroup(self, "AnnotatorDBParameterGroup",
-            engine=self.db_engine,
-            parameters=self.db_parameters
-        )
+                                                    engine=self.db_engine,
+                                                    parameters=self.db_parameters
+                                                    )
 
         self.db_instance = rds.DatabaseInstance(self, "AnnotationDatabase",
-            engine=self.db_engine,
-            vpc=self.vpc,
-            instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MEDIUM),
-            allow_major_version_upgrade=False,
-            auto_minor_version_upgrade=True,
-            publicly_accessible=True,
-            vpc_subnets=self.subnet_selection,
-            instance_identifier=self.db_instance_name,
-            storage_encrypted=True,
-            removal_policy=RemovalPolicy.DESTROY,
-            parameter_group=self.db_parametergroup
-        )
+                                                engine=self.db_engine,
+                                                vpc=self.vpc,
+                                                instance_type=ec2.InstanceType.of(
+                                                    ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MEDIUM),
+                                                allow_major_version_upgrade=False,
+                                                auto_minor_version_upgrade=True,
+                                                publicly_accessible=True,
+                                                vpc_subnets=self.subnet_selection,
+                                                instance_identifier=self.db_instance_name,
+                                                storage_encrypted=True,
+                                                removal_policy=RemovalPolicy.DESTROY,
+                                                parameter_group=self.db_parametergroup
+                                                )
