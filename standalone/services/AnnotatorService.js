@@ -9,6 +9,6 @@ const annotator = new TwinPeaks.Annotator();
 
 const queryOptions = TwinPeaks.Annotator.getDefaultQueryOptions();
 
-AnnotatorService.headlines = async (features, timeField, granularity, queryText) => annotator.headlines_query(features, timeField, granularity, queryText, queryOptions);
+AnnotatorService.headlines = async (features, timeField, granularity, queryText) => annotator.headlines_point_query(features, timeField, granularity, queryText, queryOptions);
 
 module.exports = AnnotatorService;
