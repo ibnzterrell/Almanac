@@ -10,11 +10,15 @@ load_dotenv()
 startMonth = int(os.getenv("START_MONTH"))
 startYear = int(os.getenv("START_YEAR"))
 
-yesterday = datetime.today() - timedelta(days=1)
-endMonth = yesterday.month
-endYear = yesterday.year
+# yesterday = datetime.today() - timedelta(days=1)
+# endMonth = yesterday.month
+# endYear = yesterday.year
+
+endMonth = int(os.getenv("END_MONTH"))
+endYear = int(os.getenv("END_YEAR"))
 
 apiKey = os.getenv("apiKeyNYT")
+
 
 def month_year_range(startMonth, startYear, endMonth, endYear):
     for year in range(startYear, endYear + 1):
@@ -29,6 +33,7 @@ def month_year_range(startMonth, startYear, endMonth, endYear):
         for month in range(startRangeMonth, stopRangeMonth):
             yield month, year
 
+
 def saveMonth(month, year):
     dataResponse = requests.get(
         f"https://api.nytimes.com/svc/archive/v1/{year}/{month}.json?api-key={apiKey}")
@@ -37,8 +42,10 @@ def saveMonth(month, year):
     with open(f"./data/raw/{year}_{month}.json", "w") as outFile:
         json.dump(monthData, outFile)
 
+
 def monthExists(month, year):
     return os.path.exists(f"./data/raw/{year}_{month}.json")
+
 
 for month, year in month_year_range(startMonth, startYear, endMonth, endYear):
     print(f"Retrieving {year}-{month}:")

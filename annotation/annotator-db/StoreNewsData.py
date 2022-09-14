@@ -12,9 +12,13 @@ load_dotenv()
 startMonth = int(os.getenv("START_MONTH"))
 startYear = int(os.getenv("START_YEAR"))
 
-yesterday = datetime.today() - timedelta(days=1)
-endMonth = yesterday.month
-endYear = yesterday.year
+# yesterday = datetime.today() - timedelta(days=1)
+# endMonth = yesterday.month
+# endYear = yesterday.year
+
+endMonth = int(os.getenv("END_MONTH"))
+endYear = int(os.getenv("END_YEAR"))
+
 
 def rank_array(df, column):
     for uri, arr in zip(df["uri"], df[column]):
@@ -23,12 +27,14 @@ def rank_array(df, column):
             rank = i + 1
             yield(uri, rank, a)
 
+
 def rank_df(df, df_col, rank_col):
     data = []
     for (uri, rank, rankee) in rank_array(df, df_col):
         data.append([uri, rank, rankee])
     ranked_df = pd.DataFrame(data, columns=["uri", "rank", rank_col])
     return ranked_df
+
 
 def createIdsFromTag(tag_df, tag):
     id_df = pd.DataFrame()
@@ -42,6 +48,7 @@ def createIdsFromTag(tag_df, tag):
 
     tag_df[tag + "Id"] = tag_df[tag].map(tagToId)
     return id_df
+
 
 fileRead = f"./data/NYT_Data_Clean_{startMonth}_{startYear}_to_{endMonth}_{endYear}.parquet"
 
@@ -59,11 +66,11 @@ articleUriToId = {
     uri: id for (uri, id) in zip(article_df["uri"], article_df["articleId"])
 }
 
-article_df = article_df[["articleId", "pub_date", "main_headline", 
-                            "lead_paragraph", "web_url"]]
+article_df = article_df[["articleId", "pub_date", "main_headline",
+                         "lead_paragraph", "web_url"]]
 
 tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
-                                                    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
+                                                 "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
 for df, df_col in tag_df_tables:
     df["articleId"] = df["uri"].map(articleUriToId)
 
@@ -88,10 +95,10 @@ print(subject_tag_df)
 print(location_tag_df)
 
 df_tables = [(article_df, "article"), (person_df, "person"), (organization_df,
-    "organization"), (subject_df, "subject"), (location_df, "location")]
+                                                              "organization"), (subject_df, "subject"), (location_df, "location")]
 
 tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,
-    "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
+                                                 "organization_tag"), (subject_tag_df, "subject_tag"), (location_tag_df, "location_tag")]
 
 print("Table Updates Generated")
 
@@ -116,13 +123,13 @@ with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as connect
 
     for df, table in df_tables:
         df.to_sql(table, connection, if_exists="append",
-            index=False, chunksize=1000, method="multi")
+                  index=False, chunksize=1000, method="multi")
 
     print("Updating Tags")
 
     for tag_df, tag_table in tag_df_tables:
         tag_df.to_sql(tag_table, connection, if_exists="append",
-            index=False, chunksize=1000, method="multi")
+                      index=False, chunksize=1000, method="multi")
 
     connection.close()
 engine.dispose()
