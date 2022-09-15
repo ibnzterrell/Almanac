@@ -109,7 +109,7 @@
       value: { min: lastMonth(f[timeFieldName]), max: f[timeFieldName] },
     }));
     console.log(selectionCriteria);
-      
+
     worksheet.clearSelectedMarksAsync().then(() => {
       selectionCriteria.forEach((c) => {
         worksheet.selectMarksByValueAsync([c], tableau.SelectionUpdateType.Add);
@@ -120,7 +120,7 @@
   function annotateMarks() {
     queryText = $('#queryText').val();
     console.log(`Query Text: ${queryText}`);
-    annotator.headlines_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
+    annotator.headlines_point_query(features, timeFieldName, 'month', queryText, annotQueryOptions).then((annotResults) => {
       annotations = annotResults.headlines;
       console.log(annotations);
 
@@ -144,8 +144,8 @@
         mappedMarks = mappedMarks.filter((m) => m.annotation !== undefined);
 
         mappedMarks.forEach((m, i) => {
-          const markTupleInfo = {tupleId: m.tupleId};
-          const annotationText =  m.annotation.main_headline
+          const markTupleInfo = { tupleId: m.tupleId };
+          const annotationText = m.annotation.main_headline;
           return worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
         });
       });
