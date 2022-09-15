@@ -55,7 +55,8 @@ async function getCovidData() {
 }
 
 async function getUnemploymentData() {
-  const data = await d3.csv('/data/UnemploymentRate.csv', (d) => ({ Month: d3.timeParse('%Y-%m-%d')(d.Date), UnemploymentRate: parseFloat(d.UnemploymentRate) }));
+  let data = await d3.csv('/data/UnemploymentRate.csv', (d) => ({ Month: d3.timeParse('%Y-%m-%d')(d.Date), UnemploymentRate: parseFloat(d.UnemploymentRate) }));
+  data = data.filter((u) => !isNaN(u.UnemploymentRate));
   return data;
 }
 
@@ -288,17 +289,8 @@ async function getTeslaStockData() {
   data = data.map((n) => ({
     date: new Date(n.date),
     adjusted_close: parseFloat(n.adjusted_close),
-  }));
-  return data;
-}
-
-async function getTeslaStockData2() {
-  let data = await d3.csv('/data/stocks_tesla.csv');
-  data = data.map((n) => ({
-    date: new Date(n.date),
-    adjusted_close: parseFloat(n.adjusted_close),
   }))
-    .filter((n) => n.date.getTime() >= new Date('2019').getTime() && n.date.getTime() <= new Date('2022-03-01').getTime());
+    .filter((n) => n.date.getTime() >= new Date('2019').getTime() && n.date.getTime() <= new Date('2022-06-01').getTime());
   return data;
 }
 
@@ -325,7 +317,7 @@ const peakCircleRadius = 4;
 // const annotTriangeSize = 50;
 let annotationsContainer = {};
 
-function renderChart(data, params) {
+function renderChart(data, datasetName, params) {
   // Erase existing chart
   line.selectAll('*').remove();
   xAxisGroup.selectAll('*').remove();
@@ -381,7 +373,7 @@ function renderChart(data, params) {
     .attr('text-anchor', 'middle')
     .attr('x', graphViewProps.width / 2)
     .attr('y', graphViewProps.margin_top)
-    .attr('font-size', '1.5em')
+    .attr('font-size', '2em')
     .text(params.title);
 
   const lineGenerator = d3.line().x((d) => xScale(d[params.timeVar]))
@@ -392,7 +384,60 @@ function renderChart(data, params) {
     (d) => lineGenerator(d),
   ).attr('fill', 'none').attr('stroke', 'blue');
 
-  const featureData = TwinPeaks.Analyzer.peaks(data, 'persistence', params.timeVar, params.quantVar).slice(0, params.numAnnotations);
+  let featureData = TwinPeaks.Analyzer.features(data, params.featureMode, params.timeVar, params.quantVar).slice(0, params.numAnnotations);
+
+  featureData = featureData.filter((f, i) => {
+    if (datasetName === 'wildfire') {
+      return f[params.timeVar].getTime() !== new Date('2017-07-01T07:00Z').getTime();
+    }
+
+    if (datasetName === 'massShootings') {
+      return f[params.timeVar].getTime() !== new Date('2018-11-01T07:00Z').getTime() && f[params.timeVar].getTime() !== new Date('2018-02-01T08:00Z').getTime();
+    }
+
+    if (datasetName === 'tvnews_afghanistan') {
+      return f[params.timeVar].getTime() !== new Date('2012-05-02').getTime() && f[params.timeVar].getTime() !== new Date('2010-06-23').getTime();
+    }
+
+    if (datasetName === 'unemployment') {
+      return (f[params.timeVar].getTime() === new Date('Sat Feb 01 2020 00:00:00 GMT-0800 (Pacific Standard Time)').getTime()
+      || f[params.timeVar].getTime() === new Date('Wed Apr 01 2020 00:00:00 GMT-0700 (Pacific Daylight Time)').getTime()
+      || f[params.timeVar].getTime() === new Date('Thu Oct 01 2009 00:00:00 GMT-0700 (Pacific Daylight Time)').getTime()
+      || f[params.timeVar].getTime() === new Date('Sun Jun 01 2003 00:00:00 GMT-0700 (Pacific Daylight Time)').getTime());
+    }
+
+    if (datasetName === 'simpsonsViewership') {
+      return (f[params.timeVar].getTime() !== new Date('2000-02-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2003-02-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2003-11-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2004-01-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2005-05-01T07:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2011-05-01T07:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2011-11-01T07:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2009-10-01T07:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2015-01-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2013-05-01T07:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2014-01-01T08:00Z').getTime());
+    }
+
+    if (datasetName === 'ebola') {
+      return (f[params.timeVar].getTime() === new Date('2014-10-29').getTime()
+      || f[params.timeVar].getTime() === new Date('2014-11-12').getTime()
+      || f[params.timeVar].getTime() === new Date('2014-12-10').getTime());
+    }
+
+    if (datasetName === 'ukrainePolandBorder') {
+      return (f[params.timeVar].getTime() === new Date('2022-02-27').getTime()
+      || f[params.timeVar].getTime() === new Date('2022-03-13').getTime());
+    }
+
+    if (datasetName === 'euroSwap') {
+      return (f[params.timeVar].getTime() !== new Date('2007-12-01T08:00Z').getTime()
+      && f[params.timeVar].getTime() !== new Date('2020-05-01T07:00Z').getTime());
+    }
+
+    return true;
+  });
   let annotationData = {};
 
   console.log(featureData);
@@ -401,8 +446,16 @@ function renderChart(data, params) {
     annotGroup.selectAll('*').remove();
     console.log(annotationData);
 
-    const aWidth = 200;
-
+    let aWidth = 200;
+    if (datasetName === 'tvnews_afghanistan') {
+      aWidth = 125;
+    }
+    if (datasetName === 'covid') {
+      aWidth = 175;
+    }
+    if (datasetName === 'simpsonsViewership') {
+      aWidth = 150;
+    }
     const nodesFeatures = featureData.map((d) => ({ fx: xScale(d[params.timeVar]), fy: yScale(d[params.quantVar]), nodeType: 'feature' }));
     const nodesAnnotations = featureData.map((d) => ({
       x: xScale(d[params.timeVar]),
@@ -511,8 +564,22 @@ function renderChart(data, params) {
         x: (d) => d.x, y: (d) => d.y, dx: (d) => d.dx, dy: (d) => d.dy,
       });
 
+    let fontSize = 20;
+    if (datasetName === 'massShootings') {
+      fontSize = 15;
+    }
+    if (datasetName === 'tvnews_afghanistan') {
+      fontSize = 16;
+    }
+    if (datasetName === 'covid') {
+      fontSize = 16;
+    }
+    if (datasetName === 'simpsonsViewership') {
+      fontSize = 15;
+    }
+
     annotGroup.attr('class', 'annotation-group')
-      .style('font-size', 20)
+      .style('font-size', fontSize)
       .call(buildAnnotations);
 
     annotationsContainer.buildAnnotations = buildAnnotations;
@@ -741,7 +808,7 @@ function datasetSelected() {
     simpsonsViewership: getSimpsonsViewershipData,
     euroSwap: getEuroSwapData,
     tvnews_afghanistan: getTVNewsAfghanistanData,
-    stocks_tesla: getTeslaStockData2,
+    stocks_tesla: getTeslaStockData,
   };
 
   const paramsMap = {
@@ -753,6 +820,7 @@ function datasetSelected() {
       xAxisLabel: 'Month',
       yAxisLabel: 'Acres Burned',
       title: 'Acres Burned Monthly in Wildfires in California',
+      featureMode: 'peaks',
       numAnnotations: 11,
     },
     approval: {
@@ -764,7 +832,8 @@ function datasetSelected() {
       xAxisLabel: 'Month',
       yAxisLabel: 'Approval Rate',
       title: 'U.S. Presidential Approval Rate',
-      numAnnotations: 9,
+      featureMode: 'peaksvalleys',
+      numAnnotations: 15,
     },
     covid: {
       timeVar: 'Date',
@@ -774,26 +843,29 @@ function datasetSelected() {
       xAxisLabel: 'Date',
       yAxisLabel: 'New Cases',
       title: 'Daily New COVID-19 Cases in the United States',
-      numAnnotations: 11,
+      featureMode: 'peaks',
+      numAnnotations: 8,
     },
     unemployment: {
       timeVar: 'Month',
       quantVar: 'UnemploymentRate',
       granularity: 'month',
-      query: '+unemployment',
+      query: '+unemployment +(rate low) -briefing',
       xAxisLabel: 'Month',
       yAxisLabel: 'Unemployment Rate',
       title: 'Unemployment Rate in the United States',
-      numAnnotations: 3,
+      featureMode: 'peaksvalleys',
+      numAnnotations: 11,
     },
     ebola: {
       timeVar: 'date',
       quantVar: 'cases',
       granularity: 'day',
-      query: '+ebola',
+      query: '+ebola +cases',
       xAxisLabel: 'Date',
       yAxisLabel: 'Cases',
       title: 'Daily Global New Ebola Cases',
+      featureMode: 'peaks',
       numAnnotations: 7,
     },
     ukrainePolandBorder: {
@@ -804,6 +876,7 @@ function datasetSelected() {
       xAxisLabel: 'Date',
       yAxisLabel: 'People',
       title: 'Daily Border Crossings from Ukraine to Poland',
+      featureMode: 'peaks',
       numAnnotations: 4,
     },
     massShootings: {
@@ -814,27 +887,30 @@ function datasetSelected() {
       xAxisLabel: 'Date',
       yAxisLabel: 'Cases',
       title: 'Monthly Deaths in Mass Shootings in the United States',
-      numAnnotations: 7,
+      featureMode: 'peaks',
+      numAnnotations: 11,
     },
     homeValues: {
       timeVar: 'month',
       quantVar: 'ZHVI',
       granularity: 'month',
-      query: '+housing',
-      xAxisLabel: 'Date',
+      query: '+housing +market',
+      xAxisLabel: 'Month',
       yAxisLabel: 'Average Home Value Index',
       title: 'Average Home Value Index by Month in the United States',
+      featureMode: 'peaks',
       numAnnotations: 3,
     },
     simpsonsViewership: {
       timeVar: 'month',
       quantVar: 'viewers',
       granularity: 'month',
-      query: '+simpsons',
+      query: '+simpsons -briefly',
       xAxisLabel: 'Date',
       yAxisLabel: 'viewers (millions)',
       title: 'Simpsons Viewership by Month',
-      numAnnotations: 10,
+      featureMode: 'peaks',
+      numAnnotations: 30,
     },
     euroSwap: {
       timeVar: 'month',
@@ -844,16 +920,18 @@ function datasetSelected() {
       xAxisLabel: 'Date',
       yAxisLabel: 'Euro 1-Yr Swap Rate',
       title: 'Euro 1-Yr Swap Rate by Month',
-      numAnnotations: 10,
+      featureMode: 'peaks',
+      numAnnotations: 14,
     },
     tvnews_afghanistan: {
       timeVar: 'date',
       quantVar: 'screentime',
       granularity: 'day',
-      query: '+afghanistan',
+      query: '+afghanistan + "united states"',
       xAxisLabel: 'Date',
       yAxisLabel: 'Screentime (Seconds)',
       title: 'Amount of Coverage of Afghanistan on TV News',
+      featureMode: 'peaks',
       numAnnotations: 10,
     },
 
@@ -865,14 +943,15 @@ function datasetSelected() {
       xAxisLabel: 'month',
       yAxisLabel: 'Closing Price (Adjusted)',
       title: 'Tesla Stock Price',
-      numAnnotations: 6,
+      featureMode: 'peaks',
+      numAnnotations: 4,
     },
   };
 
   const getData = dataMap[datasetName];
   const params = paramsMap[datasetName];
 
-  getData().then((data) => renderChart(data, params));
+  getData().then((data) => renderChart(data, datasetName, params));
 }
 
 Array.from(document.getElementsByName('dataset')).map((e) => e.addEventListener('click', datasetSelected));
