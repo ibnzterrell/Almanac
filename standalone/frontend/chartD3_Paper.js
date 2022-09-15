@@ -284,6 +284,15 @@ async function getTVNewsAfghanistanData() {
   return data;
 }
 
+async function getConstructionSpendingData() {
+  let data = await d3.csv('/data/TTLCONS.csv');
+  data = data.map((n) => ({
+    month: new Date(n.DATE),
+    spending: parseFloat(n.TTLCONS),
+  }));
+  return data;
+}
+
 async function getTeslaStockData() {
   let data = await d3.csv('/data/stocks_tesla.csv');
   data = data.map((n) => ({
@@ -434,6 +443,14 @@ function renderChart(data, datasetName, params) {
     if (datasetName === 'euroSwap') {
       return (f[params.timeVar].getTime() !== new Date('2007-12-01T08:00Z').getTime()
       && f[params.timeVar].getTime() !== new Date('2020-05-01T07:00Z').getTime());
+    }
+
+    if (datasetName === 'constructionSpending') {
+      return (f[params.timeVar].getTime() === new Date('2000-03-01').getTime()
+      || f[params.timeVar].getTime() === new Date('2001-06-01').getTime()
+      || f[params.timeVar].getTime() === new Date('2002-02-01').getTime()
+      || f[params.timeVar].getTime() === new Date('2003-01-01').getTime()
+      || f[params.timeVar].getTime() === new Date('2020-03-01').getTime());
     }
 
     return true;
@@ -809,6 +826,7 @@ function datasetSelected() {
     euroSwap: getEuroSwapData,
     tvnews_afghanistan: getTVNewsAfghanistanData,
     stocks_tesla: getTeslaStockData,
+    constructionSpending: getConstructionSpendingData,
   };
 
   const paramsMap = {
@@ -945,6 +963,18 @@ function datasetSelected() {
       title: 'Tesla Stock Price',
       featureMode: 'peaks',
       numAnnotations: 4,
+    },
+
+    constructionSpending: {
+      timeVar: 'month',
+      quantVar: 'spending',
+      granularity: 'month',
+      query: '+construction +spending -briefing',
+      xAxisLabel: 'month',
+      yAxisLabel: 'Spending (Millions, Seasonally Adjusted)',
+      title: 'Total Construction Spending in the United States by Month',
+      featureMode: 'peaks',
+      numAnnotations: 11,
     },
   };
 
