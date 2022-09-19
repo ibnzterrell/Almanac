@@ -101,7 +101,8 @@
   }
 
   function selectMarks() {
-    features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, 7);
+    const numFeatures = $('#numFeatures').val();
+    features = window.TwinPeaks.Analyzer.peaks(tabularData, 'persistence', timeFieldName, quantFieldName).slice(0, numFeatures);
     console.log(features);
 
     const selectionCriteria = features.map((f) => ({
