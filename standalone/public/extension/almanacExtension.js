@@ -46,12 +46,14 @@
 
       dataTable.columns.forEach((c) => {
         console.log(c.fieldName);
+        console.log(c.dataType);
+
         if (c.dataType === 'date' || c.dataType === 'date-time') {
           $('#timeFieldSelect').append($('<option/>', {
             value: c.index,
             text: c.fieldName,
           }));
-        } else if (c.dataType === 'float' || c.dataType === 'integer') {
+        } else if (c.dataType === 'float' || c.dataType === 'int') {
           $('#quantFieldSelect').append($('<option/>', {
             value: c.index,
             text: c.fieldName,
@@ -147,7 +149,7 @@
         mappedMarks.forEach((m, i) => {
           const markTupleInfo = { tupleId: m.tupleId };
           const annotationText = m.annotation.main_headline;
-          return worksheet.annotateMarkByIdAsync(markTupleInfo, annotationText);
+          return worksheet.annotateMarkAsync(markTupleInfo, annotationText);
         });
       });
     });
@@ -166,7 +168,7 @@
     // worksheet.getSummaryDataAsync().then((data) => {
     //   console.log(data);
     // });
-    worksheet.getMarkAnnotationsAsync().then((annotations) => {
+    worksheet.getAnnotationsAsync().then((annotations) => {
       console.log(annotations);
       annotations.forEach((a) => worksheet.removeMarkAnnotationByIdAsync(a));
     });
