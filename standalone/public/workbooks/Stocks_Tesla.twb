@@ -1,0 +1,843 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build near.22.0915.1124                                -->
+<workbook original-version='18.1' source-build='0.0.0 (0000.22.0915.1124)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <Extensions />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='stocks_tesla' inline='true' name='federated.1w51vae0jb7a9s1fdzc5j0hud4ar' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='stocks_tesla' name='textscan.1r6ie6d136zw5z16ldb7b1rm55vw'>
+            <connection class='textscan' directory='/Users/ibnzterrell/Code/Repos/TwinPeaks/standalone/public/data' filename='stocks_tesla.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.1r6ie6d136zw5z16ldb7b1rm55vw' name='stocks_tesla.csv' table='[stocks_tesla#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='symbol' ordinal='0' />
+            <column datatype='date' name='date' ordinal='1' />
+            <column datatype='real' name='open' ordinal='2' />
+            <column datatype='real' name='high' ordinal='3' />
+            <column datatype='real' name='low' ordinal='4' />
+            <column datatype='real' name='close' ordinal='5' />
+            <column datatype='real' name='adjusted_close' ordinal='6' />
+            <column datatype='integer' name='volume' ordinal='7' />
+            <column datatype='integer' name='dividend_amount' ordinal='8' />
+            <column datatype='real' name='persistence' ordinal='9' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.1r6ie6d136zw5z16ldb7b1rm55vw' name='stocks_tesla.csv' table='[stocks_tesla#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='symbol' ordinal='0' />
+            <column datatype='date' name='date' ordinal='1' />
+            <column datatype='real' name='open' ordinal='2' />
+            <column datatype='real' name='high' ordinal='3' />
+            <column datatype='real' name='low' ordinal='4' />
+            <column datatype='real' name='close' ordinal='5' />
+            <column datatype='real' name='adjusted_close' ordinal='6' />
+            <column datatype='integer' name='volume' ordinal='7' />
+            <column datatype='integer' name='dividend_amount' ordinal='8' />
+            <column datatype='real' name='persistence' ordinal='9' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>symbol</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[symbol]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>symbol</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[date]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>date</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>open</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[open]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>open</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>high</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[high]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>high</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>low</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[low]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>low</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>close</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[close]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>close</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>adjusted_close</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[adjusted_close]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>adjusted_close</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>volume</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[volume]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>volume</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>dividend_amount</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[dividend_amount]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>dividend_amount</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>persistence</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[persistence]</local-name>
+            <parent-name>[stocks_tesla.csv]</parent-name>
+            <remote-alias>persistence</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <_.fcp.ObjectModelTableType.true...column caption='stocks_tesla.csv' datatype='table' name='[__tableau_internal_object_id__].[stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4]' role='measure' type='quantitative' />
+      <column caption='Adjusted Close' datatype='real' name='[adjusted_close]' role='measure' type='quantitative' />
+      <column caption='Close' datatype='real' name='[close]' role='measure' type='quantitative' />
+      <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
+      <column caption='Dividend Amount' datatype='integer' name='[dividend_amount]' role='measure' type='quantitative' />
+      <column caption='High' datatype='real' name='[high]' role='measure' type='quantitative' />
+      <column caption='Low' datatype='real' name='[low]' role='measure' type='quantitative' />
+      <column caption='Open' datatype='real' name='[open]' role='measure' type='quantitative' />
+      <column caption='Persistence' datatype='real' name='[persistence]' role='measure' type='quantitative' />
+      <column caption='Symbol' datatype='string' name='[symbol]' role='dimension' type='nominal' />
+      <column caption='Volume' datatype='integer' name='[volume]' role='measure' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='stocks_tesla.csv' id='stocks_tesla.csv_2F1A0D00C9D44C879CFBD9C468319CF4'>
+            <properties context=''>
+              <relation connection='textscan.1r6ie6d136zw5z16ldb7b1rm55vw' name='stocks_tesla.csv' table='[stocks_tesla#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='symbol' ordinal='0' />
+                  <column datatype='date' name='date' ordinal='1' />
+                  <column datatype='real' name='open' ordinal='2' />
+                  <column datatype='real' name='high' ordinal='3' />
+                  <column datatype='real' name='low' ordinal='4' />
+                  <column datatype='real' name='close' ordinal='5' />
+                  <column datatype='real' name='adjusted_close' ordinal='6' />
+                  <column datatype='integer' name='volume' ordinal='7' />
+                  <column datatype='integer' name='dividend_amount' ordinal='8' />
+                  <column datatype='real' name='persistence' ordinal='9' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Tesla Stock Price'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='stocks_tesla' name='federated.1w51vae0jb7a9s1fdzc5j0hud4ar' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1w51vae0jb7a9s1fdzc5j0hud4ar'>
+            <column caption='Adjusted Close' datatype='real' name='[adjusted_close]' role='measure' type='quantitative' />
+            <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
+            <column-instance column='[adjusted_close]' derivation='Sum' name='[sum:adjusted_close:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[date]' derivation='Month-Trunc' name='[tmn:date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</rows>
+        <cols>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</cols>
+        <annotations>
+          <annotation class='point' id='5' mark-position='1' pullback='12' text-width='180'>
+            <formatted-text>
+              <run>What’s on TV Saturday: A CNN Special and ‘Tesla’</run>
+            </formatted-text>
+            <point>
+              <visual-coordinate class='mark'>
+                <tuple-reference>
+                  <tuple-descriptor>
+                    <pane-descriptor>
+                      <x-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                      </x-fields>
+                      <y-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      </y-fields>
+                    </pane-descriptor>
+                    <columns>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                    </columns>
+                  </tuple-descriptor>
+                  <tuple>
+                    <value>166.10669999999999</value>
+                    <value>#2020-08-01 00:00:00#</value>
+                  </tuple>
+                </tuple-reference>
+              </visual-coordinate>
+            </point>
+            <body x='130' y='-20' />
+          </annotation>
+          <annotation class='point' id='6' mark-position='1' pullback='12' text-width='180'>
+            <formatted-text>
+              <run>Elon Musk has become the world’s richest person, as Tesla’s stock rallies.</run>
+            </formatted-text>
+            <point>
+              <visual-coordinate class='mark'>
+                <tuple-reference>
+                  <tuple-descriptor>
+                    <pane-descriptor>
+                      <x-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                      </x-fields>
+                      <y-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      </y-fields>
+                    </pane-descriptor>
+                    <columns>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                    </columns>
+                  </tuple-descriptor>
+                  <tuple>
+                    <value>264.50999999999999</value>
+                    <value>#2021-01-01 00:00:00#</value>
+                  </tuple>
+                </tuple-reference>
+              </visual-coordinate>
+            </point>
+            <body x='130' y='-20' />
+          </annotation>
+          <annotation class='point' id='7' mark-position='1' pullback='12' text-width='180'>
+            <formatted-text>
+              <run>Elon Musk sells $5 billion in Tesla shares, partly to cover taxes on stock options.</run>
+            </formatted-text>
+            <point>
+              <visual-coordinate class='mark'>
+                <tuple-reference>
+                  <tuple-descriptor>
+                    <pane-descriptor>
+                      <x-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                      </x-fields>
+                      <y-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      </y-fields>
+                    </pane-descriptor>
+                    <columns>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                    </columns>
+                  </tuple-descriptor>
+                  <tuple>
+                    <value>381.58670000000001</value>
+                    <value>#2021-11-01 00:00:00#</value>
+                  </tuple>
+                </tuple-reference>
+              </visual-coordinate>
+            </point>
+            <body x='-221' y='18' />
+          </annotation>
+          <annotation class='point' id='8' mark-position='1' pullback='12' text-width='180'>
+            <formatted-text>
+              <run>Elon Musk opens Tesla’s first European plant, near Berlin.</run>
+            </formatted-text>
+            <point>
+              <visual-coordinate class='mark'>
+                <tuple-reference>
+                  <tuple-descriptor>
+                    <pane-descriptor>
+                      <x-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                      </x-fields>
+                      <y-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      </y-fields>
+                    </pane-descriptor>
+                    <columns>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                    </columns>
+                  </tuple-descriptor>
+                  <tuple>
+                    <value>359.19999999999999</value>
+                    <value>#2022-03-01 00:00:00#</value>
+                  </tuple>
+                </tuple-reference>
+              </visual-coordinate>
+            </point>
+            <body x='130' y='-20' />
+          </annotation>
+          <annotation class='point' id='9' mark-position='1' pullback='12' text-width='180'>
+            <formatted-text>
+              <run>Tesla Profit Falls in Second Quarter as Supply Chain Problems Hurt</run>
+            </formatted-text>
+            <point>
+              <visual-coordinate class='mark'>
+                <tuple-reference>
+                  <tuple-descriptor>
+                    <pane-descriptor>
+                      <x-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                      </x-fields>
+                      <y-fields>
+                        <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      </y-fields>
+                    </pane-descriptor>
+                    <columns>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[sum:adjusted_close:qk]</field>
+                      <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[tmn:date:qk]</field>
+                    </columns>
+                  </tuple-descriptor>
+                  <tuple>
+                    <value>297.14999999999998</value>
+                    <value>#2022-07-01 00:00:00#</value>
+                  </tuple>
+                </tuple-reference>
+              </visual-coordinate>
+            </point>
+            <body x='130' y='-20' />
+          </annotation>
+        </annotations>
+      </table>
+      <simple-id uuid='{038AF0DF-C139-4165-BB8F-1BC27967959A}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard'>
+      <style />
+      <size sizing-mode='automatic' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone forceUpdate='true' h='98764' id='3' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/extension/almanac.html]' type-v2='dashboard-object' w='11579' x='88080' y='618'>
+            <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/extension/almanac.html' extension-version='0.1.0' instance-id='C7788A8E31A043E0A4133C85E817EEA5'>
+              <instance-settings />
+              <type-settings>
+                <dashboard />
+              </type-settings>
+            </add-in>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='98764' id='5' name='Tesla Stock Price' w='87739' x='341' y='618'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='11' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98764' id='10' param='vert' type-v2='layout-flow' w='99318' x='341' y='618'>
+                <zone fixed-size='280' h='98764' id='5' is-fixed='true' name='Tesla Stock Price' w='87739' x='341' y='618'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='98764' id='3' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/extension/almanac.html]' type-v2='dashboard-object' w='11579' x='88080' y='618'>
+                  <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/extension/almanac.html' extension-version='0.1.0' instance-id='C7788A8E31A043E0A4133C85E817EEA5'>
+                    <instance-settings />
+                    <type-settings>
+                      <dashboard />
+                    </type-settings>
+                  </add-in>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{BC156CC5-B59A-4310-9FF7-9915374E4C75}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' name='Tesla Stock Price'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.1w51vae0jb7a9s1fdzc5j0hud4ar].[yr:date:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{D4464DC5-04A7-49CE-BE7F-D34825144913}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Dashboard'>
+      <viewpoints>
+        <viewpoint name='Tesla Stock Price'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='5' />
+      <simple-id uuid='{A83445F0-79DC-4494-B6EF-FC41335A1464}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='384' name='Dashboard' width='384'>
+      iVBORw0KGgoAAAANSUhEUgAAAYAAAAGACAYAAACkx7W/AAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAAeK0lEQVR4nO3daWwU9+H/8c/sZRsfQMAGYy6Hw+J0IE64w5WQpFLSNErbKA8SRaqqSD1o
+      1TRJj0RVSqJKbR5Eafvr8ayq2kiVeoQEEyCHOQIYDAR8YYMxvm3A9oLX9l7z/T9AbAOhDaae
+      Tfh/369H692dme+CtO/9zuzMOsYYIwCAdXyf9wAAAJ8PAgAAliIAAGApAgAAliIAAGApAgAA
+      liIAAGApAgAAliIAAGApAgAAliIAAGCpwPXuNMbo1KlTGhwcvOr+goICFRYW3vDK//nPf+qB
+      Bx5QZmbmZz53cHBQx44dkyQtXLhQubm5chznhrd1rZ6eHtXW1mrdunXXfbyjo0Pnzp2Tz+fT
+      pEmTlJ+ff93txeNxNTQ0aMGCBTc9FgD4IvqPM4Da2lpVVVXp//7v//TOO++oqqpKnZ2dI1r5
+      oUOHFIvFPvN5Fy5c0He+8x2dOXNGDQ0NevbZZxUOh5VMJvXrX/96RNu8IhwOq7q6+j8+/uab
+      b2rHjh2qrKzUa6+9pl/+8pe63nXx4vG49u/ff1NjAIAvsuvOABzH0Ze//GVJUiwW04oVK1Ra
+      Wirp8uzg4MGD6urq0vLlyzV58mQZY3T+/HkdPXpUOTk5KisrUygUSq3PGKMLFy7o+PHjMsZo
+      2bJlysnJST1+5MgR3XfffXr88cclSU899ZSMMTp+/Liqqqp06NAhhUIhlZaWKhaL6f3335fr
+      ulq1apXGjh0rSYpEIqqqqlIoFNKdd9551etxXVe1tbWaP3++fL5/N+/hhx9WSUmJjDF6/vnn
+      1d3dLUnKzs7W0NCQ2tvbtXjxYm3YsCH1Orq6ulRTU6OpU6eqpKRE0uVY1tfXa8mSJSouLv6f
+      Zi4AkC4jOgZgjNGf//xnHThwQBMnTtRLL72kCxcuaGhoSM8995xc19WZM2f0/vvvf2q5v/zl
+      L4pEIurv79f3v/99JZPJ1ONz587V1q1b9dFHHymRSKTeQDs6OhSJRHT27Fl1dHQomUzqJz/5
+      iXp7e2WM0Q9/+EMNDAwoHA7re9/7nrq7u9XQ0KCamppPjbmysvKqN/9r+f1+SdJ7772nv/71
+      r/rpT3+qzs5ODQ8P6w9/+IOky6HasmWLotGodu3apYGBAVVUVOjNN99UYWGh3njjDdXW1o7k
+      nxQAPjfXnQH8J8YY7d+/X2+88YYcx9Hg4KA+/PBDbdy4UT6fT4sXL1ZhYeGnPgH7fD59+9vf
+      Vmdnp/r7+7Vnzx719fVp4sSJkqQZM2bolVde0Ztvvqnf/va3+upXv6qHH35YmzZt0s6dO/XY
+      Y49JkhobGzVhwgQ98cQTkqTh4WHt3r1bAwMDevTRR/Xggw+mttnY2ChjjHbu3Kn29nY9//zz
+      n3o9O3fu1JEjR9TQ0KC8vDwVFBRIko4fP67XX39dWVlZikQiqef/7W9/00svvaRJkyal7tu2
+      bZt+/OMfKy8vT/n5+frXv/7F8QIAt4QRB6C1tVVbtmyR9O/dQ2PHjtUzzzyj3/3ud+rp6dE3
+      vvENlZWVpZaLxWJ6/vnnVVxcrMmTJ2tgYOCqGYAkzZw5Uy+88IIikYheeOEFLViwQDNnzrzq
+      ORcuXNCUKVNSf0+ZMkWnT59Wf3//dd9033vvPe3YsUO/+c1vrvvpv6CgQNOmTdOKFSs0Y8aM
+      VLiefPJJZWVlfer5kUgkFa0renp69Prrr0u6vKtp6tSp/+2fEAC+MEYUAMdxNHXqVP3gBz9Q
+      Tk6OXNfVwMCA4vG4SktLddddd6mvr08///nPrwrA2bNnNXXqVH33u9+V67o6evToVevt6OjQ
+      hAkTlJGRoTFjxmj69OmKRCJyHEfxeFyu68rn82n69On6+9//njpYe+zYMS1evFiRSESVlZWa
+      P3++JKUev/fee/Xggw/q1Vdf1ZYtWz715l1aWpraj3/t67yeyZMnq66uTgsXLpTrunIcR9On
+      T9eTTz6p4uJiGWN08eLFkfyTAsDn5jMD4PP5Up+efT6fnnrqKW3evFkzZ85UT0+PnnjiCc2Y
+      MUNbtmzRzJkz1d3drfXr10v69371oqIi1dXV6Ve/+pW6urrU1dV11ZtsR0eHXnzxReXn5ysa
+      jWry5MlauHCh/H6/FixYoOeee05Tp07V5s2bNXfuXD377LPKycmRMUbf/OY35bquXnnlFf3o
+      Rz9SPB7X448/rvHjx8vn82nWrFnavHmzfvazn+kXv/hF6uDzJ1/XJ13vzf/K855++mlt2bJF
+      BQUF6u/v18svv6ynnnpKr776qqZNm6a+vj7dc889+spXvjLS/wcASDvnZn4T2HVdhcNhjR07
+      NvXm6Lquzp07p+zs7Ku+4XNFPB7XuXPnlJ+fr2Aw+KnHr3x6zsjIuOq8AWOMwuGwQqGQxowZ
+      I0m6ePGiIpGIJk+efNUb9sDAgPx+/3V334yWK+PJyclRIBD4j/cBwBfdTQUAAHDr41IQAGAp
+      AgAAliIAAGApAgAAliIAAGCpL1QAXNf9vIcAANb43L+0/slvobquSwQAIE08C4AxRsYY+Xy+
+      1G3HceQ4zlWPSVIikUgtc+XsYQCAtzw7Eaynp0dvv/22nn76aVVWVurixYvKycnRXXfdpW3b
+      tslxHC1btix1BU5JSiaTBAAA0sSTYwCu6+rw4cOaNm1a6jIJ9913ny5evKjm5mbNnz9f999/
+      /3/9xS4AgLc8CUBlZaUWLFigZDKpeDyeuj6O3+/X0NCQcnJy5Pf7r/sTjACA9PDkGMDYsWPV
+      1dWl9vZ2dXV1aXBwUIlEQsPDw5o0aZKampo8v2gbAOC/8/RicM3NzZo5c6a6urpUXV2t+fPn
+      q7CwUMeOHdPFixe1cuXKq64MyjEAAEifL9TVQAkAAKTPF+pEMABA+hAAALAUAQAASxEAALAU
+      AQAASxEAALAUAQAASxEAALAUAQAASxEAALAUAQAASxEAALAUAQAASxEAALAUAQAASxEAALAU
+      AQAASxEAALAUAQAASxEAALCUJwEIh8Pat2+fjh49Ktd11dXVpT179qijo0PGGJ08eVKVlZVK
+      JpNebB4AcAM8CUAikdAdd9whSWpqalJlZaWWLVumyspK9fb2qrOzU4WFhTp8+LAXmwcA3ICA
+      FysdP368Kioq1NXVpUcffVRnzpxReXm5MjMz1dnZqZKSEhUUFKixsVHGGCUSCUmS67qp2wAA
+      b3kSAMdxtGrVKp04cUKnT59WPB7Xww8/rPLycgUCAQ0PD8t1XRlj5DiOgsGgJCmZTMrv93sx
+      JADANTwJQHV1tfr6+nTp0iWVlpbKdV3t27dP8Xhct99+u7Zu3aqamprUbiIAQPo5xhgz2is1
+      xigej8vv98vv98sYo1gsplAoJMdx5Lqukslk6pP/FcwAACB9PAnAzSIAAJA+nAcAAJYiAABg
+      KQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABg
+      KQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABgKQIAAJYiAABgKU8C0NfXp71796qqqkqu62po
+      aEh79+5VdXW1jDGqq6vTgQMHlEwmvdg8AOAGOMYYM9or7evrU0ZGhhoaGpSbm6vGxkatXr1a
+      juNoaGhItbW1mjVrllpbW7V8+fLUcslkUn6/f7SHAwC4joAXKx07dqwqKirU2dmpRx99VHv2
+      7NHBgweVlZWlvLw8zZkzRwUFBTp58qSMMUokEpIk13VTtwEA3vIkAI7jaPXq1aqpqVFTU5Om
+      TJmijRs3ateuXRo3bpyGhobkum7qucFgUBIzAABIJ092AZ04cUK9vb0aGBjQkiVL1NbWpsHB
+      QQ0MDOj+++/X22+/rWAwqCVLlqioqCi1HAEAgPTxJADGGMXjcfn9fvn9fhljFIvFFAqF5DiO
+      XNdVMplMffK/ggAAQPp4EoCbRQAAIH04DwAALEUAAMBSBAAALEUAAMBSBAAALEUAAMBSBAAA
+      LEUAAMBSBAAALEUAAMBSBAAALEUAAMBSBAAALEUAAMBSBAAALEUAAMBSBAAALEUAAMBSBAAA
+      LEUAAMBSBAAALEUAAMBSngTAGKNoNKpEIpG6z3VdJZNJSVIymVQsFvNi0wCAGxTwYqXNzc1q
+      aWlROBzWqlWrdNttt6miokKBQEDLly/XO++8o1AopDvuuENTpkzxYggAgM/gGGPMaK/UGKPB
+      wUEdPnxYJSUlisfj6u7u1sDAgIqKiuT3+zVt2jTt2bNH69evTy33yRkDAMBbnswAjDE6evSo
+      enp6tGjRIu3du1f33HOPDh8+rMHBQRUUFMjn+/fep0++8X/yfgCAdzwJwPnz53XnnXeqs7NT
+      p06dUklJiTo6OtTf36/S0lI1NjYqmUwqOztbjuMoGAxKunxswO/3ezEkAMA1PAmA67qqqqpS
+      Zmamli5dqkAgINd1VVBQoMLCQoXDYbW1tamsrMyLzQMAboAnxwBuFjMAAEgfdrgDgKUIAABY
+      igAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABY
+      igAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYypMAGGM0PDyseDye+ntoaEjJ
+      ZFKSlEgkFI1Gvdg0AOAGBbxYaXNzs9ra2tTX16eVK1eqpqZGjuOov79fDzzwgLZt26aMjAwt
+      WrRIU6dO9WIIAIDP4BhjzGiv1BijgYEBVVVVad68eZo4caJc19W2bds0b948BQIBTZs2Tbt3
+      79aGDRt0ZQhXZggAAO95MgMwxqi6uloXLlxQRkaGwuGwdu/erTVr1qizs1O5ubny+XxyHEeS
+      5Lpualm/3+/FkAAA1/AkAD09PVq8eLHy8/N15swZnT59WuvXr1dGRoYKCwtVXV2teDyunJwc
+      OY6jQODyMJLJpHw+jksDQDp4EgCfz6ePP/5YmZmZWrx4sYwxampqks/n09KlSzV58mR1dXXp
+      zjvv9GLzAIAb4MkxgJuVTCbZBQQAacL+FgCwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACw
+      FAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACw
+      FAEAAEsRAACwFAEAAEsRAACwVMCLlZ47d061tbUKBoO6++67df78edXV1amkpESFhYX6+OOP
+      denSJS1fvlzBYNCLIQAAPoMnM4DMzEytWLFCubm5am5u1uHDh7Vq1SpVVVXp3LlzGhoaUklJ
+      iQ4dOuTF5gEAN8CTGUB2drY++OADtbW16etf/7paWloUCoWUlZWl7u5uFRcXa8KECaqurpYx
+      RolEQpLkum7qNgDAW54EIBaLad26daqvr1djY6Oi0aiMMYrFYho/fry6u7uVnZ2tQCAgx3FS
+      u4GSyaT8fr8XQwIAXMMxxpjRXmlDQ4NaWlokSStXrlRnZ6dOnTql4uJizZkzR3v37tXg4KDW
+      rFmjMWPGpJYjAACQPp4E4GYRAABIH74GCgCWIgAAYCkCAACWIgAAYCkCAACWIgAAYCkCAACW
+      IgAAYCkCAACWIgAAYCkCAACWIgAAYCkCAACWIgAAYCkCAACWIgAAYCkCAACWIgAAYCkCAACW
+      IgAAYCkCAACWIgAAYCkCAACWCnix0vb2dlVXVysajWrt2rWqra3V4OCgMjMztWLFCu3cuVOJ
+      REKrVq3SuHHjvBgCAOAzOMYYM9orvfJmf+rUKSWTSTU1NWnTpk169913tXDhQg0ODqq4uFgH
+      DhzQ+vXrU8slEgk5jjPawwEAXIcnM4CsrCwdP35c58+f17p169TW1qYdO3YoEAjo0qVLys/P
+      V0ZGhlzXlTFGiURCkuS6rnw+9koBQDp4EoDGxkYNDw9rw4YNcl1XiURCX/rSl1ReXq7x48er
+      s7NTY8aMUSgUkuM4CgaDkqRkMim/3+/FkAAA1/Dk43Y0GtXAwIA+/PBDnT9/XlOmTNEHH3yg
+      wsJCFRUVaXBwUAcOHFBZWZkXmwcA3ABPjgHcLGYAAJA+7HAHAEsRAACwFAEAAEsRAACwFAEA
+      AEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEA
+      AEsRAACwFAEAAEsRAACwFAEAAEsRAACwFAEAAEt5EgDXddXY2KiTJ0/KGKNEIqHjx4+rublZ
+      ktTe3q66ujoZY7zYPADgBngSgDNnzsjn8+nSpUtqbGxURUWFJk6cqKysLIXDYZ04cULGGB07
+      dsyLzQMAbkDAi5XOmjVL0WhUdXV1Ki4uVmVlpQKBgG677Tb5fD4tXrxYkyZNUkVFRWqGIF2e
+      OVy5DQDwlicBiEQiKi8v17333qu8vDxNmDBBq1at0q5du1RUVKREIiFjTGoXUCBweRiu68rv
+      93sxJADANTwJwMGDBzVu3DidPHlSs2fP1pgxY3Ts2DENDw9r9uzZKi8v19ixYzVz5kw5juPF
+      EAAAn8ExHhyJjcViisfjkqSMjAz5fD719vYqLy9PoVBIQ0NDisViysvLuyoAyWSSGQAApIkn
+      AbhZBAAA0ofzAADAUgQAACxFAADAUgQAACxFAADAUgQAACxFAADAUgQAACxFAADAUgQAACxF
+      AADAUgQAACxFAADAUgQAACxFAADAUgQAACxFAADAUgQAACxFAADAUgQAACxFAADAUgQAACzl
+      SQBc11VdXZ1qa2tljJEk9ff3q6enR5LU2tqq6urq1GMAgPTzJADNzc3KysrS8PCwGhoa5Lqu
+      du/erZqaGvX396uurk7BYFBHjx71YvMAgBvgGI8+hkejUb377rtas2aNGhoaNHXqVDU2Nio/
+      P1/jx4/XpEmTVFFRofXr1yuRSEi6PHMAAKRHwIuVDgwMaPv27dq0aZNCoZBqamoUi8XU1NSk
+      vLw8xeNxGWNSu4ACgcvDcF1Xfr/fiyEBAK7hyQzgvffeUzKZVE5OjubMmaPx48crkUjoo48+
+      0sqVK/XOO+8oNzdXs2fP1u23355aLplMEgAASBNPApBIJJRMJiVd/nTv9/tljEl9wo9Go4rH
+      48rOzpbjOKnlCAAApI9nxwBuBgEAgPThPAAAsBQBAABLEQAAsBQBAABLEQAAsBQBAABLEQAA
+      sBQBAABLEQAAsBQBAABLEQAAsBQBAABLEQAAsBQBAABLEQAAsBQBAABLEQAAsBQBAABLEQAA
+      sBQBAABLEQAAsBQBAABLEQAAsFTAi5WePXtWdXV1Ghoa0rp161RbW6tIJCJJ2rhxo8rLy+W6
+      rlatWqUJEyZ4MQQAwGdwjDFmtFcai8UUDAZVX18vn8+nmTNnKhQKaevWrVq4cKESiYRmzJih
+      ffv2acOGDanlEomEHMcZ7eEAAK7DkxlAMBhUZWWlotGo1qxZo+HhYb311ltasmSJwuGw8vPz
+      FQwGZYyRMUaJREKSZIyRz8deKQBIB08CUFdXp4yMDN19992SpJ07d2rjxo3KyclRV1eXWltb
+      lZGRoYyMDDmOo2AwKElKJpPy+/1eDAkAcA1PdgHV19ero6NDjuNo3rx5qqurkyT5fD7dc889
+      OnTokC5duqQ1a9YoFAqlliMAAJA+ngTgZhEAAEgfdrgDgKUIAABYigAAgKVG/C2gWCymP/7x
+      j/L5fCooKNAjjzzCfnsAuAWNeAZw+vRpLViwQBMmTFAkEtGlS5e8GBcAwGMjDsCcOXN08uRJ
+      HTp0SMPDwxo7dqwX4wIAeGzEu4Acx9HatWtVVlamM2fOcOkGALhFjXgG0NLSopaWFu3Zs0eJ
+      REJ9fX1ejAsA4LERB2Dy5MmqrKzUggULZIxRTk6OF+MCAHhsxAHIzMzUpk2b1NTUpEWLFqWu
+      4wMAuLWMOABtbW06evSovva1r2nHjh0Kh8NejAsA4LERByAUCikcDqulpUWDg4MKBDy5oCgA
+      wGMjvhicMUatra06ceKEysrKNGnSpFEbDBeDA4D0GVEADh48qIqKitTfPp9PmzdvHrXjAAQA
+      ANJnRAGIxWLq7e1NfepvbW3VtGnTRu1cAAIAAOkzomMAR44cUWNjoxzHkeM42r59O5eCAIBb
+      1IgCUFRUpL179yocDqujo0PNzc3KysryamwAAA+NaBeQMUYnTpzQrl27lJGRoUceeURFRUWj
+      Nhh2AQFA+vCTkABgqRF9ib+np0ednZ2pvx3H0cKFC+Xz8bsyAHCrGdE7dyQSUWNjo8rLy9XT
+      06N//OMfSiaTXo0NAOChEQWguLhYa9euVUZGhpYuXarMzExFIhGvxgYA8NBNnQl85MgRVVVV
+      acmSJSorK+M8AAC4BY34Qj6JREIHDx6Uz+dTW1ubli5d+qk37ebmZtXX12toaEhr167V6dOn
+      1dvbq3HjxqmsrEzbtm2TMUYrVqxQfn7+qL0YAMCNG/EMoLa2VufOnVN3d7ei0ageeughjRs3
+      7qrnxONxBQIB1dXVyefzqaWlRffdd5/effddzZkzR67rasaMGdq7d682bNiQWi6RSIzOqwIA
+      fKYRf31n7ty5qq2t1cGDBxWJRK77m8CBQEAHDhxQb2+v5syZo0AgIMdxFAgENDg4qNzcXAUC
+      ARljZIxRPB5XPB6X67qj8qIAAJ9txLuAIpGIVq9erWeeeUZVVVUaGhrSmDFjrnpOTU2NsrOz
+      tWjRIknS4OCgXNfV8PCwCgoKdPbsWYVCIWVmZspxnNTF5DgGAADpM6JdQK7r6te//rXa2to0
+      b9481dbW6uWXX/7U5SBOnjyp9vZ2OY6j+fPnK5lMqrq6WvPnz1dRUZGqqqp08eJFrV69WqFQ
+      KLUcAQCA9BnxpSDOnDmj1tZWzZ8/X3l5ecrIyBi1wRAAAEifER0DcBxHEydOVDwe1/bt2/Xa
+      a69x4BYAblEjPgjc39+vc+fOqb+/X3PnzuVy0ABwixrxQeBp06YpJydHa9asUXt7+6e+AgoA
+      uDWMOAAXL15UfX296uvrFY1GtXTp0lH7SUgAQPr8T5eD/tOf/qTHHnvsU18DvVkcBAaA9Bnx
+      DCAcDuv3v/+9JOnChQt67LHHRn1QAADvjWgGEI1GJemqS0AHg8FR2wXEDAAA0mdEM4CmpiYl
+      EglVVFSk7uvq6tK3vvUtFRYWjvrgAADeGdEMoKmpSfX19ZcXdBw5jqNly5YpGAwqJyfnfx4M
+      MwAASJ8RnQeQl5en7OxstbW1afr06aqvr9eYMWNG5c0fAJBeIwrAxIkTVVpaqu7ubrmuq76+
+      vtRxAQDAreWmvgba0tKi48ePq6SkRLNnz+YXwQDgFjSiGYAxRpFIRA0NDaqqquJH4QHgFjai
+      ABw/flwvvvii8vLylJubq+eee06BwIhPJQAAfAGMKACzZs3SmjVrtGfPHh0/flyHDh3S/3Ai
+      MQDgc3TTl4IYGBjQwYMHtXbt2lGbBXAMAADS53+6FtBoIwAAkD4j/j0AAMD/HwgAAFiKAACA
+      pQgAAFiKAACApQgAAFjKkwAYY9Td3a0LFy5Iknp6erR37151d3fLGKNTp07p8OHDcl3Xi80D
+      AG6AJwHo6urSkSNH1NraKmOM9u/fr7vuukv79+9XX1+fWlpalJ+fr8OHD3uxeQDADfDkQj6F
+      hYUKBoNqb2+XJGVnZ2v79u3KyspSR0eH5s2bp4KCAp0+fVrGGCUSCUmS67qp2wAAb3l+JTfX
+      dRWLxfTQQw+pvLxcgUBAw8PDMsbIGCPHcVK/KcyZwACQPp4EoLW1VdXV1erv79dtt92mRCKh
+      /fv3Kx6P6/bbb9dbb72lmpoalZaWerF5AMANSMu1gIwxikajysjIkOM4SiaTSiaTCoVCVz2P
+      GQAApA8XgwMAS3EeAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAA
+      gKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAAgKUIAABYigAA
+      gKU8CYAxRh0dHTp//rwkaXh4WPv27VNtba2MMWpoaFBlZaVc1/Vi8wCAG+BJALq6unTixAm1
+      t7fLGKMPP/xQixcv1vTp09Xb26uOjg4VFhbq0KFDXmweAHADAl6stLCwUMFgMBWArq4uVVZW
+      Kjs7Wzk5OSopKVFBQYEaGxtljFEikZAkua6bug0A8JYnAbjWlClTtHHjRu3atUu5ubkaHh6W
+      67oyxshxHAWDQUlSMpmU3+9Px5AAwHqeBKC1tVXV1dUKh8OaMGGC8vLyVFFRoaGhIc2ZM0db
+      t25VTU2N7rjjDi82DwC4AY4xxni9EWOMotGoQqGQfD6fXNdVMplMffK/ghkAAKRPWgJwowgA
+      AKTP/wOdW0n7V9n45QAAAABJRU5ErkJggg==
+    </thumbnail>
+    <thumbnail height='384' name='Tesla Stock Price' width='384'>
+      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
+      NRsFAAAAAElFTkSuQmCC
+    </thumbnail>
+  </thumbnails>
+  <referenced-extensions>
+    <referenced-extension>
+      <manifest manifest-version='0.1'>
+        <dashboard-extension extension-version='0.1.0' id='edu.stanford.hci.almanac'>
+          <default-locale>en_US</default-locale>
+          <name resource-id='name' />
+          <description>Almanac </description>
+          <author email='terrell.ibanez@stanford.edu' name='Terrell Ibanez' organization='Stanford HCI' website='https://hci.stanford.edu' />
+          <min-api-version>0.8</min-api-version>
+          <source-location>
+            <url>http://localhost:3000/extension/almanac.html</url>
+          </source-location>
+          <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAlhJREFUOI2Nkt9vy1EYh5/3bbsvRSySCZbIxI+ZCKsN2TKtSFyIrV2WuRCJuBiJWxfuxCVXbvwFgiEtposgLFJElnbU1SxIZIIRJDKTrdu+53Uhra4mce7Oe57Pcz7JOULFisViwZ+29LAzOSjQYDgz1ZcCvWuXV11MJpN+OS/lm6179teqH0yDqxPTCyKSA8DcDsyOmOprnCaeP7459pdgy969i0LTC3IO/RQMyoHcQN+3cnljW3dNIFC47qDaK3g7BwdTkwBaBELT4ZPOUVWgKl4ZBnjxJPUlMDnTDrp0pmr6RHFeEjjcUUXPDGeSEwDN0Xg8sivxMhJNjGzbHd8PkM3eHRfkrBM5NkcQaY2vUnTlrDIA0NoaX+KLXFFlowr14tvVpqb2MICzmQcKqxvbumv+NAhZGCCIPwEw6QWXKYRL/VUXO0+rAUJiPwAk5MIlgVfwPjjHLCL1APmHN94ZdqeYN+NW/mn6I4BvwQYchcLnwFhJMDiYmlRxAzjpKWZkYkUCcZ2I61wi37tLbYyjiN0fHk5Oz3nGSLSzBbNHCF35R7f6K1/hN9PRhek11FrymfQQQKB4+Gl05P2qNRtmETlXW7e+b2z01dfycGNbfFMAbqNyKp9Jp4rzOT8RYFs0njJkc2iqsCObvTsOsDWWqA5C1uFy+Uz/oXJeKwVT4h0RmPUXhi79vuC0Ku6yOffTK3g9lfxfDQAisY516sg5kfOCiJk7HoLt2cf9b/9LANAc7dznm98PagG1fUOZ9IP5uMB8Q4CPoyNvausapkTt3rNMuvdf3C/o6+czhtdwmwAAAABJRU5ErkJggg==</icon>
+          <permissions>
+            <permission>full data</permission>
+          </permissions>
+        </dashboard-extension>
+        <resources>
+          <resource id='name'>
+            <text locale='en_US'>Almanac Annotator</text>
+          </resource>
+        </resources>
+      </manifest>
+      <referenced-views>
+        <referenced-view instances='1' viewId='Dashboard' />
+      </referenced-views>
+    </referenced-extension>
+  </referenced-extensions>
+</workbook>

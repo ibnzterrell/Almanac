@@ -1,0 +1,2053 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build near.22.0915.1124                                -->
+<workbook original-version='18.1' source-build='0.0.0 (0000.22.0915.1124)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <Extensions />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='COVID_USConfirmed' inline='true' name='federated.1na0bp41ewwin311o8h850dw6z6b' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='COVID_USConfirmed' name='textscan.04llfft1h21hgb1grredg01cxc4c'>
+            <connection class='textscan' directory='/Users/ibnzterrell/Code/Repos/TwinPeaks/standalone/public/data' filename='COVID_USConfirmed.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.04llfft1h21hgb1grredg01cxc4c' name='COVID_USConfirmed.csv' table='[COVID_USConfirmed#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='date' name='date' ordinal='0' />
+            <column datatype='integer' name='ConfirmedCases' ordinal='1' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.04llfft1h21hgb1grredg01cxc4c' name='COVID_USConfirmed.csv' table='[COVID_USConfirmed#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='date' name='date' ordinal='0' />
+            <column datatype='integer' name='ConfirmedCases' ordinal='1' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[COVID_USConfirmed.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[date]</local-name>
+            <parent-name>[COVID_USConfirmed.csv]</parent-name>
+            <remote-alias>date</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[COVID_USConfirmed.csv_20B5E522727F41DDA44E4E1D31EFEE9E]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ConfirmedCases</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ConfirmedCases]</local-name>
+            <parent-name>[COVID_USConfirmed.csv]</parent-name>
+            <remote-alias>ConfirmedCases</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[COVID_USConfirmed.csv_20B5E522727F41DDA44E4E1D31EFEE9E]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Confirmed Cases' datatype='integer' name='[ConfirmedCases]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='COVID_USConfirmed.csv' datatype='table' name='[__tableau_internal_object_id__].[COVID_USConfirmed.csv_20B5E522727F41DDA44E4E1D31EFEE9E]' role='measure' type='quantitative' />
+      <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='COVID_USConfirmed.csv' id='COVID_USConfirmed.csv_20B5E522727F41DDA44E4E1D31EFEE9E'>
+            <properties context=''>
+              <relation connection='textscan.04llfft1h21hgb1grredg01cxc4c' name='COVID_USConfirmed.csv' table='[COVID_USConfirmed#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='date' name='date' ordinal='0' />
+                  <column datatype='integer' name='ConfirmedCases' ordinal='1' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='COVID-19 Cases in the U.S.'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='COVID_USConfirmed' name='federated.1na0bp41ewwin311o8h850dw6z6b' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1na0bp41ewwin311o8h850dw6z6b'>
+            <column caption='Confirmed Cases' datatype='integer' name='[ConfirmedCases]' role='measure' type='quantitative' />
+            <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
+            <column-instance column='[ConfirmedCases]' derivation='Sum' name='[sum:ConfirmedCases:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[date]' derivation='Day-Trunc' name='[tdy:date:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</rows>
+        <cols>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</cols>
+      </table>
+      <simple-id uuid='{C85BE726-3FC0-497B-A2FB-9F56B85E51FB}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard'>
+      <style />
+      <size sizing-mode='automatic' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98764' id='3' name='COVID-19 Cases in the U.S.' w='87015' x='341' y='618'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone forceUpdate='true' h='98764' id='5' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/extension/almanac.html]' type-v2='dashboard-object' w='12303' x='87356' y='618'>
+            <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/extension/almanac.html' extension-version='0.1.0' instance-id='3264424C423A41A594B5A4178061B6C6'>
+              <instance-settings />
+              <type-settings>
+                <dashboard />
+              </type-settings>
+            </add-in>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='7' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98764' id='6' param='vert' type-v2='layout-flow' w='99318' x='341' y='618'>
+                <zone fixed-size='280' h='98764' id='3' is-fixed='true' name='COVID-19 Cases in the U.S.' w='87015' x='341' y='618'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='98764' id='5' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/extension/almanac.html]' type-v2='dashboard-object' w='12303' x='87356' y='618'>
+                  <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/extension/almanac.html' extension-version='0.1.0' instance-id='3264424C423A41A594B5A4178061B6C6'>
+                    <instance-settings />
+                    <type-settings>
+                      <dashboard />
+                    </type-settings>
+                  </add-in>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{C5C9BA16-836C-44D4-B6A5-5F9F4EA681C0}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' name='COVID-19 Cases in the U.S.'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[yr:date:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{C7145724-2FFB-4231-ABD0-89111D09BFB7}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Dashboard'>
+      <viewpoints>
+        <viewpoint name='COVID-19 Cases in the U.S.'>
+          <zoom type='entire-view' />
+          <selection-collection>
+            <tuple-selection>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>%null%</value>
+                  <value>%null%</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>229428</value>
+                  <value>#2021-01-02 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>227333</value>
+                  <value>#2021-01-03 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>226473</value>
+                  <value>#2021-01-04 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>204341</value>
+                  <value>#2021-01-05 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>175040</value>
+                  <value>#2021-01-06 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>243448</value>
+                  <value>#2021-01-07 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>257756</value>
+                  <value>#2021-01-08 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>269560</value>
+                  <value>#2021-01-09 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>292854</value>
+                  <value>#2021-01-10 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>121071</value>
+                  <value>#2021-12-02 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>133195</value>
+                  <value>#2021-12-03 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>143893</value>
+                  <value>#2021-12-04 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>151526</value>
+                  <value>#2021-12-05 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>67360</value>
+                  <value>#2021-12-06 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>55292</value>
+                  <value>#2021-12-07 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>183669</value>
+                  <value>#2021-12-08 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>126074</value>
+                  <value>#2021-12-09 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>129866</value>
+                  <value>#2021-12-10 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>137123</value>
+                  <value>#2021-12-11 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>134148</value>
+                  <value>#2021-12-12 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>63910</value>
+                  <value>#2021-12-13 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>58133</value>
+                  <value>#2021-12-14 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>186560</value>
+                  <value>#2021-12-15 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>126090</value>
+                  <value>#2021-12-16 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>146929</value>
+                  <value>#2021-12-17 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>162388</value>
+                  <value>#2021-12-18 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>160681</value>
+                  <value>#2021-12-19 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>87487</value>
+                  <value>#2021-12-20 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>102142</value>
+                  <value>#2021-12-21 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>263113</value>
+                  <value>#2021-12-22 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>204610</value>
+                  <value>#2021-12-23 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>237835</value>
+                  <value>#2021-12-24 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>280714</value>
+                  <value>#2021-12-25 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>241088</value>
+                  <value>#2021-12-26 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>115140</value>
+                  <value>#2021-12-27 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>210612</value>
+                  <value>#2021-12-28 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>463182</value>
+                  <value>#2021-12-29 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>393014</value>
+                  <value>#2021-12-30 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>474035</value>
+                  <value>#2021-12-31 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>587417</value>
+                  <value>#2022-01-01 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>466292</value>
+                  <value>#2022-01-02 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>300727</value>
+                  <value>#2022-01-03 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>389315</value>
+                  <value>#2022-01-04 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>902552</value>
+                  <value>#2022-01-05 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>727006</value>
+                  <value>#2022-01-06 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>705624</value>
+                  <value>#2022-01-07 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>797111</value>
+                  <value>#2022-01-08 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>855536</value>
+                  <value>#2022-01-09 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>444547</value>
+                  <value>#2022-01-10 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>482353</value>
+                  <value>#2022-01-11 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>1252893</value>
+                  <value>#2022-01-12 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>802572</value>
+                  <value>#2022-01-13 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>851952</value>
+                  <value>#2022-01-14 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>886673</value>
+                  <value>#2022-01-15 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>894338</value>
+                  <value>#2022-01-16 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>464007</value>
+                  <value>#2022-01-17 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>417996</value>
+                  <value>#2022-01-18 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>961285</value>
+                  <value>#2022-01-19 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>857888</value>
+                  <value>#2022-01-20 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>782229</value>
+                  <value>#2022-01-21 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>777765</value>
+                  <value>#2022-01-22 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>771985</value>
+                  <value>#2022-01-23 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>327906</value>
+                  <value>#2022-01-24 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>314511</value>
+                  <value>#2022-01-25 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>1008448</value>
+                  <value>#2022-01-26 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>572704</value>
+                  <value>#2022-02-02 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>296895</value>
+                  <value>#2022-02-03 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>303047</value>
+                  <value>#2022-02-04 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>349026</value>
+                  <value>#2022-02-05 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>281156</value>
+                  <value>#2022-02-06 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>104886</value>
+                  <value>#2022-02-07 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>96623</value>
+                  <value>#2022-02-08 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+              <tuple-reference>
+                <tuple-descriptor>
+                  <pane-descriptor>
+                    <x-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                    </x-fields>
+                    <y-fields>
+                      <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    </y-fields>
+                  </pane-descriptor>
+                  <columns>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[sum:ConfirmedCases:qk]</field>
+                    <field>[federated.1na0bp41ewwin311o8h850dw6z6b].[tdy:date:qk]</field>
+                  </columns>
+                </tuple-descriptor>
+                <tuple>
+                  <value>304531</value>
+                  <value>#2022-02-09 00:00:00#</value>
+                </tuple>
+              </tuple-reference>
+            </tuple-selection>
+          </selection-collection>
+        </viewpoint>
+      </viewpoints>
+      <active id='3' />
+      <simple-id uuid='{BEC4D6F9-FC11-4E83-8AD5-C0BEE96E62D7}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='384' name='COVID-19 Cases in the U.S.' width='384'>
+      iVBORw0KGgoAAAANSUhEUgAAAYAAAAGACAYAAACkx7W/AAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAAXeElEQVR4nO3dS1BU+d3/8U/3gZZukBYGZ1ARFaxSGKcENEZjWSU642Ux42KyytJdFrPI
+      LlVZpLLJLGaZyiZVs0tVUmVVSiuON0YEolFRCeqooDAizeAFpOXSSHP69HkWxq4nmTz/6fk/
+      5zjF832/Vo0lh6+b8/b3Oxcivu/7AgCYE/2hBwAA/DAIAAAYRQAAwKglEQDP837oEQDg/5wl
+      EQAAQPAIAAAYRQAAwCgCAABGlQR5sHw+r56eHi0uLurAgQO6d++evvnmG83Ozurw4cO6du2a
+      5ufn9c4776i5uVmnTp2SJO3fv1937tzRzp071dPTo+3btyuRSAQ5GgDg3wQaAElqbW3V9evX
+      JUlNTU3avHmzzp8/r4WFBWUyGR06dEhnzpyR7/vatWuXKisr1dvbK9d1NTQ0pPLy8m+d/PP5
+      vHhgGQCCFegWUDQaVTKZLHzteZ5OnjypyclJlZWVKRaLSZIcx1Emk1FlZaXi8bgWFxc1MzOj
+      rq4ubdmypfC9ruvKdd0gRwQA/FPgK4D/LpPJ6MMPP9TAwIBGR0eVyWSUz+eVzWbV0NCghw8f
+      KplMqrq6WpFIRAcPHtTp06d15MgROY4jx3EkvYrB688AgGBEgnwZ3NzcnPr6+pTNZlVbW6tY
+      LKaxsTHFYjHt3r1bo6Ojun//vlpbW1VTU6PLly/LdV3t2bNHIyMjamho0NjYmBKJhKqrqwvH
+      JQAAELxAAxAWAgAAweM2UAAwigAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCK
+      AACAUQQAAIwiAABgFAEAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIAAGAUAQAAowgA
+      ABhFAADAKAIAAEYRAAAwigAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACA
+      USVBHiyfz6unp0eLi4s6cOCABgYG9OjRI83Nzenw4cO6ceOG5ufn9c4776i5uVmnTp2SJO3f
+      v1937tzRzp071dPTo+3btyuRSAQ5GgDg3wQaAElqbW3V9evXJUmNjY3avHmzrly5opmZGWUy
+      GR06dEhnzpyR7/vatWuXKisr1dvbK9d1NTQ0pPLy8m+d/PP5vHzfD3pUADAt0C2gaDSqZDJZ
+      +LqkpEQXLlxQSUmJVq5cqVgsJklyHEeZTEaVlZWKx+NaXFzUzMyMurq6tGXLFkmS53lyXVeu
+      6wY5IgDgnwJfAfx3ly9f1oYNG7R+/XpJUiaTUT6fVzabVUNDgx4+fKhkMqnq6mpFIhEdPHhQ
+      p0+f1pEjR+Q4jhzHkfQqBq8/AwCCEfED3FuZm5tTX1+fstmsamtr5fu+nj9/LklqaWnR9PS0
+      7t+/r9bWVtXU1Ojy5ctyXVd79uzRyMiIGhoaNDY2pkQioerq6sJxCQAABC/QAISFAABA8LgN
+      FACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEAAKMIAAAYRQAA
+      wCgCAABGEQAAMIoAAIBRBAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAAgFEEAACM
+      IgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgVKAByOfz6urq0rlz5yRJ
+      U1NT+tOf/qRUKiVJ+tvf/qazZ8+qv79fi4uLOn78uI4fP67Z2VlduXJFktTT06P5+fkgxwIA
+      /AclQR+wtbVV169flyQ5jqPt27crl8vJ931lMhkdOnRIZ86cke/72rVrlyorK9Xb2yvXdTU0
+      NKTy8nIlEol/OWY+n5fv+0GPCgCmBboCiEajSiaTha+TyaSi0Vc/Ip/PKxaLSXoVhkwmo8rK
+      SsXjcS0uLmpmZkZdXV3asmWLJMnzPLmuK9d1gxwRAPBPga8A/ievT/r5fF7ZbFYNDQ16+PCh
+      ksmkqqurFYlEdPDgQZ0+fVpHjhyR4zhyHEfSqxi8/gwACEbED3BvZW5uTn19fcpms6qtrVUi
+      kdDo6Kgk6d1339X8/Lzu37+v1tZW1dTU6PLly3JdV3v27NHIyIgaGho0NjamRCKh6urqwnEJ
+      AAAEL9AAhIUAAEDwuA0UAIwiAABgFAEAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIA
+      AGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAA
+      RhEAADCKAACAUQQAAIwiAABgFAEAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIAAGBU
+      4AFYWFjQo0ePJEn5fF5Xr17V6OioJCmdTuvSpUuan5+XJA0MDOjWrVuSpGfPnkmSnj9/rpcv
+      XwY9FgDg3wQagFwup66uLt29e1eSdOnSJa1bt05fffWV5ufn1dXVpa1bt6qzs1PffPON0um0
+      HMfR3bt3devWLbmuq56eHpWVlQU5FgDgPygJ9GAlJTp06JDOnz8vScpms6qtrVVTU5PGxsaU
+      TCZVUVGhsrIyjYyMqLW1VfF4XF9++aUymYyOHTumDz/8UJFIRJ7nKZ/PS5I8z1MulwtyVAAw
+      L9AA/LvXJ/CFhQUlEonCSTyfzysWi2lhYUGlpaVyHEeJREJ1dXVKpVJqbm6W4zhyHEeSFI1G
+      C58BAMEIdAtobm5OPT09Gh4e1u3bt7VhwwadOXNGt2/f1tq1a+V5nrq7uxWPx9XU1KTOzk59
+      8cUXeu+99xSNRrV9+3Y9evRIU1NTQY4FAPgPIr7v+2H+gGw2q9LSUkWjUfm+r4WFBcXjcUmv
+      rhn4vq/S0tL/5zE8z2MFAAABCz0AQSAAABA8ngMAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBR
+      BAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAAgFEEAACMIgAAYBQBAACjCAAAGEUA
+      AMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBRBAAA
+      jCIAAGAUAQAAo0INwJMnT9TR0aFr165JkgYGBnT27FmNjY3J931duHBBHR0dyuVyGhwclCTd
+      u3dP8/PzYY4FAFDIAejv79f777+vly9fanp6WsPDwzpw4IBu3rypwcFBrV27Vi0tLbpx44ZS
+      qZTS6bRSqZQSiUSYYwEAJJWEefCysjJdvXpVz54908TEhOLxuCKRiGKxmCYnJ7Vt2zbF43H1
+      9/drdnZWx44d09GjRyVJnucpn88XPudyuTBHBQBzQg3A3r17NTMzo1wup5UrV2poaEjSqxN6
+      ZWWlpqamlEwmC2HYsWOHLl68qL1798pxHDmOI0mKRqOFzwCAYIS6BTQ8PKze3l5JUjKZVHV1
+      tc6ePav6+no1Nzerr69PnZ2damtrU1VVlerq6gphAACEK+L7vv9DD/FdPM9jBQAAAeM2UAAw
+      igAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEAAKMI
+      AAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAA
+      gFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUaEG4OnTpzp37py6urqUz+c1
+      MDCgs2fPamxsTL7v68KFC+ro6FAul9Pg4KAk6d69e5qfnw9zLACAQg5AX1+f3n//fZWXl2ti
+      YkLDw8M6cOCAbt68qcHBQa1du1YtLS26ceOGUqmU0um0UqmUEolEmGMBACSVhHnwjRs36s9/
+      /rOy2axaWloUj8cViUQUi8U0OTmpbdu2KR6Pq7+/X7Ozszp27JiOHj0qSfI8T/l8vvA5l8uF
+      OSoAmBNqAB48eKCf/exnGhoa0sOHD7W4uCjp1Qm9srJSU1NTSiaThTDs2LFDFy9e1N69e+U4
+      jhzHkSRFo9HCZwBAMELdAmpoaFBHR4cGBwdVX1+v6upqnT17VvX19WpublZfX586OzvV1tam
+      qqoq1dXVFcIAAAhXxPd9/4ce4rt4nscKAAACxm2gAGAUAQAAowgAABhFAADAKAIAAEYRAAAw
+      igAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEAAKMI
+      AAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAA
+      gFEEAACMIgAAYBQBAACjSsI8+FdffaWJiQktLCxo27Ztmpqa0qNHj/Tuu+9qzZo16urqUi6X
+      U3t7u4aHh7Vp0ybdu3dP69atUyKRCHM0ADAv1BXAli1b1N7eLt/3VV1dreHhYR04cEA3b97U
+      4OCg1q5dq5aWFt24cUOpVErpdFqpVIqTPwC8AaGuACTpxYsXqqioUCQSUTweVyQSUSwW0+Tk
+      pLZt26Z4PK7+/n7Nzs7q2LFjOnr0qCTJ8zzl8/nC51wuF/aoAGBK6AG4cuWK9u3bJ8dxtLi4
+      KOnVCb2yslJTU1NKJpOFMOzYsUMXL17U3r175TiOHMeRJEWj0cJnAEAwQt0CyuVyqqqqUiwW
+      kyRVV1fr7Nmzqq+vV3Nzs/r6+tTZ2am2tjZVVVWprq6uEAYAQLgivu/7P/QQ38XzPFYAABAw
+      bgMFAKMIAAAYVfRF4Gw2q2vXrmlmZkYPHjzQJ598omiUfgDAUlX0Gfzp06eanp7W/fv3VV9f
+      z4VaAFjiig5AXV2dUqmU9u3bp/LyclVXV4c5FwAgZEUHIBKJqLKyUv39/YpEImHOBAB4A4oO
+      wNDQkGpqalRWVqbnz5/rxYsXYc4FAAhZ0ReB6+vrdeLECQ0NDWnt2rVasWJFmHMBAEJW9INg
+      vu/r8ePHyuVyGh8f186dO8OerYAHwQAgeEWvAMbHx9XX16cHDx4okUho8+bNrAIAYAkr+hrA
+      ihUrdPnyZa1atUolJSUqKysLcy4AQMi+17uAJicn9fz5c+XzeW3atOmNPQjGFhAABK/oLaB0
+      Oq3f/e53kqR8Pq9f//rXPAkMAEtY0QFYXFxUS0uL0um0XNdVOp3WypUrw5wNABCi77UF9OzZ
+      M83MzOjrr7/WBx988MYeCGMLCACCV9Qezv3799XR0aG3335bGzduVCqVUjabDXs2AECIigrA
+      y5cvNTs7W/g6nU7zO3oBYIkragvI93394Q9/0Pj4uDzP044dO/TRRx+9ifkksQUEAGHgV0IC
+      gFHcxwkARhV1G+i1a9d0/vx5PXnyRHV1dRobG9Nnn32m0tLSsOcDAISkqAD86Ec/0urVq3X5
+      8mX99Kc/1R//+EfNzs7yS2EAYAkr+kGw1atXa2JiQp9++qni8TgvggOAJa7oAEQiEbW2tiqd
+      Tqu2tpbXQADAEld0AEZHRzU0NCTHcTQ9Pa0NGzawCgCAJazoACSTSY2NjWl+fl6e5+njjz8O
+      cy4AQMi+13MAc3NzevjwodatW6fly5fzLiAAWMKKXgE8efJEv/3tb7V+/XpJ0ieffMJtoACw
+      hBUdgIqKCm3dulX79++XJP5HDgBLXNEBePHihYaHh7V8+XJJUl1dHXcCAcAS9r0uAldUVGjN
+      mjWS9Mb2/wEA4Sj6v/AlJSXauXNnmLMAAN6gogOQy+XU29urn/zkJ9q9ezfXAABgiftem/iT
+      k5P6zW9+o88++0yu64Y1EwDgDSjqOYDFxUX5vq98Pl/4s7KysqKuA2QyGS0sLOitt96S53ma
+      mppSTU2NIpGIMpmMPM9TZWWlXNdVaWmpcrmcIpHIv6wweA4AAIJX1EXghw8fKpvNqqurq/Bn
+      P//5z7/zOYDR0VENDAzorbfeUjKZ1OnTp7VmzRrdunVL27dv14ULF7Rs2TJt3bpVd+/e1f79
+      +3Xy5EkdPnyYEz4AhKyoAAwODurHP/6x3nvvPbW3txd98Dt37qi2tlbLli2T4zgqKytTW1ub
+      zp07p4GBAbW3t6uiokJdXV1yXVfd3d1qa2vTsmXLlM/n9Xpx4rouv4MYAAJWVACam5v1+9//
+      Xk+fPtW1a9ckSb/4xS++cwXgeZ7WrVun4eFhDQ0NFZ4biEQihW2daDQq3/eVy+WUTqcVj8e/
+      dZzS0lJWBAAQsKICsHHjRv3qV7/S06dP9fbbb7/6xpLv/tZVq1bp8ePHyuVyKisr08zMjB4/
+      fizXddXY2KirV6+qoqJC69ev18jIiPbt26e//OUv+uijjxSLxQrH8Tzv//OfBwD4nxT9Mrgn
+      T57o008/VWNjo6TirgFI0oMHD1RSUqINGzYok8loaGhITU1NisViSqVScl1XDQ0NSqfTqqqq
+      Krxt9PUTxxIXgQEgDEUHYHZ2VidOnCi8BrrYu4CCQAAAIHhFPwcQiUT04sULff755/r888+5
+      KAsAS1zRAXj9HqC5uTk1NjbyKmgAWOKKDsDrZwF++ctfanx8XBMTE2HOBQAIWdEBqKmp0b17
+      93TixAmNjo6qsrIyzLkAACEr6iKw53manZ1VLBbTyMiIVqxYodWrV7+J+Qo/n4vAABCsolYA
+      N2/e1I0bN5RIJNTc3Ky//vWvmp2dDXs2AECIigpAdXW1bt68qVwup/n5eaVSqX95UAsAsPQU
+      /RzA3//+d3355ZcqKSnRxx9/rE2bNoU9WwFbQAAQvKID8EMiAAAQPH6rOwAYRQAAwCgCAABG
+      EQAAMIoAAIBRBAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYRAAAwigAAgFEEAACMIgAAYBQB
+      AACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEAAKNCDYDneZqdndXs7Kx835fn
+      eZqYmJDv+5KkTCajmZkZSZLrupKkXC4nz/PCHAsAoJADcO/ePfX29mpgYECu6+rUqVNKpVLq
+      7OzU9PS0Ojo6dOnSJY2Pj6u7u1u+7+vkyZPK5XJhjgUAkFQS5sGfPn2qFStWqL6+XqWlpSor
+      K1NbW5vOnTungYEBtbe3q6KiQl1dXXJdV93d3Wpra9OyZcuUz+cLKwXXdYkCAAQs1ADs3r1b
+      c3NzunLlinbs2KFo9NWCIxKJyPM8OY6jaDQq3/eVy+WUTqcVj8e/dZzS0lI5jhPmqABgTqhb
+      QF9//bVc11VJSYkcx9HMzIweP34s13XV2Nioq1evqre3V+vXr1c8HteRI0fU3d2txcVFRaNR
+      OY7DiR8AQhLxX++zhCCbzerBgweqqalRbW2tMpmMhoaG1NTUpFgsplQqJdd11dDQoHQ6raqq
+      Ks3Pz8vzPC1fvrxwnNerBQBAcEINQFAIAAAEj+cAAMAoAgAARhEAADCKAACAUQQAAIwiAABg
+      FAEAAKMIAAAYRQAAwCgCAABGEQAAMIoAAIBRBAAAjCIAAGAUAQAAowgAABhFAADAKAIAAEYR
+      AAAwigAAgFEEAACMIgAAYBQBAACjCAAAGEUAAMAoAgAARhEAADCKAACAUQQAAIwiAABgFAEA
+      AKMIAAAYRQAAwKg3EoC5uTlJkud5mpiYkO/7kqRMJqOZmRlJkuu6kqRcLifP897EWABgWugB
+      +Mc//qHjx49Lkk6dOqVUKqXOzk5NT0+ro6NDly5d0vj4uLq7u+X7vk6ePKlcLhf2WABgXkmY
+      B5+bm1M6nVZtba1831dZWZna2tp07tw5DQwMqL29XRUVFerq6pLruuru7lZbW5uWLVumfD5f
+      WCm4rksUACBgoQbgiy++UFNTk27fvq3JyUlFo68WHJFIRJ7nyXEcRaNR+b6vXC6ndDqteDz+
+      reOUlpbKcZwwRwUAc0LdAvrggw+0atUqVVRUqLy8XDMzM3r8+LFc11VjY6OuXr2q3t5erV+/
+      XvF4XEeOHFF3d7cWFxcVjUblOA4nfgAIScR/vc8SonQ6raqqKmUyGQ0NDampqUmxWEypVEqu
+      66qhoaHwd+bn5+V5npYvX174/terBQBAcN5IAP63CAAABI/nAADAKAIAAEYRAAAwigAAgFEE
+      AACMIgAAYBQBAACjCAAAGPVfMKXUdNWhLkQAAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='384' name='Dashboard' width='384'>
+      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
+      rkAgoPHjxysej+vmm29WeXm5Vq9eLc/z5HmejDEyxsh1OWwBAKNhTALQ2NioxsZGFRYWKhQK
+      afr06SorK9OiRYs0efJkbd++XZK0cuVKHTt2TJMnT1ZRUZF6e3s1fvz4sRgiAFjHMZfIpjor
+      AAAYXcymAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGAp
+      AgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGAp
+      AgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGApAgAAliIAAGAp
+      AgAAlhqTAESjUe3bt08tLS2SpJ6eHu3du1fRaFTGGNXX1+vYsWOSpK6uLklSd3e3YrHYWAwP
+      AKw0JgGoqKhQYWGhDh06pK6urtTl8vJytbS06NSpU+rs7FRjY6P27NmjaDSqyspKBQKBsRge
+      AFhpTGbYwsJCvfbaaxoYGFBGRoYKCgo0depUVVdXq7m5WcXFxfI8T7t27VIkEtG//vUvrVmz
+      Rq7rKplMyvd9SVIymZTjOGMxZAB43xuTALS3t2vlypWqra1VV1eXfN+XMUbGGHmep0QiIUly
+      XVfZ2dnKzs5WV1eX8vLy5LquXNdN3dZ1OWwBAKNhTGbTYDCow4cP69SpU8rJyVFfX5927dql
+      cePGad68eaqoqNDWrVt11VVXKRAIaMWKFaqpqVEkEpHjOKn/AACjxzHGmHQ/ie/76u3tVVZW
+      lrKyspRIJBSJRDR+/Hg5jqOBgQFJUigUUiKRUCAQUDKZlCR5nidJqRUDKwAAGB1jEoDRQAAA
+      YHQxmwKApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgA
+      AFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgA
+      AFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgAAFiKAACApQgA
+      AFgqMBZPcuDAAXV2durUqVMqLS1VXV2d+vv7VVRUpFmzZmnz5s2SpNWrV6umpkYlJSXasWOH
+      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
+      pwAAAABJRU5ErkJggg==
+    </thumbnail>
+  </thumbnails>
+  <referenced-extensions>
+    <referenced-extension>
+      <manifest manifest-version='0.1'>
+        <dashboard-extension extension-version='0.1.0' id='edu.stanford.hci.almanac'>
+          <default-locale>en_US</default-locale>
+          <name resource-id='name' />
+          <description>Almanac </description>
+          <author email='terrell.ibanez@stanford.edu' name='Terrell Ibanez' organization='Stanford HCI' website='https://hci.stanford.edu' />
+          <min-api-version>0.8</min-api-version>
+          <source-location>
+            <url>http://localhost:3000/extension/almanac.html</url>
+          </source-location>
+          <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAlhJREFUOI2Nkt9vy1EYh5/3bbsvRSySCZbIxI+ZCKsN2TKtSFyIrV2WuRCJuBiJWxfuxCVXbvwFgiEtposgLFJElnbU1SxIZIIRJDKTrdu+53Uhra4mce7Oe57Pcz7JOULFisViwZ+29LAzOSjQYDgz1ZcCvWuXV11MJpN+OS/lm6179teqH0yDqxPTCyKSA8DcDsyOmOprnCaeP7459pdgy969i0LTC3IO/RQMyoHcQN+3cnljW3dNIFC47qDaK3g7BwdTkwBaBELT4ZPOUVWgKl4ZBnjxJPUlMDnTDrp0pmr6RHFeEjjcUUXPDGeSEwDN0Xg8sivxMhJNjGzbHd8PkM3eHRfkrBM5NkcQaY2vUnTlrDIA0NoaX+KLXFFlowr14tvVpqb2MICzmQcKqxvbumv+NAhZGCCIPwEw6QWXKYRL/VUXO0+rAUJiPwAk5MIlgVfwPjjHLCL1APmHN94ZdqeYN+NW/mn6I4BvwQYchcLnwFhJMDiYmlRxAzjpKWZkYkUCcZ2I61wi37tLbYyjiN0fHk5Oz3nGSLSzBbNHCF35R7f6K1/hN9PRhek11FrymfQQQKB4+Gl05P2qNRtmETlXW7e+b2z01dfycGNbfFMAbqNyKp9Jp4rzOT8RYFs0njJkc2iqsCObvTsOsDWWqA5C1uFy+Uz/oXJeKwVT4h0RmPUXhi79vuC0Ku6yOffTK3g9lfxfDQAisY516sg5kfOCiJk7HoLt2cf9b/9LANAc7dznm98PagG1fUOZ9IP5uMB8Q4CPoyNvausapkTt3rNMuvdf3C/o6+czhtdwmwAAAABJRU5ErkJggg==</icon>
+          <permissions>
+            <permission>full data</permission>
+          </permissions>
+        </dashboard-extension>
+        <resources>
+          <resource id='name'>
+            <text locale='en_US'>Almanac Annotator</text>
+          </resource>
+        </resources>
+      </manifest>
+      <referenced-views>
+        <referenced-view instances='1' viewId='Dashboard' />
+      </referenced-views>
+    </referenced-extension>
+  </referenced-extensions>
+</workbook>

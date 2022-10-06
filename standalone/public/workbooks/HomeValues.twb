@@ -1,0 +1,970 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build near.22.0915.1124                                -->
+<workbook original-version='18.1' source-build='0.0.0 (0000.22.0915.1124)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='homevalueindex' inline='true' name='federated.0gqz3on1mrxwv819x1tiu07eaibv' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='homevalueindex' name='textscan.039ktho1f2acp812q4h0s06cadis'>
+            <connection class='textscan' directory='/Users/ibnzterrell/Code/Repos/TwinPeaks/standalone/public/data' filename='homevalueindex.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.039ktho1f2acp812q4h0s06cadis' name='homevalueindex.csv' table='[homevalueindex#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='date' name='month' ordinal='0' />
+            <column datatype='real' name='Virginia' ordinal='1' />
+            <column datatype='real' name='California' ordinal='2' />
+            <column datatype='real' name='Florida' ordinal='3' />
+            <column datatype='real' name='Colorado' ordinal='4' />
+            <column datatype='real' name='New Jersey' ordinal='5' />
+            <column datatype='real' name='Arizona' ordinal='6' />
+            <column datatype='real' name='Texas' ordinal='7' />
+            <column datatype='real' name='New York' ordinal='8' />
+            <column datatype='real' name='Nevada' ordinal='9' />
+            <column datatype='real' name='Massachusetts' ordinal='10' />
+            <column datatype='real' name='North Carolina' ordinal='11' />
+            <column datatype='real' name='West Virginia' ordinal='12' />
+            <column datatype='real' name='Michigan' ordinal='13' />
+            <column datatype='real' name='Missouri' ordinal='14' />
+            <column datatype='real' name='Hawaii' ordinal='15' />
+            <column datatype='real' name='Idaho' ordinal='16' />
+            <column datatype='real' name='Indiana' ordinal='17' />
+            <column datatype='real' name='Tennessee' ordinal='18' />
+            <column datatype='real' name='Alabama' ordinal='19' />
+            <column datatype='real' name='South Carolina' ordinal='20' />
+            <column datatype='real' name='Illinois' ordinal='21' />
+            <column datatype='real' name='the District of Columbia' ordinal='22' />
+            <column datatype='real' name='Oklahoma' ordinal='23' />
+            <column datatype='real' name='Maryland' ordinal='24' />
+            <column datatype='real' name='Alaska' ordinal='25' />
+            <column datatype='real' name='New Mexico' ordinal='26' />
+            <column datatype='real' name='Oregon' ordinal='27' />
+            <column datatype='real' name='Georgia' ordinal='28' />
+            <column datatype='real' name='Montana' ordinal='29' />
+            <column datatype='real' name='Pennsylvania' ordinal='30' />
+            <column datatype='real' name='Utah' ordinal='31' />
+            <column datatype='real' name='Iowa' ordinal='32' />
+            <column datatype='real' name='Louisiana' ordinal='33' />
+            <column datatype='real' name='Connecticut' ordinal='34' />
+            <column datatype='real' name='Nebraska' ordinal='35' />
+            <column datatype='real' name='Wyoming' ordinal='36' />
+            <column datatype='real' name='Washington' ordinal='37' />
+            <column datatype='real' name='Vermont' ordinal='38' />
+            <column datatype='real' name='Wisconsin' ordinal='39' />
+            <column datatype='real' name='Arkansas' ordinal='40' />
+            <column datatype='real' name='Maine' ordinal='41' />
+            <column datatype='real' name='Minnesota' ordinal='42' />
+            <column datatype='real' name='Ohio' ordinal='43' />
+            <column datatype='real' name='Rhode Island' ordinal='44' />
+            <column datatype='real' name='Delaware' ordinal='45' />
+            <column datatype='real' name='Kansas' ordinal='46' />
+            <column datatype='real' name='New Hampshire' ordinal='47' />
+            <column datatype='real' name='Mississippi' ordinal='48' />
+            <column datatype='real' name='Kentucky' ordinal='49' />
+            <column datatype='real' name='South Dakota' ordinal='50' />
+            <column datatype='real' name='North Dakota' ordinal='51' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.039ktho1f2acp812q4h0s06cadis' name='homevalueindex.csv' table='[homevalueindex#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='date' name='month' ordinal='0' />
+            <column datatype='real' name='Virginia' ordinal='1' />
+            <column datatype='real' name='California' ordinal='2' />
+            <column datatype='real' name='Florida' ordinal='3' />
+            <column datatype='real' name='Colorado' ordinal='4' />
+            <column datatype='real' name='New Jersey' ordinal='5' />
+            <column datatype='real' name='Arizona' ordinal='6' />
+            <column datatype='real' name='Texas' ordinal='7' />
+            <column datatype='real' name='New York' ordinal='8' />
+            <column datatype='real' name='Nevada' ordinal='9' />
+            <column datatype='real' name='Massachusetts' ordinal='10' />
+            <column datatype='real' name='North Carolina' ordinal='11' />
+            <column datatype='real' name='West Virginia' ordinal='12' />
+            <column datatype='real' name='Michigan' ordinal='13' />
+            <column datatype='real' name='Missouri' ordinal='14' />
+            <column datatype='real' name='Hawaii' ordinal='15' />
+            <column datatype='real' name='Idaho' ordinal='16' />
+            <column datatype='real' name='Indiana' ordinal='17' />
+            <column datatype='real' name='Tennessee' ordinal='18' />
+            <column datatype='real' name='Alabama' ordinal='19' />
+            <column datatype='real' name='South Carolina' ordinal='20' />
+            <column datatype='real' name='Illinois' ordinal='21' />
+            <column datatype='real' name='the District of Columbia' ordinal='22' />
+            <column datatype='real' name='Oklahoma' ordinal='23' />
+            <column datatype='real' name='Maryland' ordinal='24' />
+            <column datatype='real' name='Alaska' ordinal='25' />
+            <column datatype='real' name='New Mexico' ordinal='26' />
+            <column datatype='real' name='Oregon' ordinal='27' />
+            <column datatype='real' name='Georgia' ordinal='28' />
+            <column datatype='real' name='Montana' ordinal='29' />
+            <column datatype='real' name='Pennsylvania' ordinal='30' />
+            <column datatype='real' name='Utah' ordinal='31' />
+            <column datatype='real' name='Iowa' ordinal='32' />
+            <column datatype='real' name='Louisiana' ordinal='33' />
+            <column datatype='real' name='Connecticut' ordinal='34' />
+            <column datatype='real' name='Nebraska' ordinal='35' />
+            <column datatype='real' name='Wyoming' ordinal='36' />
+            <column datatype='real' name='Washington' ordinal='37' />
+            <column datatype='real' name='Vermont' ordinal='38' />
+            <column datatype='real' name='Wisconsin' ordinal='39' />
+            <column datatype='real' name='Arkansas' ordinal='40' />
+            <column datatype='real' name='Maine' ordinal='41' />
+            <column datatype='real' name='Minnesota' ordinal='42' />
+            <column datatype='real' name='Ohio' ordinal='43' />
+            <column datatype='real' name='Rhode Island' ordinal='44' />
+            <column datatype='real' name='Delaware' ordinal='45' />
+            <column datatype='real' name='Kansas' ordinal='46' />
+            <column datatype='real' name='New Hampshire' ordinal='47' />
+            <column datatype='real' name='Mississippi' ordinal='48' />
+            <column datatype='real' name='Kentucky' ordinal='49' />
+            <column datatype='real' name='South Dakota' ordinal='50' />
+            <column datatype='real' name='North Dakota' ordinal='51' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>month</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[month]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>month</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Virginia</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Virginia]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Virginia</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>California</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[California]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>California</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Florida</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Florida]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Florida</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Colorado</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Colorado]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Colorado</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>New Jersey</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[New Jersey]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>New Jersey</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Arizona</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Arizona]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Arizona</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Texas</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Texas]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Texas</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>New York</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[New York]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>New York</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Nevada</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Nevada]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Nevada</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Massachusetts</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Massachusetts]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Massachusetts</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>North Carolina</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[North Carolina]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>North Carolina</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>West Virginia</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[West Virginia]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>West Virginia</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Michigan</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Michigan]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Michigan</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Missouri</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Missouri]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Missouri</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Hawaii</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Hawaii]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Hawaii</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Idaho</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Idaho]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Idaho</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Indiana</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Indiana]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Indiana</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Tennessee</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Tennessee]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Tennessee</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Alabama</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Alabama]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Alabama</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>South Carolina</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[South Carolina]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>South Carolina</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Illinois</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Illinois]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Illinois</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>the District of Columbia</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[the District of Columbia]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>the District of Columbia</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Oklahoma</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Oklahoma]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Oklahoma</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Maryland</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Maryland]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Maryland</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Alaska</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Alaska]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Alaska</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>New Mexico</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[New Mexico]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>New Mexico</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Oregon</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Oregon]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Oregon</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Georgia</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Georgia]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Georgia</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Montana</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Montana]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Montana</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Pennsylvania</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Pennsylvania]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Pennsylvania</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Utah</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Utah]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Utah</remote-alias>
+            <ordinal>31</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Iowa</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Iowa]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Iowa</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Louisiana</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Louisiana]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Louisiana</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Connecticut</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Connecticut]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Connecticut</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Nebraska</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Nebraska]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Nebraska</remote-alias>
+            <ordinal>35</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Wyoming</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Wyoming]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Wyoming</remote-alias>
+            <ordinal>36</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Washington</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Washington]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Washington</remote-alias>
+            <ordinal>37</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Vermont</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Vermont]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Vermont</remote-alias>
+            <ordinal>38</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Wisconsin</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Wisconsin]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Wisconsin</remote-alias>
+            <ordinal>39</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Arkansas</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Arkansas]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Arkansas</remote-alias>
+            <ordinal>40</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Maine</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Maine]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Maine</remote-alias>
+            <ordinal>41</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Minnesota</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Minnesota]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Minnesota</remote-alias>
+            <ordinal>42</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Ohio</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Ohio]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Ohio</remote-alias>
+            <ordinal>43</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Rhode Island</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Rhode Island]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Rhode Island</remote-alias>
+            <ordinal>44</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Delaware</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Delaware]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Delaware</remote-alias>
+            <ordinal>45</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Kansas</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Kansas]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Kansas</remote-alias>
+            <ordinal>46</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>New Hampshire</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[New Hampshire]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>New Hampshire</remote-alias>
+            <ordinal>47</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Mississippi</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Mississippi]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Mississippi</remote-alias>
+            <ordinal>48</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Kentucky</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Kentucky]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>Kentucky</remote-alias>
+            <ordinal>49</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>South Dakota</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[South Dakota]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>South Dakota</remote-alias>
+            <ordinal>50</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>North Dakota</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[North Dakota]</local-name>
+            <parent-name>[homevalueindex.csv]</parent-name>
+            <remote-alias>North Dakota</remote-alias>
+            <ordinal>51</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <_.fcp.ObjectModelTableType.true...column caption='homevalueindex.csv' datatype='table' name='[__tableau_internal_object_id__].[homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D]' role='measure' type='quantitative' />
+      <column caption='Month' datatype='date' name='[month]' role='dimension' type='ordinal' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='homevalueindex.csv' id='homevalueindex.csv_ADF9E1C1A34F487A8FBE865469F5C46D'>
+            <properties context=''>
+              <relation connection='textscan.039ktho1f2acp812q4h0s06cadis' name='homevalueindex.csv' table='[homevalueindex#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='date' name='month' ordinal='0' />
+                  <column datatype='real' name='Virginia' ordinal='1' />
+                  <column datatype='real' name='California' ordinal='2' />
+                  <column datatype='real' name='Florida' ordinal='3' />
+                  <column datatype='real' name='Colorado' ordinal='4' />
+                  <column datatype='real' name='New Jersey' ordinal='5' />
+                  <column datatype='real' name='Arizona' ordinal='6' />
+                  <column datatype='real' name='Texas' ordinal='7' />
+                  <column datatype='real' name='New York' ordinal='8' />
+                  <column datatype='real' name='Nevada' ordinal='9' />
+                  <column datatype='real' name='Massachusetts' ordinal='10' />
+                  <column datatype='real' name='North Carolina' ordinal='11' />
+                  <column datatype='real' name='West Virginia' ordinal='12' />
+                  <column datatype='real' name='Michigan' ordinal='13' />
+                  <column datatype='real' name='Missouri' ordinal='14' />
+                  <column datatype='real' name='Hawaii' ordinal='15' />
+                  <column datatype='real' name='Idaho' ordinal='16' />
+                  <column datatype='real' name='Indiana' ordinal='17' />
+                  <column datatype='real' name='Tennessee' ordinal='18' />
+                  <column datatype='real' name='Alabama' ordinal='19' />
+                  <column datatype='real' name='South Carolina' ordinal='20' />
+                  <column datatype='real' name='Illinois' ordinal='21' />
+                  <column datatype='real' name='the District of Columbia' ordinal='22' />
+                  <column datatype='real' name='Oklahoma' ordinal='23' />
+                  <column datatype='real' name='Maryland' ordinal='24' />
+                  <column datatype='real' name='Alaska' ordinal='25' />
+                  <column datatype='real' name='New Mexico' ordinal='26' />
+                  <column datatype='real' name='Oregon' ordinal='27' />
+                  <column datatype='real' name='Georgia' ordinal='28' />
+                  <column datatype='real' name='Montana' ordinal='29' />
+                  <column datatype='real' name='Pennsylvania' ordinal='30' />
+                  <column datatype='real' name='Utah' ordinal='31' />
+                  <column datatype='real' name='Iowa' ordinal='32' />
+                  <column datatype='real' name='Louisiana' ordinal='33' />
+                  <column datatype='real' name='Connecticut' ordinal='34' />
+                  <column datatype='real' name='Nebraska' ordinal='35' />
+                  <column datatype='real' name='Wyoming' ordinal='36' />
+                  <column datatype='real' name='Washington' ordinal='37' />
+                  <column datatype='real' name='Vermont' ordinal='38' />
+                  <column datatype='real' name='Wisconsin' ordinal='39' />
+                  <column datatype='real' name='Arkansas' ordinal='40' />
+                  <column datatype='real' name='Maine' ordinal='41' />
+                  <column datatype='real' name='Minnesota' ordinal='42' />
+                  <column datatype='real' name='Ohio' ordinal='43' />
+                  <column datatype='real' name='Rhode Island' ordinal='44' />
+                  <column datatype='real' name='Delaware' ordinal='45' />
+                  <column datatype='real' name='Kansas' ordinal='46' />
+                  <column datatype='real' name='New Hampshire' ordinal='47' />
+                  <column datatype='real' name='Mississippi' ordinal='48' />
+                  <column datatype='real' name='Kentucky' ordinal='49' />
+                  <column datatype='real' name='South Dakota' ordinal='50' />
+                  <column datatype='real' name='North Dakota' ordinal='51' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='homevalueindex' name='federated.0gqz3on1mrxwv819x1tiu07eaibv' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0gqz3on1mrxwv819x1tiu07eaibv'>
+            <column caption='Month' datatype='date' name='[month]' role='dimension' type='ordinal' />
+            <column-instance column='[month]' derivation='Month-Trunc' name='[tmn:month:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols>[federated.0gqz3on1mrxwv819x1tiu07eaibv].[tmn:month:qk]</cols>
+      </table>
+      <simple-id uuid='{8EB747A7-FAC4-4152-B65A-61D891CD371B}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' maximized='true' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.0gqz3on1mrxwv819x1tiu07eaibv].[yr:month:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{DE58AA5B-DD26-4484-9320-0FE2C22C36FC}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='158' name='Sheet 1' width='384'>
+      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
+    </thumbnail>
+  </thumbnails>
+</workbook>
