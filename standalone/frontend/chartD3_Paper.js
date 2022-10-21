@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import * as d3Annotation from 'd3-svg-annotation';
 import * as d3Force from 'd3-force';
 import * as TwinPeaks from '../public/dist/twinpeaks';
-import AnnotatorClient from './AnnotatorClient';
+// import AnnotatorClient from './AnnotatorClient';
 
 const graphViewProps = ({
   width: 1920,
@@ -393,7 +393,16 @@ function renderChart(data, datasetName, params) {
     (d) => lineGenerator(d),
   ).attr('fill', 'none').attr('stroke', 'blue');
 
-  let featureData = TwinPeaks.Analyzer.features(data, params.featureMode, params.timeVar, params.quantVar).slice(0, params.numAnnotations);
+  const featureDetector = new TwinPeaks.PersistenceFeatureDetector();
+
+  const featureChartMetadata = {
+    timeVar: params.timeVar,
+    quantVar: params.quantVar,
+    featureMode: params.featureMode,
+  };
+
+  let featureData = featureDetector.getChartFeatures(data, featureChartMetadata)
+    .slice(0, params.numAnnotations);
 
   featureData = featureData.filter((f, i) => {
     if (datasetName === 'wildfire') {
@@ -791,7 +800,14 @@ function renderChart(data, datasetName, params) {
     .on('mouseover', peakMouseover)
     .on('mouseout', peakMouseout);
 
-  AnnotatorClient.annotate(featureData, params.timeVar, params.granularity, params.query).then(
+  const headlineAnnotationRecommender = new TwinPeaks.HeadlineAnnotationRecommender();
+  const chartMetadata = {
+    dateField: params.timeVar,
+    granularity: params.granularity,
+    query: params.query,
+  };
+  // AnnotatorClient.annotate(featureData, params.timeVar, params.granularity, params.query).then(
+  headlineAnnotationRecommender.getAllAnnotations(featureData, chartMetadata).then(
     (annotationResults) => {
       // eslint-disable-next-line no-param-reassign
       annotationResults.combined = annotationResults.combined.map((a) => {

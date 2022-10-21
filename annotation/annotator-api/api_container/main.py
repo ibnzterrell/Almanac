@@ -12,22 +12,26 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET", "PUT"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
 
 @app.on_event("startup")
 async def startup():
     app.state.engine = db_startup()
     app.state.pipelines = loadNLP()
 
+
 @app.on_event("shutdown")
 async def shutdown():
     db_shutdown(app.state.engine)
 
+
 @app.get("/")
 async def healthCheck():
     return {"message": "Visit /docs for documentation"}
+
 
 @app.get("/health")
 async def healthCheck():
