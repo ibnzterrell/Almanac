@@ -3,7 +3,7 @@ import * as vegaLite from 'vega-lite';
 import * as vl from 'vega-lite-api';
 import * as vegaTooltip from 'vega-tooltip';
 import * as vegaDatasets from 'vega-datasets';
-import * as TwinPeaks from '../public/dist/twinpeaks';
+import * as Almanac from '../public/dist/almanac';
 import AnnotatorClient from './AnnotatorClient';
 
 // setup API options
@@ -40,7 +40,7 @@ vegaDatasets['seattle-weather.csv']().then((weatherData) => {
     .width(1500)
     .height(500);
 
-  const featureData = TwinPeaks.Analyzer.peaks(weatherData, 'prominence', 'date', 'precipitation').slice(0, 25);
+  const featureData = Almanac.Analyzer.peaks(weatherData, 'prominence', 'date', 'precipitation').slice(0, 25);
 
   const featureMarks = lineChart.markCircle({ stroke: 'red' })
     .data(featureData)

@@ -1,5 +1,5 @@
 {
-  "name": "twinpeaks",
+  "name": "almanac",
   "version": "0.1.0",
   "description": "",
   "main": "dist/index_bundle.cjs.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ibnzterrell/TwinPeaks.git"
+    "url": "git+https://github.com/ibnzterrell/Almanac.git"
   },
   "author": "Terrell Ibanez <terrell.ibanez@stanford.edu> (https://stanford.edu/~ibanezt)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ibnzterrell/TwinPeaks/issues"
+    "url": "https://github.com/ibnzterrell/Almanac/issues"
   },
-  "homepage": "https://github.com/ibnzterrell/TwinPeaks#readme",
+  "homepage": "https://github.com/ibnzterrell/Almanac#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",

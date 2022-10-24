@@ -1,8 +1,7 @@
 import * as d3 from 'd3';
 import * as d3Annotation from 'd3-svg-annotation';
 import * as d3Force from 'd3-force';
-import * as TwinPeaks from '../public/dist/twinpeaks';
-// import AnnotatorClient from './AnnotatorClient';
+import * as Almanac from '../public/dist/almanac';
 
 const graphViewProps = ({
   width: 1920,
@@ -393,7 +392,7 @@ function renderChart(data, datasetName, params) {
     (d) => lineGenerator(d),
   ).attr('fill', 'none').attr('stroke', 'blue');
 
-  const featureDetector = new TwinPeaks.PersistenceFeatureDetector();
+  const featureDetector = new Almanac.PersistenceFeatureDetector();
 
   const featureChartMetadata = {
     timeVar: params.timeVar,
@@ -800,7 +799,7 @@ function renderChart(data, datasetName, params) {
     .on('mouseover', peakMouseover)
     .on('mouseout', peakMouseout);
 
-  const headlineAnnotationRecommender = new TwinPeaks.HeadlineAnnotationRecommender();
+  const headlineAnnotationRecommender = new Almanac.HeadlineAnnotationRecommender();
   const chartMetadata = {
     dateField: params.timeVar,
     granularity: params.granularity,

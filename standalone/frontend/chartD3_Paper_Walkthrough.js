@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import * as d3Annotation from 'd3-svg-annotation';
 import * as d3Force from 'd3-force';
-import * as TwinPeaks from '../public/dist/twinpeaks';
+import * as Almanac from '../public/dist/almanac';
 import AnnotatorClient from './AnnotatorClient';
 
 const graphViewProps = ({
