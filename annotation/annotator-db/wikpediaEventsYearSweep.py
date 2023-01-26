@@ -40,8 +40,8 @@ def extractEvents(year, daylist):
         events.append(event)
 
     df = pd.DataFrame()
-    df["date"] = pd.Series(dates)
-    df["event"] = pd.Series(events)
+    df["date"] = pd.Series(dates, dtype="datetime64[ns]")
+    df["event"] = pd.Series(events, dtype="string")
 
     return df
 
