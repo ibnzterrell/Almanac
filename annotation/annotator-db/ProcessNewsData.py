@@ -12,8 +12,12 @@ startMonth = int(os.getenv("START_MONTH"))
 startYear = int(os.getenv("START_YEAR"))
 
 yesterday = datetime.today() - timedelta(days=1)
-endMonth = yesterday.month
-endYear = yesterday.year
+# endMonth = yesterday.month
+# endYear = yesterday.year
+
+endMonth = int(os.getenv("END_MONTH"))
+endYear = int(os.getenv("END_YEAR"))
+
 
 def processMonthDataframe(month, year):
     print(f"Loading {year}-{month}")
@@ -70,7 +74,7 @@ def processMonthDataframe(month, year):
 
     # Drop Missing Titles
     df = df[~df["main_headline"].str.contains("No Title")]
-    
+
     # Drop Duplicates
     df = df.drop_duplicates(subset=["uri"], keep="first")
     df = df.drop_duplicates(subset=["main_headline"], keep=False)
