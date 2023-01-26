@@ -10,6 +10,7 @@ python-dotenv = "*"
 requests = "*"
 pymysql = "*"
 pyarrow = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
