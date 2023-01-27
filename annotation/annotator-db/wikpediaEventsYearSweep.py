@@ -7,7 +7,7 @@ from requests.api import get
 import pandas as pd
 import calendar
 
-startYear = 2000
+startYear = 1980
 stopYear = 2023
 currentYear = startYear
 
@@ -16,7 +16,7 @@ data = []
 months = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
-day_re = re.compile("(\w+) (\d+)( [–-] )*(.*)(\[.+\])*")
+day_re = re.compile("(\w+) (\d?\d) ([–-])? (.*)(\[.+\])*")
 
 
 def extractEvents(year, daylist):
