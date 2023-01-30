@@ -59,6 +59,9 @@ def processMonthDataframe(month, year):
     df["pub_date"] = pd.to_datetime(df["pub_date"], errors="coerce")
     df = df.dropna(subset=["pub_date"])
 
+    # Store Year
+    df["pub_year"] = df["pub_date"].dt.year
+
     # Drop Unlabeled Material
     df = df.dropna(subset=["type_of_material"])
 
