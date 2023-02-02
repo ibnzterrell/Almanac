@@ -89,7 +89,7 @@ while currentYear != stopYear + 1:
 
 data = pd.concat(data)
 data = data.sort_values(by=["date"])
-data.to_csv("./data/WikipediaEvents.csv", index=False)
+data.to_parquet("./data/WikiEvents.parquet", index=False)
 print(data)
 # missed_events = pd.Series(missed_events)
 # missed_dates = pd.Series(missed_dates)
