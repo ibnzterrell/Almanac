@@ -25,7 +25,7 @@ def rank_array(df, column):
         arr = json.loads(arr)
         for i, a in enumerate(arr):
             rank = i + 1
-            yield(uri, rank, a)
+            yield (uri, rank, a)
 
 
 def rank_df(df, df_col, rank_col):
@@ -66,7 +66,7 @@ articleUriToId = {
     uri: id for (uri, id) in zip(article_df["uri"], article_df["articleId"])
 }
 
-article_df = article_df[["articleId", "pub_date", "main_headline",
+article_df = article_df[["articleId", "pub_date", "pub_year", "main_headline",
                          "lead_paragraph", "web_url"]]
 
 tag_df_tables = [(person_tag_df, "person_tag"), (organization_tag_df,

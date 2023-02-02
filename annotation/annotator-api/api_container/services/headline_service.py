@@ -9,6 +9,14 @@ import math
 from dateutil import parser
 
 
+def extractYearRange(events, dateField):
+    startYear = pd.to_datetime(
+        events[dateField]).dt.year.min()
+    endYear = pd.to_datetime(
+        events[dateField]).dt.year.max()
+    return startYear, endYear
+
+
 def findPersonEvents(name, events, dateField, granularity):
     df = personEventQuery(name)
     return findPointEvents(df, events, dateField, granularity)
@@ -222,7 +230,8 @@ def findPointClusters(df, pipelines, events, dateField, granularity, options):
 
 
 def headline_point_cluster(db, pipes, events, granularity, dateField, query, options):
-    df = textEventQuery(db, query, options)
+    startYear, endYear = extractYearRange(events, dateField)
+    df = textEventQuery(db, query, startYear, endYear, options)
 
     (df, dptopKs) = findPointClusters(df, pipes,
                                       events, dateField, granularity, options)
