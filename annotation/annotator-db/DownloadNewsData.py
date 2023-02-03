@@ -44,7 +44,7 @@ def saveMonth(month, year):
 
 
 def monthExists(month, year):
-    return os.path.exists(f"./data/raw/{year}_{month}.json")
+    return os.path.exists(f"./data/raw/news/{year}_{month}.json")
 
 
 for month, year in month_year_range(startMonth, startYear, endMonth, endYear):
