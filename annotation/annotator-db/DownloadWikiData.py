@@ -22,7 +22,7 @@ def yearExists(year):
     return os.path.exists(f"./data/raw/wiki/{year}.html")
 
 
-for year in range(startYear, endYear):
+for year in range(startYear, endYear + 1):
     print(f"Retrieving {year}:")
     if not yearExists(year):
         time.sleep(6)
