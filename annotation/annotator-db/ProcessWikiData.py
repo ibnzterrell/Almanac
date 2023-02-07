@@ -16,28 +16,53 @@ data = []
 months = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
-day_re = re.compile("(\w+) (\d?\d) ([–-])? (.*)(\[.+\])*")
+day_re = re.compile("(\w+) (\d?\d)")
+event_re = re.compile("(.*)(\[.+\])*")
+day_event_re = re.compile("(\w+) (\d?\d) ([–-])? (.*)(\[.+\])*")
 
 
 def extractEvents(year, daylist):
     dates = []
     events = []
     for day in daylist:
-        # if day.find("ul"):
-        # else:
-        # print(day.text)
-        match = day_re.match(day.text)
+        subeventLists = day.findChildren("ul", recursive=False)
 
-        if match is None:
-            print("NO MATCH: ", day.text)
-            continue
-        month = match.group(1)
-        day = match.group(2)
-        event = match.group(4)
+        if len(subeventLists) != 0:
 
-        date = datetime.date(int(year), months.index(month) + 1, int(day))
-        dates.append(date)
-        events.append(event)
+            day_match = day_re.match(day.text)
+
+            if day_match is None:
+                print("NO DAY MATCH: ", day.text)
+                continue
+            month = day_match.group(1)
+            day = day_match.group(2)
+
+            date = datetime.date(int(year), months.index(month) + 1, int(day))
+
+            subevents = subeventLists[0].findChildren("li", recursive=False)
+
+            for subevent in subevents:
+                event_match = event_re.match(subevent.text)
+                if event_match is None:
+                    print("NO EVENT MATCH: ", subevent.text)
+                    continue
+                event = event_match.group(1)
+                dates.append(date)
+                events.append(event)
+
+        else:
+            day_event_match = day_event_re.match(day.text)
+
+            if day_event_match is None:
+                print("NO DAY_EVENT MATCH: ", day.text)
+                continue
+            month = day_event_match.group(1)
+            day = day_event_match.group(2)
+            event = day_event_match.group(4)
+
+            date = datetime.date(int(year), months.index(month) + 1, int(day))
+            dates.append(date)
+            events.append(event)
 
     df = pd.DataFrame()
     df["date"] = pd.Series(dates, dtype="datetime64[ns]")
