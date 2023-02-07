@@ -250,6 +250,10 @@ def headline_point_cluster(db, pipes, events, granularity, dateField, query, opt
         res_data["alternates"] = json.loads(
             df[df["alternate"] == True].to_json(orient="records"))
 
+    if (options["mixed"]):
+        res_data["mixed"] = json.loads(
+            df.to_json(orient="records"))
+
     if (options["topK"]):
         res_data["topK"] = dptopKs
 

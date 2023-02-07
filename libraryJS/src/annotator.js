@@ -8,6 +8,7 @@ class Annotator {
   static getDefaultQueryOptions() {
     return {
       alternates: true,
+      mixed: true,
       topK: true,
       alphaFilter: true,
       decayWeighting: false,
