@@ -182,7 +182,7 @@
     });
   }
 
-  $(document).ready(() => {
+  function initialize() {
     tableau.extensions.initializeAsync().then(() => {
       const dashboardName = tableau.extensions.dashboardContent.dashboard.name;
 
@@ -204,5 +204,8 @@
       $('#debugButton').on('click', debug);
       worksheetSelected();
     });
+  }
+  $(document).ready(() => {
+    $('#initializeButton').on('click', initialize);
   });
 })();
