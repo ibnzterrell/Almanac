@@ -1,0 +1,1382 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20224.22.1117.1841                               -->
+<workbook original-version='18.1' source-build='2022.4.0 (20224.22.1117.1841)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <Extensions />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='California_Fire_Incidents' inline='true' name='federated.0rjr04d05h4sau1fj2mzo1bk3srt' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='California_Fire_Incidents' name='textscan.0cgojsg1ovek3w1c5qqix0u5cc2p'>
+            <connection class='textscan' directory='/Users/ibnzterrell/Code/Repos/TwinPeaks/standalone/public/data' filename='California_Fire_Incidents.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.0cgojsg1ovek3w1c5qqix0u5cc2p' name='California_Fire_Incidents.csv' table='[California_Fire_Incidents#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='AcresBurned' ordinal='0' />
+            <column datatype='boolean' name='Active' ordinal='1' />
+            <column datatype='string' name='AdminUnit' ordinal='2' />
+            <column datatype='integer' name='AirTankers' ordinal='3' />
+            <column datatype='integer' name='ArchiveYear' ordinal='4' />
+            <column datatype='boolean' name='CalFireIncident' ordinal='5' />
+            <column datatype='string' name='CanonicalUrl' ordinal='6' />
+            <column datatype='string' name='ConditionStatement' ordinal='7' />
+            <column datatype='string' name='ControlStatement' ordinal='8' />
+            <column datatype='string' name='Counties' ordinal='9' />
+            <column datatype='integer' name='CountyIds' ordinal='10' />
+            <column datatype='integer' name='CrewsInvolved' ordinal='11' />
+            <column datatype='integer' name='Dozers' ordinal='12' />
+            <column datatype='integer' name='Engines' ordinal='13' />
+            <column datatype='datetime' name='Extinguished' ordinal='14' />
+            <column datatype='integer' name='Fatalities' ordinal='15' />
+            <column datatype='boolean' name='Featured' ordinal='16' />
+            <column datatype='boolean' name='Final' ordinal='17' />
+            <column datatype='string' name='FuelType' ordinal='18' />
+            <column datatype='integer' name='Helicopters' ordinal='19' />
+            <column datatype='integer' name='Injuries' ordinal='20' />
+            <column datatype='real' name='Latitude' ordinal='21' />
+            <column datatype='string' name='Location' ordinal='22' />
+            <column datatype='real' name='Longitude' ordinal='23' />
+            <column datatype='boolean' name='MajorIncident' ordinal='24' />
+            <column datatype='string' name='Name' ordinal='25' />
+            <column datatype='integer' name='PercentContained' ordinal='26' />
+            <column datatype='integer' name='PersonnelInvolved' ordinal='27' />
+            <column datatype='boolean' name='Public' ordinal='28' />
+            <column datatype='string' name='SearchDescription' ordinal='29' />
+            <column datatype='string' name='SearchKeywords' ordinal='30' />
+            <column datatype='datetime' name='Started' ordinal='31' />
+            <column datatype='string' name='Status' ordinal='32' />
+            <column datatype='integer' name='StructuresDamaged' ordinal='33' />
+            <column datatype='integer' name='StructuresDestroyed' ordinal='34' />
+            <column datatype='string' name='StructuresEvacuated' ordinal='35' />
+            <column datatype='integer' name='StructuresThreatened' ordinal='36' />
+            <column datatype='string' name='UniqueId' ordinal='37' />
+            <column datatype='datetime' name='Updated' ordinal='38' />
+            <column datatype='integer' name='WaterTenders' ordinal='39' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.0cgojsg1ovek3w1c5qqix0u5cc2p' name='California_Fire_Incidents.csv' table='[California_Fire_Incidents#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='AcresBurned' ordinal='0' />
+            <column datatype='boolean' name='Active' ordinal='1' />
+            <column datatype='string' name='AdminUnit' ordinal='2' />
+            <column datatype='integer' name='AirTankers' ordinal='3' />
+            <column datatype='integer' name='ArchiveYear' ordinal='4' />
+            <column datatype='boolean' name='CalFireIncident' ordinal='5' />
+            <column datatype='string' name='CanonicalUrl' ordinal='6' />
+            <column datatype='string' name='ConditionStatement' ordinal='7' />
+            <column datatype='string' name='ControlStatement' ordinal='8' />
+            <column datatype='string' name='Counties' ordinal='9' />
+            <column datatype='integer' name='CountyIds' ordinal='10' />
+            <column datatype='integer' name='CrewsInvolved' ordinal='11' />
+            <column datatype='integer' name='Dozers' ordinal='12' />
+            <column datatype='integer' name='Engines' ordinal='13' />
+            <column datatype='datetime' name='Extinguished' ordinal='14' />
+            <column datatype='integer' name='Fatalities' ordinal='15' />
+            <column datatype='boolean' name='Featured' ordinal='16' />
+            <column datatype='boolean' name='Final' ordinal='17' />
+            <column datatype='string' name='FuelType' ordinal='18' />
+            <column datatype='integer' name='Helicopters' ordinal='19' />
+            <column datatype='integer' name='Injuries' ordinal='20' />
+            <column datatype='real' name='Latitude' ordinal='21' />
+            <column datatype='string' name='Location' ordinal='22' />
+            <column datatype='real' name='Longitude' ordinal='23' />
+            <column datatype='boolean' name='MajorIncident' ordinal='24' />
+            <column datatype='string' name='Name' ordinal='25' />
+            <column datatype='integer' name='PercentContained' ordinal='26' />
+            <column datatype='integer' name='PersonnelInvolved' ordinal='27' />
+            <column datatype='boolean' name='Public' ordinal='28' />
+            <column datatype='string' name='SearchDescription' ordinal='29' />
+            <column datatype='string' name='SearchKeywords' ordinal='30' />
+            <column datatype='datetime' name='Started' ordinal='31' />
+            <column datatype='string' name='Status' ordinal='32' />
+            <column datatype='integer' name='StructuresDamaged' ordinal='33' />
+            <column datatype='integer' name='StructuresDestroyed' ordinal='34' />
+            <column datatype='string' name='StructuresEvacuated' ordinal='35' />
+            <column datatype='integer' name='StructuresThreatened' ordinal='36' />
+            <column datatype='string' name='UniqueId' ordinal='37' />
+            <column datatype='datetime' name='Updated' ordinal='38' />
+            <column datatype='integer' name='WaterTenders' ordinal='39' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>AcresBurned</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[AcresBurned]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>AcresBurned</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Active</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Active]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Active</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>AdminUnit</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[AdminUnit]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>AdminUnit</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>AirTankers</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[AirTankers]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>AirTankers</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ArchiveYear</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ArchiveYear]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>ArchiveYear</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CalFireIncident</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[CalFireIncident]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>CalFireIncident</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CanonicalUrl</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[CanonicalUrl]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>CanonicalUrl</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ConditionStatement</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ConditionStatement]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>ConditionStatement</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ControlStatement</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ControlStatement]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>ControlStatement</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Counties</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Counties]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Counties</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CountyIds</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CountyIds]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>CountyIds</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CrewsInvolved</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CrewsInvolved]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>CrewsInvolved</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Dozers</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Dozers]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Dozers</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Engines</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Engines]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Engines</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Extinguished</remote-name>
+            <remote-type>135</remote-type>
+            <local-name>[Extinguished]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Extinguished</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Fatalities</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Fatalities]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Fatalities</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Featured</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Featured]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Featured</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Final</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Final]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Final</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>FuelType</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[FuelType]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>FuelType</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <approx-count>1</approx-count>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Helicopters</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Helicopters]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Helicopters</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Injuries</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Injuries]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Injuries</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Latitude</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Latitude]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Latitude</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Location</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Location]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Location</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Longitude</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Longitude]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Longitude</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>MajorIncident</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[MajorIncident]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>MajorIncident</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Name]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Name</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>PercentContained</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[PercentContained]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>PercentContained</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>PersonnelInvolved</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[PersonnelInvolved]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>PersonnelInvolved</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Public</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Public]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Public</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SearchDescription</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SearchDescription]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>SearchDescription</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>SearchKeywords</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[SearchKeywords]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>SearchKeywords</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Started</remote-name>
+            <remote-type>135</remote-type>
+            <local-name>[Started]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Started</remote-alias>
+            <ordinal>31</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Status</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Status]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Status</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>StructuresDamaged</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[StructuresDamaged]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>StructuresDamaged</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>StructuresDestroyed</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[StructuresDestroyed]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>StructuresDestroyed</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>StructuresEvacuated</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[StructuresEvacuated]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>StructuresEvacuated</remote-alias>
+            <ordinal>35</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <approx-count>1</approx-count>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>StructuresThreatened</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[StructuresThreatened]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>StructuresThreatened</remote-alias>
+            <ordinal>36</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>UniqueId</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[UniqueId]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>UniqueId</remote-alias>
+            <ordinal>37</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Updated</remote-name>
+            <remote-type>135</remote-type>
+            <local-name>[Updated]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>Updated</remote-alias>
+            <ordinal>38</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>WaterTenders</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[WaterTenders]</local-name>
+            <parent-name>[California_Fire_Incidents.csv]</parent-name>
+            <remote-alias>WaterTenders</remote-alias>
+            <ordinal>39</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Acres Burned' datatype='integer' name='[AcresBurned]' role='measure' type='quantitative' />
+      <column caption='Admin Unit' datatype='string' name='[AdminUnit]' role='dimension' type='nominal' />
+      <column caption='Air Tankers' datatype='integer' name='[AirTankers]' role='measure' type='quantitative' />
+      <column caption='Archive Year' datatype='integer' name='[ArchiveYear]' role='dimension' type='quantitative' />
+      <column caption='Cal Fire Incident' datatype='boolean' name='[CalFireIncident]' role='dimension' type='nominal' />
+      <column caption='Canonical Url' datatype='string' name='[CanonicalUrl]' role='dimension' type='nominal' />
+      <column caption='Condition Statement' datatype='string' name='[ConditionStatement]' role='dimension' type='nominal' />
+      <column caption='Control Statement' datatype='string' name='[ControlStatement]' role='dimension' type='nominal' />
+      <column caption='County Ids' datatype='integer' name='[CountyIds]' role='measure' type='quantitative' />
+      <column caption='Crews Involved' datatype='integer' name='[CrewsInvolved]' role='measure' type='quantitative' />
+      <column caption='Fuel Type' datatype='string' name='[FuelType]' role='dimension' type='nominal' />
+      <column aggregation='Avg' datatype='real' name='[Latitude]' role='measure' semantic-role='[Geographical].[Latitude]' type='quantitative' />
+      <column aggregation='Avg' datatype='real' name='[Longitude]' role='measure' semantic-role='[Geographical].[Longitude]' type='quantitative' />
+      <column caption='Major Incident' datatype='boolean' name='[MajorIncident]' role='dimension' type='nominal' />
+      <column caption='Percent Contained' datatype='integer' name='[PercentContained]' role='measure' type='quantitative' />
+      <column caption='Personnel Involved' datatype='integer' name='[PersonnelInvolved]' role='measure' type='quantitative' />
+      <column caption='Search Description' datatype='string' name='[SearchDescription]' role='dimension' type='nominal' />
+      <column caption='Search Keywords' datatype='string' name='[SearchKeywords]' role='dimension' type='nominal' />
+      <column caption='Structures Damaged' datatype='integer' name='[StructuresDamaged]' role='measure' type='quantitative' />
+      <column caption='Structures Destroyed' datatype='integer' name='[StructuresDestroyed]' role='measure' type='quantitative' />
+      <column caption='Structures Evacuated' datatype='string' name='[StructuresEvacuated]' role='dimension' type='nominal' />
+      <column caption='Structures Threatened' datatype='integer' name='[StructuresThreatened]' role='measure' type='quantitative' />
+      <column caption='Unique Id' datatype='string' name='[UniqueId]' role='dimension' type='nominal' />
+      <column caption='Water Tenders' datatype='integer' name='[WaterTenders]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='California_Fire_Incidents.csv' datatype='table' name='[__tableau_internal_object_id__].[California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47]' role='measure' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='California_Fire_Incidents.csv' id='California_Fire_Incidents.csv_714E4A5C319043E4B3DF98A236780F47'>
+            <properties context=''>
+              <relation connection='textscan.0cgojsg1ovek3w1c5qqix0u5cc2p' name='California_Fire_Incidents.csv' table='[California_Fire_Incidents#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='AcresBurned' ordinal='0' />
+                  <column datatype='boolean' name='Active' ordinal='1' />
+                  <column datatype='string' name='AdminUnit' ordinal='2' />
+                  <column datatype='integer' name='AirTankers' ordinal='3' />
+                  <column datatype='integer' name='ArchiveYear' ordinal='4' />
+                  <column datatype='boolean' name='CalFireIncident' ordinal='5' />
+                  <column datatype='string' name='CanonicalUrl' ordinal='6' />
+                  <column datatype='string' name='ConditionStatement' ordinal='7' />
+                  <column datatype='string' name='ControlStatement' ordinal='8' />
+                  <column datatype='string' name='Counties' ordinal='9' />
+                  <column datatype='integer' name='CountyIds' ordinal='10' />
+                  <column datatype='integer' name='CrewsInvolved' ordinal='11' />
+                  <column datatype='integer' name='Dozers' ordinal='12' />
+                  <column datatype='integer' name='Engines' ordinal='13' />
+                  <column datatype='datetime' name='Extinguished' ordinal='14' />
+                  <column datatype='integer' name='Fatalities' ordinal='15' />
+                  <column datatype='boolean' name='Featured' ordinal='16' />
+                  <column datatype='boolean' name='Final' ordinal='17' />
+                  <column datatype='string' name='FuelType' ordinal='18' />
+                  <column datatype='integer' name='Helicopters' ordinal='19' />
+                  <column datatype='integer' name='Injuries' ordinal='20' />
+                  <column datatype='real' name='Latitude' ordinal='21' />
+                  <column datatype='string' name='Location' ordinal='22' />
+                  <column datatype='real' name='Longitude' ordinal='23' />
+                  <column datatype='boolean' name='MajorIncident' ordinal='24' />
+                  <column datatype='string' name='Name' ordinal='25' />
+                  <column datatype='integer' name='PercentContained' ordinal='26' />
+                  <column datatype='integer' name='PersonnelInvolved' ordinal='27' />
+                  <column datatype='boolean' name='Public' ordinal='28' />
+                  <column datatype='string' name='SearchDescription' ordinal='29' />
+                  <column datatype='string' name='SearchKeywords' ordinal='30' />
+                  <column datatype='datetime' name='Started' ordinal='31' />
+                  <column datatype='string' name='Status' ordinal='32' />
+                  <column datatype='integer' name='StructuresDamaged' ordinal='33' />
+                  <column datatype='integer' name='StructuresDestroyed' ordinal='34' />
+                  <column datatype='string' name='StructuresEvacuated' ordinal='35' />
+                  <column datatype='integer' name='StructuresThreatened' ordinal='36' />
+                  <column datatype='string' name='UniqueId' ordinal='37' />
+                  <column datatype='datetime' name='Updated' ordinal='38' />
+                  <column datatype='integer' name='WaterTenders' ordinal='39' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Acres Burned in Wildfires'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='California_Fire_Incidents' name='federated.0rjr04d05h4sau1fj2mzo1bk3srt' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0rjr04d05h4sau1fj2mzo1bk3srt'>
+            <column caption='Acres Burned' datatype='integer' name='[AcresBurned]' role='measure' type='quantitative' />
+            <column datatype='datetime' name='[Started]' role='dimension' type='ordinal' />
+            <column-instance column='[AcresBurned]' derivation='Sum' name='[sum:AcresBurned:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Started]' derivation='Month-Trunc' name='[tmn:Started:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Started]' derivation='Month-Trunc' name='[tmn:Started:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[tmn:Started:ok]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[tmn:Started:ok]' />
+              <groupfilter function='member' level='[tmn:Started:ok]' member='#1969-12-01 00:00:00#' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[tmn:Started:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[tmn:Started:qk]' scope='cols' value='Month' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[sum:AcresBurned:qk]</rows>
+        <cols>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[tmn:Started:qk]</cols>
+      </table>
+      <simple-id uuid='{5CCDC7A5-7139-43BC-B7A9-6553F6611F90}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard'>
+      <style />
+      <size sizing-mode='automatic' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98668' id='3' name='Acres Burned in Wildfires' w='74627' x='341' y='666'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone forceUpdate='true' h='98668' id='14' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/mixed_extension/almanac_mixed.html]' type-v2='dashboard-object' w='24691' x='74968' y='666'>
+            <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/mixed_extension/almanac_mixed.html' extension-version='0.1.0' instance-id='6771C3CAC74B49B5A6ADD8C92F6630E3'>
+              <instance-settings />
+              <type-settings>
+                <dashboard />
+              </type-settings>
+            </add-in>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='18' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98668' id='17' param='vert' type-v2='layout-flow' w='99318' x='341' y='666'>
+                <zone fixed-size='280' h='98668' id='3' is-fixed='true' name='Acres Burned in Wildfires' w='74627' x='341' y='666'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='98668' id='14' param='[edu.stanford.hci.almanac].[0.1.0].[http://localhost:3000/mixed_extension/almanac_mixed.html]' type-v2='dashboard-object' w='24691' x='74968' y='666'>
+                  <add-in add-in-id='edu.stanford.hci.almanac' extension-url='http://localhost:3000/mixed_extension/almanac_mixed.html' extension-version='0.1.0' instance-id='6771C3CAC74B49B5A6ADD8C92F6630E3'>
+                    <instance-settings />
+                    <type-settings>
+                      <dashboard />
+                    </type-settings>
+                  </add-in>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{3EF258E5-BE21-4BF0-A6EB-5C15FDF8D99F}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' name='Acres Burned in Wildfires'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[tmn:Extinguished:qk]</field>
+            <field>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[yr:Extinguished:ok]</field>
+            <field>[federated.0rjr04d05h4sau1fj2mzo1bk3srt].[yr:Started:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{33F26CA5-8761-4A82-8579-90AECC99E2C8}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Dashboard'>
+      <viewpoints>
+        <viewpoint name='Acres Burned in Wildfires'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='14' />
+      <simple-id uuid='{CAB933C8-5EE7-44B4-B24C-048E6E432CAC}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='384' name='Acres Burned in Wildfires' width='384'>
+      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
+    </thumbnail>
+    <thumbnail height='384' name='Dashboard' width='384'>
+      iVBORw0KGgoAAAANSUhEUgAAAYAAAAGACAYAAACkx7W/AAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAAgAElEQVR4nO3da1Bc9eHG8eewLGS5CRpDrkBIbJqoUQJoxmo0JtKYMZmxth2ddmy1dqZW
+      rU5vWltf2Blbazv/sVYdp/rCN9baVjsxXgIhAUJCk5gQDESCBDBcIveFZYFd9uye/4uMOxK8
+      kbIb7O/7eVVwL4d0Zr/s2WUfy3EcRwAA4ySc6wMAAJwbBAAADEUAAMBQBAAADEUAAMBQBAAA
+      DEUAAMBQBAAADEUAAMBQBAAADEUAAMBQnxuAgYEB1dTUxONY1Nvbq/r6ejU0NKitrU3hcDgu
+      9ytJkUhE//rXvyZ9b2RkRG1tbZ97Xcdx1NraOunrpqYmjY+PR7/X2dmpYDCorq4u9ff3S5IO
+      HTqklpaWKbfX09OjysrK6G299dZb+s1vfqOjR4+qvb1dQ0NDZ/MjAsAknxuAf/zjH3ryySfV
+      3t4e84PZtm2btm3bpv379+uVV17RXXfdpdHR0Zjfr3Q6APv27Zv0vcHBQdXV1X2h6//5z3/W
+      wMCApNPhuPvuu7Vnzx5Jpx/Ef/e730mSmpub1dnZKUk6ceKEuru7p9zW8PCw6uvrJUkdHR3a
+      tWuXHn74Ya1atUrHjh1TT0/P2f2QAPAxnxkAx3H07rvv6t5771V5efmk7588eVK7du1SZ2dn
+      9Ddgx3HU0NCgnp4eOY6jd955R6+//rp6e3uj1x0cHFR5ebn279+vUCg05T43b96su+66Sw89
+      9JCKiorU2Nio8fFxnTp1KnqZEydOyHEcBYNBdXZ2amJiQgcOHFAwGFRra6s+/PBDbd++XUeO
+      HIlex+v1RuPy8Q9A9fl8qqqqUk1NjWzbnnQs2dnZuuKKKyRJ/f39GhwcVE1Njd588035fL7o
+      5SzL0uWXX66jR49Kkurq6nTzzTfr8OHDkiS/36/k5GQlJyfr4osvVn5+/if+e3d1dWnnzp16
+      7733osdWU1OjrKwsNTY2amRkRJdffrkWLVqkSCQS/Tc/evSo+vv75TiODhw4oO3bt0efZUhS
+      X1+fysvLdfDgwU/8Nwdgps8MQHNzs/Lz87V27Vrt378/+v233npLf/nLXzQ+Pq5XX31VkvTU
+      U0/piSee0KuvvqqxsTG9/PLLqqqqUmZmpn79619rYGBAgUBAP/3pTxUMBtXc3KyysrJPvN+J
+      iQnV19errq5O+fn56urqit6PJD3zzDMKh8Pq7+/XX//6Vz3wwAN65513ZNu2Hn74Yb3wwgvy
+      eDx6/vnn1dzcLJ/PpwcffFAZGRk6cuSIXnjhBUlSd3e37r//fg0MDKi3t1eBQGDScXR1demf
+      //ynJGnv3r36yU9+ovb2do2NjekPf/jDpMsWFhaqtrZWknT48GFt3rxZvb29chxH9fX1Wr16
+      tSRp165d0d/uP66qqkqPP/64bNvWyZMnJUmBQECdnZ0aHBxUS0uLfD6f3njjDbW2tiocDuvp
+      p5/WY489pm3btml8fFwvvvii9u/fr/T0dD388MMaGhrSyMiIfvnLX2piYkKNjY2qqKj4rP/L
+      ARgk8bP+Y3l5uTZs2CC326358+fr5MmTysnJ0bZt2/TMM8/I7XZLOv2MoL29XRs3btRNN90k
+      x3H0xBNP6Nlnn5VlWQqFQtq9e7e+/vWvKyEhQYWFhZo/f/4n3ufTTz+tOXPmqLe3VzfffLOy
+      srI0ODj4qcdYU1Oj5557TsuXL1ckEtGCBQv0yCOPSDr9W39PT4/q6+t1yy23aP369br22mt1
+      7733SpL+9re/6Z577lFRUZFs255yCuhMP/jBD7R+/XrZtj0piJK0YsUKPfvss4pEIuro6FB+
+      fr6ys7P14Ycf6siRI7r66qs/9XYjkYhefvll/elPf1JaWpqWLVum0tJSzZs3T9dff73effdd
+      ffvb355yvZaWFm3atEklJSUKhUKqra3VU089JcuyNDo6qurqaq1du1ZJSUkqKirSvHnzPvPn
+      A2CWTw2A4ziqqKhQU1OTXnrpJXV3d6u8vFx33nmn3G539MH/Izk5Obrpppui1+3o6NCjjz4q
+      SQoGg1q7dq3S09N199136+mnn1Z/f7/uuusuFRUVTbqde++9V2vWrJHjOHrqqae0e/du5ebm
+      fuoPcMMNN2j58uWf+UMODAyosrJS//nPfyRJSUlJsm1b/f39n3vdLyopKUlpaWlqa2tTZmam
+      LMvSmjVrVFtbq/fff1933XXXp143HA4rOTlZaWlp07rP5cuXq6SkRJKizxw++jcPBAK69tpr
+      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
+      sAAAAABJRU5ErkJggg==
+    </thumbnail>
+  </thumbnails>
+  <referenced-extensions>
+    <referenced-extension>
+      <manifest manifest-version='0.1'>
+        <dashboard-extension extension-version='0.1.0' id='edu.stanford.hci.almanac'>
+          <default-locale>en_US</default-locale>
+          <name resource-id='name' />
+          <description>Almanac </description>
+          <author email='terrell.ibanez@stanford.edu' name='Terrell Ibanez' organization='Stanford HCI' website='https://hci.stanford.edu' />
+          <min-api-version>0.8</min-api-version>
+          <source-location>
+            <url>http://localhost:3000/mixed_extension/almanac_mixed.html</url>
+          </source-location>
+          <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAlhJREFUOI2Nkt9vy1EYh5/3bbsvRSySCZbIxI+ZCKsN2TKtSFyIrV2WuRCJuBiJWxfuxCVXbvwFgiEtposgLFJElnbU1SxIZIIRJDKTrdu+53Uhra4mce7Oe57Pcz7JOULFisViwZ+29LAzOSjQYDgz1ZcCvWuXV11MJpN+OS/lm6179teqH0yDqxPTCyKSA8DcDsyOmOprnCaeP7459pdgy969i0LTC3IO/RQMyoHcQN+3cnljW3dNIFC47qDaK3g7BwdTkwBaBELT4ZPOUVWgKl4ZBnjxJPUlMDnTDrp0pmr6RHFeEjjcUUXPDGeSEwDN0Xg8sivxMhJNjGzbHd8PkM3eHRfkrBM5NkcQaY2vUnTlrDIA0NoaX+KLXFFlowr14tvVpqb2MICzmQcKqxvbumv+NAhZGCCIPwEw6QWXKYRL/VUXO0+rAUJiPwAk5MIlgVfwPjjHLCL1APmHN94ZdqeYN+NW/mn6I4BvwQYchcLnwFhJMDiYmlRxAzjpKWZkYkUCcZ2I61wi37tLbYyjiN0fHk5Oz3nGSLSzBbNHCF35R7f6K1/hN9PRhek11FrymfQQQKB4+Gl05P2qNRtmETlXW7e+b2z01dfycGNbfFMAbqNyKp9Jp4rzOT8RYFs0njJkc2iqsCObvTsOsDWWqA5C1uFy+Uz/oXJeKwVT4h0RmPUXhi79vuC0Ku6yOffTK3g9lfxfDQAisY516sg5kfOCiJk7HoLt2cf9b/9LANAc7dznm98PagG1fUOZ9IP5uMB8Q4CPoyNvausapkTt3rNMuvdf3C/o6+czhtdwmwAAAABJRU5ErkJggg==</icon>
+          <permissions>
+            <permission>full data</permission>
+          </permissions>
+        </dashboard-extension>
+        <resources>
+          <resource id='name'>
+            <text locale='en_US'>Almanac Mixed Initiative Annotator</text>
+          </resource>
+        </resources>
+      </manifest>
+      <referenced-views>
+        <referenced-view instances='1' viewId='Dashboard' />
+      </referenced-views>
+    </referenced-extension>
+  </referenced-extensions>
+</workbook>
