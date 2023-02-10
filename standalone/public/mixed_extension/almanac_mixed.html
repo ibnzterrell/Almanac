@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Almanac</title>
+
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Extensions Library (Hosted on CDN) -->
+    <script src="/dist/tableau.extensions.1.latest.js"></script>
+
+    <!-- Library code -->
+    <script src="/dist/almanac.js" type="module"></script>
+
+    <!-- Our extension's code -->
+    <script src="/mixed_extension/almanacMixedExtension.js"></script>
+</head>
+
+<body>
+    <div>
+        <button id="initializeButton">Load Data</button>
+    </div>
+    <div id="dashboardTitle">DASHBOARD</div>
+    <!-- <div id="debugOutput">DEBUG</div> -->
+    <div>Worksheet:</div>
+    <select id="worksheetSelect"></select>
+    <div>Time Field:</div>
+    <select id="timeFieldSelect"></select>
+    <div>Quant Field:</div>
+    <select id="quantFieldSelect"></select>
+    <div>Feature Mode:</div>
+    <select id="featureModeSelect">
+        <option value="peaks">Peaks</option>
+        <option value="valleys">Valleys</option>
+        <option value="peaksvalleys">Peaks and Valleys</option>
+    </select>
+    <div>Number of Features: </div>
+    <input type="numFeatures" id="numFeatures" name="numFeatures" min="1" max="30" value="7">
+    <div>
+        <button id="autoSelectMarksButton">Auto-Select Marks</button>
+    </div>
+    <div>
+        <button id="confirmMarkSetButton">Confirm Mark Set</button>
+    </div>
+    <div>
+        <label>Query Text:</label>
+        <input type="text" id="queryText" />
+    </div>
+    <div>
+        <button id="suggestAnnotationsButton">Suggest Annotations</button>
+    </div>
+    <div id="markList">
+    </div>
+    <!-- <div>
+        <button id="clearAnnotationsButton">Clear All Annotations</button>
+    </div> -->
+    <!-- <div>
+        <button id="debugButton">Debug</button>
+    </div> -->
+</body>
+
+</html>
