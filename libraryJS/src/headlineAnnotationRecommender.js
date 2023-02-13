@@ -31,6 +31,7 @@ class HeadlineAnnotationRecommender extends AnnotationRecommender {
 
       let queryOptions = {
         alternates: true,
+        mixed: true,
         topK: true,
         alphaFilter: true,
         decayWeighting: false,
