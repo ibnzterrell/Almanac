@@ -70,6 +70,92 @@ class PersistenceFeatureDetector extends FeatureDetector {
     return this.getDataByIndex(data, peaksIndex, x, y);
   }
 
+  valleysPersistence(data, x, y) {
+    let valleysMeta = [];
+
+    let indexD = data.map((d, i) => i);
+    indexD = indexD.sort((a, b) => (data[a][y] > data[b][y] ? 1 : -1));
+
+    let indexValleys = data.map(() => -1);
+
+    for (const i of indexD) {
+      let leftD = i > 0 && indexValleys[i - 1] != -1;
+      let rightD = i < data.length - 1 && indexValleys[i + 1] != -1;
+
+      let iLeft = leftD ? indexValleys[i - 1] : -1;
+      let iRight = rightD ? indexValleys[i + 1] : -1;
+
+      // Merge Left and Right Valleys
+      if (leftD && rightD) {
+        if (
+          data[valleysMeta[iLeft].born][y] < data[valleysMeta[iRight].born][y]
+        ) {
+          valleysMeta[iRight].died = i;
+          valleysMeta[iLeft].right = valleysMeta[iRight.right];
+          indexValleys[valleysMeta[iLeft].right] = indexValleys[i] = iLeft;
+        } else {
+          valleysMeta[iLeft].died = i;
+          valleysMeta[iRight].left = valleysMeta[iLeft].left;
+          indexValleys[valleysMeta[iRight].left] = indexValleys[i] = iRight;
+        }
+      }
+      // New Valley Born
+      else if (!leftD && !rightD) {
+        valleysMeta.push({
+          left: i,
+          right: i,
+          born: i,
+          died: -1
+        });
+        indexValleys[i] = valleysMeta.length - 1;
+      }
+      // Merge to next valley left
+      else if (leftD && !rightD) {
+        valleysMeta[iLeft].right += 1;
+        indexValleys[i] = iLeft;
+      }
+      // Merge to next valley right
+      else if (!leftD && rightD) {
+        valleysMeta[iRight].left -= 1;
+        indexValleys[i] = iRight;
+      }
+    }
+
+    // Calculate Persistences
+    valleysMeta.forEach((e, i, arr) => {
+      e.persistence = this.calculatePersistence(data, e, y);
+      data[e.born].persistence = e.persistence;
+    });
+
+    // Sort by Persistences
+    valleysMeta = valleysMeta
+      .sort((a, b) => (a.persistence > b.persistence ? 1 : -1))
+      .reverse();
+
+    let valleysIndex = valleysMeta.map((p) => p.born);
+    return this.getDataByIndex(data, valleysIndex, x, y);
+  }
+
+  peaksValleysPersistence(data, x, y) {
+    data = this.vSort(data, x);
+
+    let peaks = this.peaksPersistence(data, "persistence", x, y);
+    let valleys = this.valleysPersistence(data, "persistence", x, y);
+    let peaksvalleys = peaks.concat(valleys);
+
+    peaksvalleys
+      .sort((a, b) => (a.persistence > b.persistence ? 1 : -1))
+      .reverse();
+    // Filter out X min and X max
+    peaksvalleys = peaksvalleys.filter(
+      (f) =>
+        f[x] != Math.max(...peaksvalleys.map((g) => g[x])) &&
+        f[x] != Math.min(...peaksvalleys.map((g) => g[x]))
+    );
+    return peaksvalleys;
+  }
+
+
   getChartFeatures(timeSeriesData, metadata) {
     switch (metadata.featureMode) {
       case "peaks":
@@ -86,6 +172,7 @@ class PersistenceFeatureDetector extends FeatureDetector {
         throw new Error(`Feature mode ${metadata.featureMode} not valid.`);
     }
   }
+
   // Utility Functions
   vSort(data, x) {
     return data.sort((a, b) => (a[x] > b[x] ? 1 : -1));
