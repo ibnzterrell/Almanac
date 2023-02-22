@@ -336,6 +336,7 @@ function renderChart(data, datasetName, params) {
   titleGroup.selectAll('*').remove();
   featureGroup.selectAll('*').remove();
   annotGroup.selectAll('*').remove();
+  annotEditGroup.selectAll('*').remove();
 
   // Render the Chart
   console.log(data);
