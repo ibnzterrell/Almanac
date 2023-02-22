@@ -320,6 +320,7 @@ const titleGroup = svg.append('g');
 const line = svg.append('path');
 const featureGroup = svg.append('g');
 const annotGroup = svg.append('g');
+const annotEditGroup = svg.append('g');
 const peakCircleRadius = 4;
 // const annotCircleRadius = 4;
 // const annotTriangeSize = 50;
@@ -771,11 +772,32 @@ function renderChart(data, datasetName, params) {
     if (h.enabled) {
       d3.select(this).attr('fill', 'red');
       h.enabled = false;
+
+      const annotEditBoxTemplate = document.createElement('input');
+      annotEditBoxTemplate.setAttribute('type', 'text');
+      annotEditBoxTemplate.setAttribute('value', 'annotation here');
+
+      const annotBoxForeignForeignObj = annotEditGroup.append('foreignObject')
+        .attr('x', xScale(d[params.timeVar]))
+        .attr('y', yScale(d[params.quantVar]))
+        .attr('width', 500)
+        .attr('height', 50)
+        .html((d) => annotEditBoxTemplate.outerHTML);
+
+      const annotEditBox = annotBoxForeignForeignObj.select('input');
+
+      annotEditBox.on('keydown', (e) => {
+        console.log('key pressed: ', e.key);
+        if (e.key === 'Enter') {
+          console.log('enter pressed');
+          annotEditBox.attr('value', 'pressed');
+        }
+      });
     } else {
       d3.select(this).attr('fill', 'green');
       h.enabled = true;
     }
-    renderAnnotations();
+    // renderAnnotations();
   }
 
   function peakMouseover(event, d) {
