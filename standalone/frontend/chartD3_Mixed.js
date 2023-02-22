@@ -811,7 +811,11 @@ function renderChart(data, datasetName, params) {
 
       // eslint-disable-next-line max-len
       const annotDatum = annotationData.find((aDatum) => aDatum[params.timeVar].getTime() === d[params.timeVar].getTime());
-      annotationData.splice(annotationData.indexOf(annotDatum), 1);
+      if (annotDatum !== undefined) {
+        annotationData.splice(annotationData.indexOf(annotDatum), 1);
+      } else {
+        annotEditGroup.selectAll('foreignObject').remove();
+      }
     }
     renderAnnotations();
   }
