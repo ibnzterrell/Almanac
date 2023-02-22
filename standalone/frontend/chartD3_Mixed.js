@@ -322,7 +322,7 @@ const featureGroup = svg.append('g');
 const annotGroup = svg.append('g');
 const annotEditGroup = svg.append('g');
 const peakCircleRadius = 4;
-// const annotCircleRadius = 4;
+const annotCircleRadius = 4;
 // const annotTriangeSize = 50;
 let annotationsContainer = {};
 const annotationData = [];
@@ -617,7 +617,7 @@ function renderChart(data, datasetName, params) {
       .data(nodesAnnotations)
       .enter()
       .append('circle')
-      .attr('r', (d) => 0)
+      .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
       .attr('cx', (d) => d.x)
       .attr('cy', (d) => d.y)
       .on('click', annotCircleClicked)
