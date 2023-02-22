@@ -325,7 +325,7 @@ const peakCircleRadius = 4;
 // const annotCircleRadius = 4;
 // const annotTriangeSize = 50;
 let annotationsContainer = {};
-
+const annotationData = [];
 function renderChart(data, datasetName, params) {
   // Erase existing chart
   line.selectAll('*').remove();
@@ -465,13 +465,13 @@ function renderChart(data, datasetName, params) {
 
     return true;
   });
-  let annotationData = {};
+  let headlineData = [];
 
   console.log(featureData);
 
   function renderAnnotations() {
     annotGroup.selectAll('*').remove();
-    console.log(annotationData);
+    console.log(headlineData);
 
     let aWidth = 200;
     if (datasetName === 'tvnews_afghanistan') {
@@ -496,63 +496,65 @@ function renderChart(data, datasetName, params) {
     const nodesAll = nodesFeatures.concat(nodesAnnotations);
     const nodeLinks = featureData.map((d, i) => ({ source: nodesFeatures[i], target: nodesAnnotations[i] }));
 
-    annotationData.combined.sort(
+    headlineData.combined.sort(
       (a, b) => ((a[params.timeVar] > b[params.timeVar]) ? 1 : -1),
     );
 
-    // const annotations = annotationData.combined.map((f, i) => {
-    //   const s = f.headlines[f.selection];
-    //   const isoDate = d3.isoParse(s[params.timeVar]);
+    const annotations = annotationData.map((aDatum, i) => {
+      console.log('Datum');
+      console.log(aDatum);
 
-    //   const ax = xScale(isoDate);
-    //   const ay = yScale(s[params.quantVar]);
+      const isoDate = d3.isoParse(aDatum[params.timeVar]);
 
-    //   const disableAnnotation = f.enabled ? [] : ['connector', 'subject', 'note'];
+      const ax = xScale(isoDate);
+      const ay = yScale(aDatum[params.quantVar]);
 
-    //   const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === ax);
-    //   console.log(nodeAnnot);
-    //   nodeAnnot.enabled = f.enabled;
-    //   nodeAnnot.editing = f.editing;
+      const disableAnnotation = aDatum.enabled ? [] : ['connector', 'subject', 'note'];
 
-    //   return {
-    //     note: {
-    //       title: s.main_headline,
-    //       // TODO - Auto switch between month / day level
-    //       // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
-    //       label: `${isoDate.toLocaleString('default', { month: 'short' })} ${isoDate.getFullYear()}`,
-    //       wrap: aWidth,
-    //     },
-    //     x: ax,
-    //     y: ay,
-    //     dx: ax,
-    //     dy: ay,
-    //     connector: {
-    //       end: 'arrow',
-    //     },
-    //     disable: disableAnnotation,
-    //   };
-    // });
+      const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === ax);
+      console.log(nodeAnnot);
+      nodeAnnot.enabled = aDatum.enabled;
+      nodeAnnot.editing = aDatum.editing;
 
-    // function annotCircleClicked(event, d) {
-    //   console.log(d);
-    //   console.log(annotationData);
-    //   const h = annotationData.combined.find(
-    //     (e) => new Date(e[params.timeVar]).getTime() === new Date(d.ox).getTime(),
-    //   );
-    //   console.log(h);
+      return {
+        note: {
+          title: aDatum.annotation,
+          // TODO - Auto switch between month / day level
+          // label: `${isoDate.toLocaleString('default', { month: 'short', day: 'numeric' })}, ${isoDate.getFullYear()}`,
+          label: `${isoDate.toLocaleString('default', { month: 'short' })} ${isoDate.getFullYear()}`,
+          wrap: aWidth,
+        },
+        x: ax,
+        y: ay,
+        dx: 0,
+        dy: 0,
+        connector: {
+          end: 'arrow',
+        },
+        disable: disableAnnotation,
+      };
+    });
 
-    //   h.editing = !h.editing;
+    function annotCircleClicked(event, d) {
+      console.log(d);
+      console.log(annotationData);
+      const h = annotationData.combined.find(
+        (e) => new Date(e[params.timeVar]).getTime() === new Date(d.ox).getTime(),
+      );
+      console.log(h);
 
-    //   renderAnnotations();
-    // }
+      h.editing = !h.editing;
 
-    // function annotCircleMouseover(event, d) {
-    //   d3.select(this).attr('r', annotCircleRadius * 2);
-    // }
+      renderAnnotations();
+    }
 
-    // function annotCircleMouseout(event, d) {
-    //   d3.select(this).attr('r', annotCircleRadius);
-    // }
+    function annotCircleMouseover(event, d) {
+      d3.select(this).attr('r', annotCircleRadius * 2);
+    }
+
+    function annotCircleMouseout(event, d) {
+      d3.select(this).attr('r', annotCircleRadius);
+    }
 
     // function annotPrevClicked(event, d) {
     //   const h = annotationData.combined.find(
@@ -584,43 +586,43 @@ function renderChart(data, datasetName, params) {
     //   d3.select(this).attr('d', d3.symbol().type(d3.symbolTriangle).size(annotTriangeSize));
     // }
 
-    // const buildAnnotations = d3Annotation.annotation()
-    //   .type(d3Annotation.annotationLabel)
-    //   .annotations(annotations)
-    //   .accessors({
-    //     x: (d) => d.x, y: (d) => d.y, dx: (d) => d.dx, dy: (d) => d.dy,
-    //   });
+    const buildAnnotations = d3Annotation.annotation()
+      .type(d3Annotation.annotationLabel)
+      .annotations(annotations)
+      .accessors({
+        x: (d) => d.x, y: (d) => d.y, dx: (d) => d.dx, dy: (d) => d.dy,
+      });
 
-    // let fontSize = 20;
-    // if (datasetName === 'massShootings') {
-    //   fontSize = 15;
-    // }
-    // if (datasetName === 'tvnews_afghanistan') {
-    //   fontSize = 16;
-    // }
-    // if (datasetName === 'covid') {
-    //   fontSize = 16;
-    // }
-    // if (datasetName === 'simpsonsViewership') {
-    //   fontSize = 15;
-    // }
+    let fontSize = 20;
+    if (datasetName === 'massShootings') {
+      fontSize = 15;
+    }
+    if (datasetName === 'tvnews_afghanistan') {
+      fontSize = 16;
+    }
+    if (datasetName === 'covid') {
+      fontSize = 16;
+    }
+    if (datasetName === 'simpsonsViewership') {
+      fontSize = 15;
+    }
 
-    // annotGroup.attr('class', 'annotation-group')
-    //   .style('font-size', fontSize)
-    //   .call(buildAnnotations);
+    annotGroup.attr('class', 'annotation-group')
+      .style('font-size', fontSize)
+      .call(buildAnnotations);
 
-    // annotationsContainer.buildAnnotations = buildAnnotations;
+    annotationsContainer.buildAnnotations = buildAnnotations;
 
-    // const annotCircles = annotGroup.selectAll('annotCircles')
-    //   .data(nodesAnnotations)
-    //   .enter()
-    //   .append('circle')
-    //   .attr('r', (d) => 0)
-    //   .attr('cx', (d) => d.x)
-    //   .attr('cy', (d) => d.y);
-    //   .on('click', annotCircleClicked)
-    //   .on('mouseover', annotCircleMouseover)
-    //   .on('mouseout', annotCircleMouseout);
+    const annotCircles = annotGroup.selectAll('annotCircles')
+      .data(nodesAnnotations)
+      .enter()
+      .append('circle')
+      .attr('r', (d) => 0)
+      .attr('cx', (d) => d.x)
+      .attr('cy', (d) => d.y)
+      .on('click', annotCircleClicked)
+      .on('mouseover', annotCircleMouseover)
+      .on('mouseout', annotCircleMouseout);
 
     // const annotPrev = annotGroup.selectAll('annotPrev')
     //   .data(nodesAnnotations)
@@ -642,59 +644,59 @@ function renderChart(data, datasetName, params) {
     //   .on('mouseover', annotTriangleMouseover)
     //   .on('mouseout', annotTriangleMouseout);
 
-    // function clamp(v, vMin, vMax) {
-    //   return Math.max(vMin, Math.min(vMax, v));
-    // }
+    function clamp(v, vMin, vMax) {
+      return Math.max(vMin, Math.min(vMax, v));
+    }
 
-    // function simTick() {
-    //   annotCircles
-    //     // eslint-disable-next-line no-return-assign
-    //     .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin_left, graphViewProps.width - aWidth / 2))
-    //     // eslint-disable-next-line no-return-assign
-    //     .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin_top, graphViewProps.height - aWidth / 2 - graphViewProps.margin_bottom));
+    function simTick() {
+      annotCircles
+        // eslint-disable-next-line no-return-assign
+        .attr('cx', (d) => d.x = clamp(d.x, aWidth / 2 + graphViewProps.margin_left, graphViewProps.width - aWidth / 2))
+        // eslint-disable-next-line no-return-assign
+        .attr('cy', (d) => d.y = clamp(d.y, aWidth / 2 + graphViewProps.margin_top, graphViewProps.height - aWidth / 2 - graphViewProps.margin_bottom));
 
-    //   // annotPrev
-    //   //   .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`);
+      //   // annotPrev
+      //   //   .attr('transform', (d) => `translate(${d.x - 10}, ${d.y}) rotate(-90)`);
 
-    //   // annotNext
-    //   //   .attr('transform', (d) => `translate(${d.x + 10}, ${d.y}) rotate(90)`);
+      //   // annotNext
+      //   //   .attr('transform', (d) => `translate(${d.x + 10}, ${d.y}) rotate(90)`);
 
-    //   buildAnnotations.annotations().forEach((d, i) => {
-    //     const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
-    //     if (d.disable.length === 0) {
-    //       d.dx = -d.x + nodeAnnot.x;
-    //       d.dy = -d.y + nodeAnnot.y;
-    //     }
-    //   });
-    //   buildAnnotations.update();
-    // }
+      buildAnnotations.annotations().forEach((d, i) => {
+        const nodeAnnot = nodesAnnotations.find((nA) => xScale(nA.ox) === d.x);
+        if (d.disable.length === 0) {
+          d.dx = -d.x + nodeAnnot.x;
+          d.dy = -d.y + nodeAnnot.y;
+        }
+      });
+      buildAnnotations.update();
+    }
 
-    // const simulation = d3Force.forceSimulation()
-    //   // .force('x', d3.forceX().strength(0.1).x((d) => xScale(d.ox)))
-    //   // .force('y', d3.forceY().strength(0.1).y((d) => yScale(d.oy)))
-    //   // .force('charge', d3Force.forceManyBody().strength(-10))
-    //   // .force('link', d3Force.forceLink().distance(5).id((d) => d.id))
-    //   .force('collide', d3Force.forceCollide().radius(
-    //     (d) => {
-    //       if (d.nodeType === 'feature') {
-    //         return 10;
-    //       }
-    //       if (d.nodeType === 'annotation') {
-    //         if (d.enabled) {
-    //           return aWidth / 2;
-    //         }
-    //         return 10;
-    //       }
-    //       if (d.nodeType === 'line') {
-    //         return 10;
-    //       }
+    const simulation = d3Force.forceSimulation()
+      // .force('x', d3.forceX().strength(0.1).x((d) => xScale(d.ox)))
+      // .force('y', d3.forceY().strength(0.1).y((d) => yScale(d.oy)))
+      // .force('charge', d3Force.forceManyBody().strength(-10))
+      // .force('link', d3Force.forceLink().distance(5).id((d) => d.id))
+      .force('collide', d3Force.forceCollide().radius(
+        (d) => {
+          if (d.nodeType === 'feature') {
+            return 10;
+          }
+          if (d.nodeType === 'annotation') {
+            if (d.enabled) {
+              return aWidth / 2;
+            }
+            return 10;
+          }
+          if (d.nodeType === 'line') {
+            return 10;
+          }
 
-    //       return 10;
-    //     },
-    //   ));
+          return 10;
+        },
+      ));
 
-    // // simulation.force('link').links(nodeLinks);
-    // simulation.nodes(nodesAll).on('tick', simTick);
+    // simulation.force('link').links(nodeLinks);
+    simulation.nodes(nodesAll).on('tick', simTick);
   }
 
   function renderTable() {
@@ -711,7 +713,7 @@ function renderChart(data, datasetName, params) {
     headlineHead.appendChild(headlineHeadText);
 
     const tBody = tableView.createTBody();
-    annotationData.combined.map((f, i) => {
+    headlineData.combined.map((f, i) => {
       const tRow = tBody.insertRow();
       const periodCell = tRow.insertCell();
       const periodCellText = document.createTextNode(f.date_period);
@@ -764,8 +766,8 @@ function renderChart(data, datasetName, params) {
 
   function peakClicked(event, d) {
     console.log(d);
-    console.log(annotationData);
-    const h = annotationData.combined.find(
+    console.log(headlineData);
+    const h = headlineData.combined.find(
       (e) => new Date(e[params.timeVar]).getTime() === d[params.timeVar].getTime(),
     );
     console.log(h);
@@ -788,17 +790,26 @@ function renderChart(data, datasetName, params) {
       const annotEditBox = annotBoxForeignForeignObj.select('input');
 
       annotEditBox.on('keydown', (e) => {
-        console.log('key pressed: ', e.key);
         if (e.key === 'Enter') {
-          console.log('enter pressed');
-          annotEditBox.attr('value', 'pressed');
+          console.log('enter');
+          const annotText = annotEditBox.node().value;
+          console.log(annotText);
+          annotEditBox.remove();
+          annotBoxForeignForeignObj.remove();
+
+          const annotDatum = { ...d };
+          annotDatum.enabled = true;
+          annotDatum.annotation = annotText;
+
+          annotationData.push(annotDatum);
+          renderAnnotations();
         }
       });
     } else {
       d3.select(this).attr('fill', 'green');
       h.enabled = true;
     }
-    // renderAnnotations();
+    renderAnnotations();
   }
 
   function peakMouseover(event, d) {
@@ -839,7 +850,7 @@ function renderChart(data, datasetName, params) {
         a.editing = false;
         return a;
       });
-      annotationData = annotationResults;
+      headlineData = annotationResults;
       renderAnnotations();
       renderTable();
     },
