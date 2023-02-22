@@ -617,12 +617,12 @@ function renderChart(data, datasetName, params) {
       .data(nodesAnnotations)
       .enter()
       .append('circle')
-      .attr('r', (d) => (d.enabled ? annotCircleRadius : 0))
+      .attr('r', (d) => 0)
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => d.y)
-      .on('click', annotCircleClicked)
-      .on('mouseover', annotCircleMouseover)
-      .on('mouseout', annotCircleMouseout);
+      .attr('cy', (d) => d.y);
+      // .on('click', annotCircleClicked)
+      // .on('mouseover', annotCircleMouseover)
+      // .on('mouseout', annotCircleMouseout);
 
     // const annotPrev = annotGroup.selectAll('annotPrev')
     //   .data(nodesAnnotations)
@@ -808,6 +808,10 @@ function renderChart(data, datasetName, params) {
     } else {
       d3.select(this).attr('fill', 'green');
       h.enabled = true;
+
+      // eslint-disable-next-line max-len
+      const annotDatum = annotationData.find((aDatum) => aDatum[params.timeVar].getTime() === d[params.timeVar].getTime());
+      annotationData.splice(annotationData.indexOf(annotDatum), 1);
     }
     renderAnnotations();
   }
