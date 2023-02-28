@@ -30,6 +30,10 @@ table.headlineRankTable {
     border: none;
 }
 
+table.headlineRankTable.editing {
+    background-color: lightgray;
+}
+
 .rankCell {
     text-align: right;
     width: 25px;

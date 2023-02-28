@@ -546,6 +546,7 @@ function renderChart(data, datasetName, params) {
       h.editing = !h.editing;
 
       renderAnnotations();
+      renderTable();
     }
 
     function annotCircleMouseover(event, d) {
@@ -722,6 +723,10 @@ function renderChart(data, datasetName, params) {
 
       const headlineRankTable = document.createElement('table');
       headlineRankTable.setAttribute('class', 'headlineRankTable');
+      if (f.editing) {
+        headlineRankTable.setAttribute('class', 'headlineRankTable editing');
+      }
+
       const headlineTableHead = headlineRankTable.createTHead();
       const headlineTableHeadRow = headlineTableHead.insertRow();
       const rankHeadCell = headlineTableHeadRow.insertCell();
@@ -775,6 +780,7 @@ function renderChart(data, datasetName, params) {
     if (h.enabled) {
       d3.select(this).attr('fill', 'red');
       h.enabled = false;
+      h.editing = true;
 
       const annotEditBoxTemplate = document.createElement('input');
       annotEditBoxTemplate.setAttribute('type', 'text');
@@ -802,13 +808,15 @@ function renderChart(data, datasetName, params) {
           annotDatum.annotation = annotText;
 
           annotationData.push(annotDatum);
+          h.editing = false;
           renderAnnotations();
+          renderTable();
         }
       });
     } else {
       d3.select(this).attr('fill', 'green');
       h.enabled = true;
-
+      h.editing = false;
       // eslint-disable-next-line max-len
       const annotDatum = annotationData.find((aDatum) => aDatum[params.timeVar].getTime() === d[params.timeVar].getTime());
       if (annotDatum !== undefined) {
@@ -818,6 +826,7 @@ function renderChart(data, datasetName, params) {
       }
     }
     renderAnnotations();
+    renderTable();
   }
 
   function peakMouseover(event, d) {
