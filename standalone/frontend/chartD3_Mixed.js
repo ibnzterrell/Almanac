@@ -721,11 +721,12 @@ function renderChart(data, datasetName, params) {
       periodCell.appendChild(periodCellText);
       const headlinesCell = tRow.insertCell();
 
+      if (f.editing) {
+        tRow.setAttribute('class', 'editing');
+      }
+
       const headlineRankTable = document.createElement('table');
       headlineRankTable.setAttribute('class', 'headlineRankTable');
-      if (f.editing) {
-        headlineRankTable.setAttribute('class', 'headlineRankTable editing');
-      }
 
       const headlineTableHead = headlineRankTable.createTHead();
       const headlineTableHeadRow = headlineTableHead.insertRow();

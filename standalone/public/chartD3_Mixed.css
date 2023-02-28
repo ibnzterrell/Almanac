@@ -30,7 +30,7 @@ table.headlineRankTable {
     border: none;
 }
 
-table.headlineRankTable.editing {
+.editing {
     background-color: lightgray;
 }
 
