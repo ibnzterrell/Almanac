@@ -778,7 +778,7 @@ function renderChart(data, datasetName, params) {
 
       const annotEditBoxTemplate = document.createElement('input');
       annotEditBoxTemplate.setAttribute('type', 'text');
-      annotEditBoxTemplate.setAttribute('value', 'annotation here');
+      annotEditBoxTemplate.setAttribute('value', h.headlines[0].main_headline);
 
       const annotBoxForeignForeignObj = annotEditGroup.append('foreignObject')
         .attr('x', xScale(d[params.timeVar]))
