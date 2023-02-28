@@ -43,3 +43,7 @@ table.headlineRankTable.editing {
     text-align: right;
     width: 50px;
 }
+
+.annotEditBox {
+    width: 100%;
+}
