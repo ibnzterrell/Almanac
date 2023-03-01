@@ -918,7 +918,7 @@ function datasetSelected() {
       granularity: 'month',
       query: '+shooting',
       xAxisLabel: 'Date',
-      yAxisLabel: 'Cases',
+      yAxisLabel: 'Deaths',
       title: 'Monthly Deaths in Mass Shootings in the United States',
       featureMode: 'peaks',
       numAnnotations: 11,
