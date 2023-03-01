@@ -139,8 +139,8 @@ class PersistenceFeatureDetector extends FeatureDetector {
   peaksValleysPersistence(data, x, y) {
     data = this.vSort(data, x);
 
-    let peaks = this.peaksPersistence(data, "persistence", x, y);
-    let valleys = this.valleysPersistence(data, "persistence", x, y);
+    let peaks = this.peaksPersistence(data, x, y);
+    let valleys = this.valleysPersistence(data, x, y);
     let peaksvalleys = peaks.concat(valleys);
 
     peaksvalleys
