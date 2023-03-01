@@ -23,7 +23,7 @@ def processMonthDataframe(month, year):
     print(f"Loading {year}-{month}")
 
     data = {}
-    with open(f"./data/raw/{year}_{month}.json", "r") as inFile:
+    with open(f"./data/raw/news/{year}_{month}.json", "r") as inFile:
         data = json.load(inFile)
 
     print("Loaded. Processing Month.")
