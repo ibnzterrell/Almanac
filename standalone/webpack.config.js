@@ -11,6 +11,17 @@ const standaloneConfig = {
   },
 };
 
+const figureConfig = {
+  entry: './frontend/chartD3_Paper_Figure.js',
+  output: {
+    filename: 'frontend_figure.js',
+    path: path.resolve(__dirname, 'public/dist'),
+  },
+  optimization: {
+    minimize: false,
+  },
+};
+
 const mixedConfig = {
   entry: './frontend/chartD3_Mixed.js',
   output: {
@@ -22,4 +33,4 @@ const mixedConfig = {
   },
 };
 
-module.exports = [standaloneConfig, mixedConfig];
+module.exports = [standaloneConfig, mixedConfig, figureConfig];

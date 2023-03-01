@@ -1,0 +1,65 @@
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    left: 0;
+}
+
+table.headlineViewTable {
+    width: 100%;
+    font-size: 14px;
+    border-spacing: 0;
+}
+
+table.headlineViewTable thead tr {
+    border-collapse: collapse;
+    border-bottom: 1px solid;
+}
+
+table.headlineRankTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+.rankCell {
+    text-align: right;
+    width: 25px;
+}
+
+.scoreCell {
+    text-align: right;
+    width: 50px;
+}
+
+.title {
+    font: 2em sans-serif;
+}
+
+.xaxis {
+    font: 1em sans-serif;
+}
+
+.yaxis {
+    font: 1em sans-serif;
+}
+
+.xlabel {
+    font: 1.5em sans-serif;
+}
+
+.ylabel {
+    font: 1.5em sans-serif;
+}
+
+.annotation-group {
+    font-family: sans-serif;
+}

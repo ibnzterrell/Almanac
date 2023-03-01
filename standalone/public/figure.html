@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--This version exists to make figures with larger fonts for a two column paper-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standalone Web Annotator</title>
+  <link rel="stylesheet" href="/chartD3_Figure.css" />
+</head>
+
+<body>
+  <div>
+    <p>Dataset:</p>
+    <input type="radio" id="wildfire" name="dataset" value="wildfire" checked>
+    <label for="wildfire">California Fire Incidents</label>
+    <input type="radio" id="covid" name="dataset" value="covid">
+    <label for="covid">COVID Cases in the US</label>
+    <input type="radio" id="approval" name="dataset" value="approval">
+    <label for="approval">Presidential Approval Rate</label>
+    <input type="radio" id="unemployment" name="dataset" value="unemployment">
+    <label for="unemployment">Unemployment Rate</label>
+    <input type="radio" id="ebola" name="dataset" value="ebola">
+    <label for="ebola">Global Ebola Cases</label>
+    <input type="radio" id="ukrainePolandBorder" name="dataset" value="ukrainePolandBorder">
+    <label for="ukrainePolandBorder">Ukraine to Poland Border Crossings</label>
+    <input type="radio" id="massShootings" name="dataset" value="massShootings">
+    <label for="massShootings">Mass Shootings</label>
+    <input type="radio" id="homeValues" name="dataset" value="homeValues">
+    <label for="homeValues">Home Values</label>
+    <input type="radio" id="simpsonsViewership" name="dataset" value="simpsonsViewership">
+    <label for="simpsonsViewership">Simpsons Viewership</label>
+    <input type="radio" id="euroSwap" name="dataset" value="euroSwap">
+    <label for="euroSwap">Euro 1 Yr Swap Rate</label>
+    <input type="radio" id="tvnews_afghanistan" name="dataset" value="tvnews_afghanistan">
+    <label for="tvnews_afghanistan">Afghanistan TV News Coverage</label>
+    <input type="radio" id="stocks_tesla" name="dataset" value="stocks_tesla">
+    <label for="stocks_tesla">Tesla (TLSA) Stock Price</label>
+    <input type="radio" id="constructionSpending" name="dataset" value="constructionSpending">
+    <label for="constructionSpending">Construction Spending</label>
+  </div>
+  <div id="graphView"></div>
+  <table id="tableView" class="headlineViewTable">
+  </table>
+  <script src="/dist/frontend_figure.js"></script>
+</body>
+
+</html>
