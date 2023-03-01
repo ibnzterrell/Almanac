@@ -81,7 +81,9 @@ def textEventQuery(db, text, startYear, endYear, options):
 
     # Hack since SQLALchemy still doesn't support natural language mode ¯\_(ツ)_/¯
     sqlQuery = sa.text(
-        f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode}) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode}) AND article.pub_year >= :startYear AND article.pub_year <= :endYear")
+        # f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url,  MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode}) AS relevance FROM article WHERE MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode}) AND article.pub_year >= :startYear AND article.pub_year <= :endYear")
+        f"SELECT article.main_headline, article.pub_date, article.lead_paragraph, article.web_url FROM article WHERE article.pub_year >= :startYear AND article.pub_year <= :endYear AND MATCH ({matchCols}) AGAINST ((:textSearch) IN {matchMode})")
+
     # NOTE: We bind parameters separately to prevent SQL injections
     sqlQuery = sqlQuery.bindparams(
         textSearch=text, startYear=startYear, endYear=endYear)
