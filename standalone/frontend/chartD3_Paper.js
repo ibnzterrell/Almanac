@@ -960,7 +960,7 @@ function datasetSelected() {
       timeVar: 'date',
       quantVar: 'screentime',
       granularity: 'day',
-      query: '+afghanistan + "united states"',
+      query: '+afghanistan',
       xAxisLabel: 'Date',
       yAxisLabel: 'Screentime (Seconds)',
       title: 'Amount of Coverage of Afghanistan on TV News',
